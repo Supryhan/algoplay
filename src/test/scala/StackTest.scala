@@ -8,4 +8,14 @@ class StackTest extends FunSuite {
     assert(stack == stack2)
   }
 
+  test("I can check head") {
+    val stack = Cons("head", Empty)
+    assert(stack.hd == "head")
+  }
+
+  test("I can check tail") {
+    val stack = Cons("tail", Empty).cons("head")
+    assert(stack.tail == Cons("tail", Empty))
+  }
+
 }
