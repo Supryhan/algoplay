@@ -11,6 +11,15 @@ class StackTest extends FunSuite {
     assert(stack4 == stack3)
   }
 
+  test("I can add new elements") {
+    val emptyStack = Empty
+    val oneElementStack = Cons(1, Empty)
+    val twoElementStack = oneElementStack ++ Cons(2, Empty)
+    assert(emptyStack.size == 0)
+    assert(oneElementStack.size == 1)
+    assert(twoElementStack.size == 2)
+  }
+
   test("I can check head") {
     val stack = Cons("head", Empty)
     assert(stack.hd == "head")

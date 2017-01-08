@@ -3,8 +3,8 @@ trait Stack[+T] {
   def cons[U >: T](t: U): Stack[U]
   def head: T
   def tail: Stack[T]
+  def size: Int
 }
-
 sealed abstract class CList[+T] extends Stack[T] {
   def cons[U >: T](t: U): CList[U] = new Cons(t, this)
   def ++[U >: T](ys: CList[U]): CList[U]
@@ -19,6 +19,7 @@ case object Empty extends CList[Nothing] {
   def ++[U](ys: CList[U]): CList[U] = ys
   def update[U](t: U, i: Int) = throw new IndexOutOfBoundsException()
   def toList = Nil
+  def size = 0
 }
 
 case class Cons[+T](hd: T, tl: CList[T]) extends CList[T] {
@@ -28,5 +29,6 @@ case class Cons[+T](hd: T, tl: CList[T]) extends CList[T] {
   def ++[U >: T](ys: CList[U]): CList[U] = Cons(head, tail ++ ys)
   def update[U >: T](t: U, i: Int): CList[U] = if (i == 0) Cons(t, this) else Cons(head, tail.update(t, i-1))
   def toList = head :: tail.toList
+  def size = 1 + tail.size
 }
 
