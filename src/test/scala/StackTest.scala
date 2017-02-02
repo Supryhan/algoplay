@@ -30,4 +30,18 @@ class StackTest extends FunSuite {
     assert(stack.tail == Cons("tail", Empty))
   }
 
+  test("I can update stack") {
+    val stack = Empty.cons("old")
+    assert("old" == stack.head)
+    val stack2 = stack.update("new", 0)
+    assert("new" == stack2.head)
+  }
+
+  test("I can concat two stacks") {
+    val stack1 = Empty.cons(1).cons(2).cons(3)
+    val stack2 = Empty.cons(4).cons(5).cons(6)
+    val stack = stack1.++(stack2)
+    assert(stack.size == 6)
+  }
+
 }
