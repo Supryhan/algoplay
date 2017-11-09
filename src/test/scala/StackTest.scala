@@ -1,4 +1,4 @@
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Tag}
 
 class StackTest extends FunSuite {
 
@@ -43,5 +43,10 @@ class StackTest extends FunSuite {
     val stack = stack1.++(stack2)
     assert(stack.size == 6)
   }
+
+//  test("I can add one to all elements") {
+//    val stack1 = Empty.cons(1).cons(2).cons(3)
+//    val stack2 = stack1.map(x: Int => x + 1)
+//  }
 
 }

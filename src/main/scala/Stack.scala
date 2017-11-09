@@ -1,13 +1,25 @@
 trait Stack[+T] {
   def isEmpty: Boolean
   def cons[U >: T](t: U): Stack[U]
+  def map[R](f: T => R): Stack[R]
   def head: T
   def tail: Stack[T]
   def size: Int
 }
+
+//object Stack {
+//  def apply[T]()
+//}
+
 sealed abstract class CList[+T] extends Stack[T] {
   def cons[U >: T](t: U): CList[U] = new Cons(t, this)
   def ++[U >: T](ys: CList[U]): CList[U]
+  def map[R](f: T => R): CList[R] = {
+    this match {
+      case Cons(head, tail) => Cons(f(head), tail.map(f))
+      case Empty => Empty
+    }
+  }
   def update[U >: T](t: U, i: Int): CList[U]
   def toList: List[T]
 }
