@@ -15,7 +15,8 @@ object CollectionExperiments extends App {
 
   println(strings.map(toInt))
   println(strings.flatMap(toInt))
-//    println(strings.flatMap(toInt).sum)
+  val sum =strings.flatMap(toInt).sum
+  print(sum)
   println(List(1, 2, 3).sum)
 
   val row0 = Seq(1, 2, 3)
@@ -31,5 +32,7 @@ object CollectionExperiments extends App {
   val slice1 = Seq(row3, row4, row5)
   val slice2 = Seq(row6, row7, row8)
   val cube = Seq(slice0, slice1, slice2)
-  for(slice <- cube; row <- slice) print(row)
+  for (slice <- cube; row <- slice; item <- row) print(item + " ")
+  println()
+  cube.foreach(slice => slice.foreach(row => row.foreach(print(_))))
 }
