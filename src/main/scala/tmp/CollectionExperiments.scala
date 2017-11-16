@@ -15,8 +15,8 @@ object CollectionExperiments extends App {
 
   println(strings.map(toInt))
   println(strings.flatMap(toInt))
-  val sums =strings.flatMap(toInt).sum(implicitly[Numeric[Int]])
-  print(sums)
+  print(strings.flatMap(toInt).foldLeft(0)(_ + _))
+  println()
   println(List(1, 2, 3).sum)
 
   val row0 = Seq(1, 2, 3)
