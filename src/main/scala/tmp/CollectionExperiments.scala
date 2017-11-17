@@ -32,7 +32,14 @@ object CollectionExperiments extends App {
   val slice1 = Seq(row3, row4, row5)
   val slice2 = Seq(row6, row7, row8)
   val cube = Seq(slice0, slice1, slice2)
-  for (slice <- cube; row <- slice; item <- row) print(item + " ")
+
+  for (slice <- cube; row <- slice; item <- row) print(item)
   println()
   cube.foreach(slice => slice.foreach(row => row.foreach(print(_))))
+  println()
+
+  val y1 = for (slice <- cube; row <- slice; item <- row) yield ("hello", item)
+  println(y1)
+  val y2 = cube.flatMap(slice => slice.flatMap(row => row.map(("hello", _))))
+  println(y2)
 }
