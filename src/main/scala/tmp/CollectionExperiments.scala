@@ -62,4 +62,14 @@ object CollectionExperiments extends App {
   val f2 = cube.flatMap(slice => slice.flatMap(row => row.withFilter(_ > 15).map(("hello", _))))
   println(f2)
 
+  val operations1 = for {
+    slice <- cube
+    row <- slice
+    item <- row
+    incrementor = item + 1
+  } yield ("hello", incrementor)
+  println(operations1)
+  val operations2 = cube.flatMap(slice => slice.flatMap(row => row.map(_ + 1).map(("hello", _))))
+  println(operations2)
+
 }
