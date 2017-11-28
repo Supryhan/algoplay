@@ -32,12 +32,5 @@ object AmazonBFS extends App {
 
     AmazonBFS0(List(start), List(List(start)))
   }
-  val list = List(1, 2, 3)
-  var go = true
-  val result = for(i <- list; if go) yield {
-    go = false
-    i
-  }
-  print(result)
   AmazonBFS("A").flatten.foreach(print)
 }
