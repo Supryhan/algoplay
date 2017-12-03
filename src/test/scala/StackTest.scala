@@ -28,6 +28,8 @@ class StackTest extends FunSuite {
   test("I can check tail") {
     val stack = Cons("tail", Empty).cons("head")
     assert(stack.tail == Cons("tail", Empty))
+    val longStack = Cons(1, Cons(2, Cons(3, Empty)))
+    assert(longStack.tail == Cons(2, Cons(3, Empty)))
   }
 
   test("I can update stack") {
@@ -44,9 +46,10 @@ class StackTest extends FunSuite {
     assert(stack.size == 6)
   }
 
-//  test("I can add one to all elements") {
-//    val stack1 = Empty.cons(1).cons(2).cons(3)
-//    val stack2 = stack1.map(x: Int => x + 1)
-//  }
+  test("I can add one to all elements") {
+    val stack1 = Empty.cons(1).cons(2).cons(3)
+    val stack2 = stack1.map((x: Int) => x + 1)
+    assert(stack2 == Empty.cons(2).cons(3).cons(4))
+  }
 
 }

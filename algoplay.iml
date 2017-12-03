@@ -7,22 +7,31 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/scala" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="scala-sdk-2.12.1" level="application" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/lib/Junit/scalatest_2.11-3.0.1.jar!/" />
+          <root url="jar://C:/lib/Junit/scalactic_2.12-3.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/lib/Junit/scalactic_2.11-3.0.1.jar!/" />
+          <root url="jar://C:/lib/Junit/scalatest_2.12-3.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/lib/scala-xml_2.12-1.0.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
