@@ -35,7 +35,6 @@ object Gen {
 }
 
 class Gen {
-
   def speak(na: Named[Animal]): Unit = {
     val animal = na.get
     if (animal.isAlive)
