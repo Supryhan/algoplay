@@ -3,6 +3,9 @@ package tmp
 /**
   * Created by dell on 15.03.2017.
   */
+object Cappuccino extends App {
+  print(new Cappuccino().prepareCappuccino().get)
+}
 class Cappuccino {
 
   import scala.util.Try
