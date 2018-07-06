@@ -1,4 +1,4 @@
-package tmp
+package implicits
 
 object ImplicitsCases extends App {
   implicit def stringImpl = new Container[String] {
