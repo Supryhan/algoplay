@@ -1,16 +1,17 @@
 package implicits
 
-sealed trait Animal
+object ImplicitClassSimpleImpl extends App {
 
-case object Dog extends Animal
+  sealed trait Animal
 
-case object Bear extends Animal
+  case object Dog extends Animal
 
-case object Cow extends Animal
+  case object Bear extends Animal
 
-case class Habitat[A <: Animal](name: String)
+  case object Cow extends Animal
 
-object ImplicitClass extends App {
+  case class Habitat[A <: Animal](name: String)
+
   implicit val dogHabitat = Habitat[Dog.type]("House")
   implicit val bearHabitat = Habitat[Bear.type]("Forest")
 
