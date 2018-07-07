@@ -27,5 +27,6 @@ object FBoundedPolymorphism extends App {
 
   println(Alfa.getSymbol)
   println(Beta.getSymbol)
+  println(Gamma.getSymbol)
 }
 
