@@ -1,7 +1,7 @@
 package algo
 
 
-object Fibonaci extends App {
+object FibonacciSimple extends App {
 
   implicit class ReachInt(self: Int) {
     def fib: Int =
