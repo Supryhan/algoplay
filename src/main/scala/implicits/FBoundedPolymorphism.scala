@@ -2,29 +2,30 @@ package implicits
 
 object FBoundedPolymorphism extends App {
 
-  sealed trait Animal[A <: Animal[A]] {
+  sealed trait RootOps[A <: RootOps[A]] {
     self: A =>
-    def getHabitat(implicit habitat: Habitat[A]): Habitat[A] = habitat
+    def getSymbol(implicit symbol: Symbol[A]): Symbol[A] = symbol
   }
 
-  trait Dog extends Animal[Dog]
+  trait Alfa extends RootOps[Alfa]
 
-  trait Bear extends Animal[Bear]
+  trait Beta extends RootOps[Beta]
 
-  trait Cow extends Animal[Cow]
+  trait Gamma extends RootOps[Gamma]
 
-  case object Dog extends Dog
+  case object Alfa extends Alfa
 
-  case object Bear extends Bear
+  case object Beta extends Beta
 
-  case object Cow extends Cow
+  case object Gamma extends Gamma
 
-  case class Habitat[A <: Animal[A]](name: String)
+  case class Symbol[A <: RootOps[A]](name: String)
 
-  implicit val dogHabitat = Habitat[Dog]("House")
-  implicit val bearHabitat = Habitat[Bear]("Forest")
+  implicit val alfaSymbol = Symbol[Alfa]("alfa")
+  implicit val betaSymbol = Symbol[Beta]("beta")
+  implicit val gammaSymbol = Symbol[Gamma]("gamma")
 
-  println(Dog.getHabitat)
-  println(Bear.getHabitat)
+  println(Alfa.getSymbol)
+  println(Beta.getSymbol)
 }
 
