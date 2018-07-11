@@ -1,6 +1,6 @@
 package implicits
 
-class ImplicitTuple extends App {
+object ImplicitTuple extends App {
   Show.show(12 -> "34") // "(12, 34)"
 }
 
