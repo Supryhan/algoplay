@@ -11,11 +11,14 @@ trait Show[T] {
 
 object Show {
 
-//  def apply[TT: Show](): Show[TT] = implicitly[Show[TT]]
+    def apply[TT: Show](): Show[TT] = implicitly[Show[TT]]
 
-  def show[T: Show](value: T): String = implicitly[Show[T]].show(value)
+  def show[T: Show](value: T): String = apply[T].show(value)
 
-  implicit val showString: Show[String] = s => s
+    implicit val showString: Show[String] = s => s
+//  implicit val showString = new Show[String] {
+//    def show(value: String): String = value
+//  }
   implicit val showInt: Show[Int] = _.toString
 
   implicit def showTuple[T: Show, U: Show]: Show[(T, U)] =
