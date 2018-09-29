@@ -9,16 +9,20 @@ object Factorial extends App {
 
   // 1 - basic recursive factorial method
   def factorial(n: Int): Int = {
-    if (n == 0) 1
-    else n * factorial(n - 1)
+    n match {
+      case 0 => 1
+      case _ => n * factorial(n - 1)
+    }
   }
 
   // 2 - tail-recursive factorial method
   def factorial2(n: Long): Long = {
     @tailrec
     def factorialAccumulator(acc: Long, n: Long): Long = {
-      if (n == 0) acc
-      else factorialAccumulator(n * acc, n - 1)
+      n match {
+        case 0 => acc
+        case _ => factorialAccumulator(n * acc, n - 1)
+      }
     }
 
     factorialAccumulator(1, n)
