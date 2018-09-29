@@ -25,17 +25,14 @@ object SimpleComposition {
     Seq[Dough]()
   }
 
-  def bake: (Int => Int => Seq[Dough] => Seq[Bread]) =
-    temperature => duration => sd => {
-      println(s"bake the bread, duration: $duration, temperature: $temperature")
-      Seq[Bread]()
-    }
-
-  def bakeRecipe1 = bake(350)(45)
-
-  def main(args: Array[String]): Unit = {
-    (grind >> kneadDough >> distributeDough >> bakeRecipe1) (Wheat())
+  def bake: (Int => Int => Seq[Dough] => Seq[Bread]) = temperature => duration => sd => {
+    println(s"bake the bread, duration: $duration, temperature: $temperature")
+    Seq[Bread]()
   }
+
+  def bakeRecipe1: Seq[Dough] => Seq[Bread] = bake(350)(45)
+
+  def main(args: Array[String]): Unit = (grind >> kneadDough >> distributeDough >> bakeRecipe1) (Wheat())
 
   implicit class Forward[TIn, TIntermediate](f: TIn => TIntermediate) {
     def >>[TOut](g: TIntermediate => TOut): TIn => TOut = source => g(f(source))
