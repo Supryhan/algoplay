@@ -37,8 +37,8 @@ object SimpleComposition {
     (grind >> kneadDough >> distributeDough >> bakeRecipe1) (Wheat())
   }
 
-  implicit class Forward[TIn, TIntermediate](f: TIn => TIntermediate) {
-    def >>[TOut](g: TIntermediate => TOut): TIn => TOut = source => g(f(source))
+  implicit class Forward[A, B](f: A => B) {
+    def >>[C](g: B => C): A => C = source => g(f(source))
   }
 
 }
