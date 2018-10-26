@@ -13,7 +13,7 @@ object Solution {
     val sc = new java.util.Scanner(System.in);
     var n = sc.nextInt();
     var ar = new Array[Int](n);
-    for (ar_i <- 0 to n - 1) {
+    for (ar_i <- 0 until n) {
       ar(ar_i) = sc.nextInt();
     }
     val result = simpleArraySum(n, ar);
