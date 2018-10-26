@@ -1,11 +1,11 @@
 package implicits
 
 object ImplicitsCases extends App {
-  implicit def stringImpl = new Container[String] {
+  implicit def stringImpl: Container[String] = new Container[String] {
     override def apply(container: List[String]): Unit = print("string \n")
   }
 
-  implicit def intImpl = new Container[Int] {
+  implicit def intImpl: Container[Int] = new Container[Int] {
     override def apply(container: List[Int]): Unit = print("int \n")
   }
 
