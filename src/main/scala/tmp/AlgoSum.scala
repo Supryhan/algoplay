@@ -10,25 +10,25 @@ object Solution {
   def simpleArraySum(n: Int, ar: Array[Int]): Int = ar.sum
 
   def main(args: Array[String]) {
-    val sc = new java.util.Scanner(System.in);
-    var n = sc.nextInt();
-    var ar = new Array[Int](n);
+    val sc = new java.util.Scanner(System.in)
+    var n = sc.nextInt()
+    var ar = new Array[Int](n)
     for (ar_i <- 0 until n) {
-      ar(ar_i) = sc.nextInt();
+      ar(ar_i) = sc.nextInt()
     }
-    val result = simpleArraySum(n, ar);
+    val result = simpleArraySum(n, ar)
     println(result)
   }
 }
 
 object Solution2 {
   def main(args: Array[String]) {
-    val sc = new java.util.Scanner(System.in);
-    val a0 = sc.nextInt();
-    val a1 = sc.nextInt();
+    val sc = new java.util.Scanner(System.in)
+    val a0 = sc.nextInt()
+    val a1 = sc.nextInt()
     val a2 = sc.nextInt()
-    val b0 = sc.nextInt();
-    val b1 = sc.nextInt();
+    val b0 = sc.nextInt()
+    val b1 = sc.nextInt()
     val b2 = sc.nextInt()
     val result = comparing((a0, a1, a2), (b0, b1, b2))
     print(s"${result._1} ${result._2}")
