@@ -20,10 +20,10 @@ object ShroedingersCat extends Cat(0, "neutrino") {
   override def isAlive = rng.nextDouble() < 0.5
 }
 
-object Gen {
+object GenericsCovarianceAnimalsDemo {
   def main(args: Array[String]) {
+    val g: GenericParent = new GenericParent
     val c: Cat = new Cat(14, "ham")
-    val g: Gen = new Gen
     val namedCat: Named[Cat] = Named[Cat]("",Cat(12,""))
     g.speak(namedCat)
     var tmp = Named("doggy", new Dog(12))
@@ -34,7 +34,7 @@ object Gen {
   }
 }
 
-class Gen {
+class GenericParent {
   def speak(namedAnimal: Named[Animal]): Unit = {
     val animal = namedAnimal.get
     if (animal.isAlive)
