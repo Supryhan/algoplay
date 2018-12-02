@@ -35,9 +35,9 @@ object Gen {
 }
 
 class Gen {
-  def speak(na: Named[Animal]): Unit = {
-    val animal = na.get
+  def speak(namedAnimal: Named[Animal]): Unit = {
+    val animal = namedAnimal.get
     if (animal.isAlive)
-      println(s"${na.name}: ${animal.tongue}")
+      println(s"${namedAnimal.name}: ${animal.tongue}")
   }
 }
