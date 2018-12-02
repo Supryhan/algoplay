@@ -1,4 +1,4 @@
-package tmp
+package variance
 
 object Generics{
   def main(args: Array[String]) {

@@ -1,4 +1,4 @@
-package tmp
+package algo
 
 object AlgoSum extends App {
 

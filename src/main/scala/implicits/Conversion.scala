@@ -1,6 +1,4 @@
-package tmp
-
-import java.lang.String
+package implicits
 
 object Conversion extends App {
   //

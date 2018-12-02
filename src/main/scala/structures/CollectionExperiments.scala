@@ -1,4 +1,4 @@
-package tmp
+package structures
 
 object CollectionExperiments extends App {
 

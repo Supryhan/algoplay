@@ -1,4 +1,4 @@
-package tmp
+package implicits
 
 object Mon extends App {
   print(FoldLeftContainer.sum(List(1, 2, 3)))

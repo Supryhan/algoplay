@@ -1,4 +1,4 @@
-package tmp
+package implicits
 
 object ChainOfImplicitsExample extends App {
 

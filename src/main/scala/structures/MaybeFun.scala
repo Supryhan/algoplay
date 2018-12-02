@@ -1,4 +1,4 @@
-package tmp
+package structures
 
 object MaybeFun extends App {
   def position[A](xs: List[A], value: A): Maybe[Int] = {

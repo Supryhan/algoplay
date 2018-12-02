@@ -1,4 +1,4 @@
-package tmp
+package variance
 
 case class Named[+T](name: String, get: T)
 

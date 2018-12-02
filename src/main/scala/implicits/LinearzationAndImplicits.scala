@@ -1,6 +1,6 @@
-package tmp
+package implicits
 
-object Funct extends App {
+object LinearzationAndImplicits extends App {
 
   val f: MyFunction = new MyFunction
   print(f.apply(1))

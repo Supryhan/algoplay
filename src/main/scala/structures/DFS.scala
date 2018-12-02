@@ -1,4 +1,4 @@
-package tree
+package structures
 
 object DFS extends App {
   type Vertex = Int

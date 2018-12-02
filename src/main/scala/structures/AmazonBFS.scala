@@ -1,4 +1,4 @@
-package tree
+package structures
 
 object AmazonBFS extends App {
 

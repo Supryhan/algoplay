@@ -1,4 +1,4 @@
-package tmp
+package variance
 
 class Origin
 class Parent extends Origin

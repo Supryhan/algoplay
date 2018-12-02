@@ -1,4 +1,4 @@
-package tmp
+package structures
 
 import scala.collection.mutable
 

@@ -1,3 +1,5 @@
+package structures.stack
+
 trait Stack[+T] {
   def isEmpty: Boolean
   def cons[U >: T](t: U): Stack[U]
@@ -6,10 +8,6 @@ trait Stack[+T] {
   def tail: Stack[T]
   def size: Int
 }
-
-//object Stack {
-//  def apply[T]()
-//}
 
 sealed abstract class CList[+T] extends Stack[T] {
   def cons[U >: T](t: U): CList[U] = new Cons(t, this)
@@ -24,16 +22,6 @@ sealed abstract class CList[+T] extends Stack[T] {
   def toList: List[T]
 }
 
-case object Empty extends CList[Nothing] {
-  def isEmpty: Boolean = true
-  def head: Nothing = throw new NoSuchElementException()
-  def tail: Nothing = throw new NoSuchElementException()
-  def ++[U](ys: CList[U]): CList[U] = ys
-  def update[U](t: U, i: Int) = throw new IndexOutOfBoundsException()
-  def toList = Nil
-  def size = 0
-}
-
 case class Cons[+T](hd: T, tl: CList[T]) extends CList[T] {
   def isEmpty: Boolean = false
   def head: T = hd
@@ -44,3 +32,12 @@ case class Cons[+T](hd: T, tl: CList[T]) extends CList[T] {
   def size = 1 + tail.size
 }
 
+case object Empty extends CList[Nothing] {
+  def isEmpty: Boolean = true
+  def head: Nothing = throw new NoSuchElementException()
+  def tail: Nothing = throw new NoSuchElementException()
+  def ++[U](ys: CList[U]): CList[U] = ys
+  def update[U](t: U, i: Int) = throw new IndexOutOfBoundsException()
+  def toList = Nil
+  def size = 0
+}

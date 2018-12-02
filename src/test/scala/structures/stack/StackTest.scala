@@ -1,4 +1,6 @@
-import org.scalatest.{FunSuite, Tag}
+package structures.stack
+
+import org.scalatest.FunSuite
 
 class StackTest extends FunSuite {
 
