@@ -4,42 +4,42 @@ class Origin
 class Parent extends Origin
 class Child extends Parent
 
-class Invariant[A](val l: A)
-class Covariant[+A](val l: A)
-class Contravariant[-A]()
+class Inv[A](val l: A)
+class Cov[+A](val l: A)
+class Contr[-A]()
 
 class Processor[A] {
-  def process(inv: Invariant[A]): Invariant[A] = inv
-  def process(cov: Covariant[A]): Covariant[A] = cov
-  def process(cont: Contravariant[A]): Contravariant[A] = cont
+  def process(inv: Inv[A]): Inv[A] = inv
+  def process(cov: Cov[A]): Cov[A] = cov
+  def process(cont: Contr[A]): Contr[A] = cont
 }
 
 class ProcessorInheritor[A] {
-  def process[A <: Parent](c: Invariant[A]): Invariant[A] = c
+  def process[A <: Parent](c: Inv[A]): Inv[A] = c
 }
 
 class ProcessorSuper[A] {
-  def process[A >: Parent](c: Invariant[A]): Invariant[A] = c
+  def process[A >: Parent](c: Inv[A]): Inv[A] = c
 }
 
 object Processor extends App {
-  val inv1 = new Processor[Parent].process(new Invariant[Parent](new Child))
-  val inv2 = new Processor[Parent].process(new Invariant[Parent](new Child))
+  val inv1 = new Processor[Parent].process(new Inv[Parent](new Child))
+  val inv2 = new Processor[Parent].process(new Inv[Parent](new Child))
   //  val inv3 = new Processor[Parent].process(new Invariant[Child](new Child))
   //  val inv4 = new Processor[Parent].process(new Invariant[Origin](new Child))
-  new Processor[Parent].process(new Covariant[Parent](new Child))
-  new Processor[Parent].process(new Covariant[Child](new Child))
-  val ct1 = new Processor[Parent].process(new Contravariant[Origin]())
-  val ct2 = new Processor[Parent].process(new Contravariant[Parent]())
+  new Processor[Parent].process(new Cov[Parent](new Child))
+  new Processor[Parent].process(new Cov[Child](new Child))
+  val ct1 = new Processor[Parent].process(new Contr[Origin]())
+  val ct2 = new Processor[Parent].process(new Contr[Parent]())
   //  val ct3 = new Processor[Parent].process(new Contravariant[Child]())
 
 //  new ProcessorInheritor[Origin].process(new Invariant[Origin](new Child))
-  new ProcessorInheritor[Parent].process(new Invariant[Child](new Child))
-  new ProcessorInheritor[Parent].process(new Invariant[Parent](new Child))
-  new ProcessorInheritor[Child].process(new Invariant[Child](new Child))
+  new ProcessorInheritor[Parent].process(new Inv[Child](new Child))
+  new ProcessorInheritor[Parent].process(new Inv[Parent](new Child))
+  new ProcessorInheritor[Child].process(new Inv[Child](new Child))
 
 //  new ProcessorSuper[Child].process(new Invariant[Child](new Child))
-  new ProcessorSuper[Parent].process(new Invariant[Origin](new Child))
-  new ProcessorSuper[Parent].process(new Invariant[Parent](new Child))
-  new ProcessorSuper[Origin].process(new Invariant[Parent](new Child))
+  new ProcessorSuper[Parent].process(new Inv[Origin](new Child))
+  new ProcessorSuper[Parent].process(new Inv[Parent](new Child))
+  new ProcessorSuper[Origin].process(new Inv[Parent](new Child))
 }
