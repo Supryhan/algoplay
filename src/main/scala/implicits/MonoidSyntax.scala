@@ -15,7 +15,7 @@ object MonoidSyntax extends App {
     }
     implicit val BoolMonoid: Monoid[Boolean] = new Monoid[Boolean] {
       def empty: Boolean = false
-      def append(a1: Boolean, a2: Boolean): Boolean = a1.&&(a2)
+      def append(a1: Boolean, a2: Boolean): Boolean = a1 && a2
     }
   }
 
