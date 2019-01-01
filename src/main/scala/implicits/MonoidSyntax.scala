@@ -10,23 +10,27 @@ object MonoidSyntax extends App {
     def concat(list: List[A]): A = list.foldRight(empty)(append)
   }
 
-  val intMonoid = new Monoid[Int] {
+  implicit val intMonoid = new Monoid[Int] {
     def empty: Int = 0
 
     def append(a1: Int, a2: Int): Int = a1 + a2
   }
-  val boolMonoid = new Monoid[Boolean] {
+  implicit val boolMonoid = new Monoid[Boolean] {
     def empty: Boolean = false
 
-    def append(a1: Boolean, a2: Boolean): Boolean = a1 && a2
+    def append(a1: Boolean, a2: Boolean): Boolean = a1.&&(a2)
   }
 
   trait Show[A] {
     def show(a: A): String
   }
 
-  val intShow = new Show[Int] {
-    def show(a: Int): String = "+++"
+  implicit val intShow = new Show[Int] {
+    def show(a: Int): String = a.toString
+  }
+
+  implicit val boolShow = new Show[Boolean] {
+    def show(a: Boolean): String = String.valueOf(a)
   }
 
   def combineValues[T](map: Map[String, List[T]])(monoid: Monoid[T]): Map[String, T] = map.mapValues(monoid.concat)
@@ -41,6 +45,6 @@ object MonoidSyntax extends App {
 
   def addAndShow[A: Monoid : Show](a1: A, a2: A): String = (a1 |+| a2).show
 
-  print(addAndShow(true, false))
-  print(addAndShow(1, 2))
+    println(addAndShow(true, false))
+    println(addAndShow(1, 2))
 }
