@@ -11,7 +11,7 @@ object AmazonBFS extends App {
   //   /\   /|\
   //  D  E F G H
   // print - HGFEDCBA
-  val g: TREE = Map(
+  implicit val g: TREE = Map(
     "A" -> List("B", "C"),
     "B" -> List("A", "D", "E"),
     "C" -> List("A", "F", "G", "H"),
@@ -21,16 +21,16 @@ object AmazonBFS extends App {
     "G" -> List("C"),
     "H" -> List("C"))
 
-  def AmazonBFS(start: VERTEX) = {
+  def AmazonBFS(start: VERTEX)(implicit g: TREE) = {
     def AmazonBFS0(elem: List[VERTEX], visited: List[List[VERTEX]]): List[List[VERTEX]] = {
       val neighbors = elem.flatMap(g(_)).filterNot(visited.flatten.contains).distinct
       if (neighbors.isEmpty)
         visited
       else
-        AmazonBFS0(neighbors, neighbors.reverse :: visited)
+        AmazonBFS0(neighbors, neighbors :: visited)
     }
 
     AmazonBFS0(List(start), List(List(start)))
   }
-  AmazonBFS("A").flatten.foreach(print)
+  AmazonBFS("A").reverse.flatten.foreach(print)
 }
