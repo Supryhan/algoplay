@@ -14,14 +14,14 @@ object LensTrainer extends App {
   )
 
 //  val streetLens = Lens[Street, String](_.name)(string => street => street.copy(name = string))
-  val streetLens_ :Lens[Street, String] = GenLens[Street](_.name)
+  val streetLens :Lens[Street, String] = GenLens[Street](_.name)
 //  val addressLens = Lens[Address, Street](_.street)(street => address => address.copy(street = street))
-  val addressLens_ :Lens[Address, Street] = GenLens[Address](_.street)
+  val addressLens :Lens[Address, Street] = GenLens[Address](_.street)
 //  val personLens = Lens[Person, Address](_.address)(address => person => person.copy(address = address))
-  val personLens_ :Lens[Person, Address] = GenLens[Person](_.address)
+  val personLens :Lens[Person, Address] = GenLens[Person](_.address)
 
 //  val changeStreetNameLens = personLens.composeLens(addressLens).composeLens(streetLens)
-  val changeStreetNameLens = personLens_.composeLens(addressLens_).composeLens(streetLens_)
+  val changeStreetNameLens = personLens composeLens addressLens composeLens streetLens
 
   val personLensCopy = changeStreetNameLens.set("Leopoldstrasse")(initialPerson)
 
