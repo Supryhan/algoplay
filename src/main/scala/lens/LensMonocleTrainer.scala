@@ -1,7 +1,7 @@
 package lens
 
-import monocle.macros.GenLens
 import monocle.Lens
+import monocle.macros.GenLens
 
 object LensTrainer extends App {
   val initialPerson = Person("Mike", Address(1333, Street("KarlsPlaz")))
@@ -13,10 +13,25 @@ object LensTrainer extends App {
     )
   )
 
+  import Manual._
+
+  val personManualLensCopy =
+    changeStreetNameManualLens.set("Leopoldstrasse")(initialPerson)
+
+  import Semi._
+
+  val personSemiLensCopy =
+    changeStreetNameSemiLens.set("Mariastrasse")(initialPerson)
+  val changeStreetNameManualLens = personManualLens composeLens addressManualLens composeLens streetManualLens
+  val changeStreetNameSemiLens = personSemiLens composeLens addressSemiLens composeLens streetSemiLens
+
   object Manual {
-    val streetManualLens = Lens[Street, String](_.name)(string => street => street.copy(name = string))
-    val addressManualLens = Lens[Address, Street](_.street)(street => address => address.copy(street = street))
-    val personManualLens = Lens[Person, Address](_.address)(address => person => person.copy(address = address))
+    val streetManualLens = Lens[Street, String](_.name)(string =>
+      street => street.copy(name = string))
+    val addressManualLens = Lens[Address, Street](_.street)(street =>
+      address => address.copy(street = street))
+    val personManualLens = Lens[Person, Address](_.address)(address =>
+      person => person.copy(address = address))
   }
 
   object Semi {
@@ -24,17 +39,6 @@ object LensTrainer extends App {
     val addressSemiLens: Lens[Address, Street] = GenLens[Address](_.street)
     val personSemiLens: Lens[Person, Address] = GenLens[Person](_.address)
   }
-
-  import Manual._
-
-  val changeStreetNameManualLens = personManualLens composeLens addressManualLens composeLens streetManualLens
-
-  import Semi._
-
-  val changeStreetNameSemiLens = personSemiLens.composeLens(addressSemiLens).composeLens(streetSemiLens)
-
-  val personManualLensCopy = changeStreetNameManualLens.set("Leopoldstrasse")(initialPerson)
-  val personSemiLensCopy = changeStreetNameSemiLens.set("Mariastrasse")(initialPerson)
 
   println(initialPerson)
   println(personDirectCopy)
