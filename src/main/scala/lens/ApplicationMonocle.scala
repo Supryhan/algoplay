@@ -3,7 +3,7 @@ package lens
 import monocle.Lens
 import monocle.macros.GenLens
 
-object LensTrainer extends App {
+object ApplicationMonocle extends App {
   val initialPerson = Person("Mike", Address(1333, Street("KarlsPlaz")))
   val personDirectCopy = initialPerson.copy(
     address = initialPerson.address.copy(
@@ -14,10 +14,10 @@ object LensTrainer extends App {
   )
 
   import Manual._
-  val personManualLensCopy =
+  lazy val personManualLensCopy =
     changeStreetNameManualLens.set("Leopoldstrasse")(initialPerson)
   import Semi._
-  val personSemiLensCopy =
+  lazy val personSemiLensCopy =
     changeStreetNameSemiLens.set("Mariastrasse")(initialPerson)
 
   val changeStreetNameManualLens = personManualLens composeLens addressManualLens composeLens streetManualLens
