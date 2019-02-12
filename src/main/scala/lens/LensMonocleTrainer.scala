@@ -14,14 +14,12 @@ object LensTrainer extends App {
   )
 
   import Manual._
-
   val personManualLensCopy =
     changeStreetNameManualLens.set("Leopoldstrasse")(initialPerson)
-
   import Semi._
-
   val personSemiLensCopy =
     changeStreetNameSemiLens.set("Mariastrasse")(initialPerson)
+
   val changeStreetNameManualLens = personManualLens composeLens addressManualLens composeLens streetManualLens
   val changeStreetNameSemiLens = personSemiLens composeLens addressSemiLens composeLens streetSemiLens
 
@@ -33,7 +31,6 @@ object LensTrainer extends App {
     val personManualLens = Lens[Person, Address](_.address)(address =>
       person => person.copy(address = address))
   }
-
   object Semi {
     val streetSemiLens: Lens[Street, String] = GenLens[Street](_.name)
     val addressSemiLens: Lens[Address, Street] = GenLens[Address](_.street)
@@ -47,7 +44,5 @@ object LensTrainer extends App {
 }
 
 case class Street(name: String)
-
 case class Address(number: Int, street: Street)
-
 case class Person(name: String, address: Address)
