@@ -1,5 +1,0 @@
-package lens
-
-class LensTrainerTest {
-
-}

@@ -12,7 +12,6 @@ object ApplicationMonocle extends App {
       )
     )
   )
-
   import Manual._
   lazy val personManualLensCopy =
     changeStreetNameManualLens.set("Leopoldstrasse")(initialPerson)
