@@ -8,9 +8,9 @@ import scala.annotation.compileTimeOnly
 @compileTimeOnly("enable macro paradise to expand macro annotations")
 object ApplicationMonocle extends App {
 
-  @Lenses case class Street(name: String)
-  @Lenses case class Address(number: Int, street: Street)
-  @Lenses case class Person(name: String, address: Address)
+  @Lenses("lensTo_") case class Street(name: String)
+  @Lenses("lensTo_") case class Address(number: Int, street: Street)
+  @Lenses("lensTo_") case class Person(name: String, address: Address)
 
   object Manual {
     val streetManualLens =
@@ -51,6 +51,6 @@ object ApplicationMonocle extends App {
   println(personDirectCopy)
   println(personManualLensCopy)
   println(personSemiLensCopy)
-  println(Street.name.get(Street("KarlsPlaz")))
-  println(Person.address.get(initialPerson))
+  println(Street.lensTo_name.get(Street("KarlsPlaz")))
+  println(Person.lensTo_address.get(initialPerson))
 }
