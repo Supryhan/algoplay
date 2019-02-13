@@ -1,8 +1,13 @@
 package lens
 
+import lens.ApplicationMonocle.{Address, Manual, Person, Street}
 import lens.ApplicationMonocle.Manual.personManualLens
 import lens.ApplicationMonocle.Semi.personSemiLens
 import utils.MonocleSuite
+
+import scala.annotation.compileTimeOnly
+
+@compileTimeOnly("enable macro paradise to expand macro annotations")
 class ApplicationMonocleTest extends MonocleSuite {
 
   test(
