@@ -1,5 +1,7 @@
 import sbt._
 
+addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
+
 name := "algoplay"
 
 version := "0.1"
@@ -20,9 +22,14 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %%  "monocle-law"     % libraryVersion % Test,
   "org.scalacheck"              %%  "scalacheck"      % "1.14.0"       % Test,
   "org.scalatest"               %%  "scalatest"       % "3.0.5"        % Test,
-  "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided"
+  "org.scala-lang"              %   "scala-reflect"   % scalaVersion.value,
+  "org.scala-lang"              %   "scala-compiler"  % scalaVersion.value      % "provided",
+  "org.typelevel"               %%  "cats-core"       % "1.6.0"
 )
 
 // for @Lenses macro support
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+
+scalacOptions ++= Seq(
+  "-Ypartial-unification"
+)
