@@ -1,13 +1,14 @@
 import sbt._
 
-addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
-
 name := "algoplay"
 
 version := "0.1"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
+
+addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
+
 
 scalaVersion := "2.12.8"
 
