@@ -1,21 +1,16 @@
-import sbt._
-
 name := "algoplay"
 
 version := "0.1"
+
+scalaVersion := "2.12.8"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
+//addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
-
-addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
-
-
-scalaVersion := "2.12.8"
+//addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
 
 val libraryVersion = "1.5.0"
 
@@ -44,8 +39,9 @@ libraryDependencies ++= Seq(
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
 
 scalacOptions ++= Seq(
-  "-feature",
-  "-deprecation",
-  "-Xfatal-warnings",
+//  "-feature",
+//  "-deprecation",
+//  "-Xfatal-warnings",
+  "-language:reflectiveCalls",
   "-Ypartial-unification"
 )
