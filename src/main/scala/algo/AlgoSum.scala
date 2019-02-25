@@ -1,5 +1,7 @@
 package algo
 
+import scala.language.reflectiveCalls
+
 object AlgoSum extends App {
 
 }

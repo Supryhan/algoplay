@@ -42,6 +42,6 @@ scalacOptions ++= Seq(
 //  "-feature",
 //  "-deprecation",
 //  "-Xfatal-warnings",
-  "-language:reflectiveCalls",
+//  "-language:reflectiveCalls",
   "-Ypartial-unification"
 )
