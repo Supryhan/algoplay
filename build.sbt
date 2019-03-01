@@ -15,6 +15,7 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 val libraryVersion = "1.5.0"
 
 libraryDependencies ++= Seq(
+  "org.scalaz"                  %% "scalaz-zio"       % "0.9",
   "com.typesafe.akka"           %% "akka-actor"       % "2.5.21",
   "com.typesafe.akka"           %% "akka-kernel"      % "2.5-M1",
   "com.typesafe.akka"           %% "akka-stream"      % "2.5.21",
