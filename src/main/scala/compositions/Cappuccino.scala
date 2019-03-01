@@ -16,6 +16,7 @@ object Cappuccino extends App {
     case Failure(exception) => println(exception)
   }
 }
+
 class Cappuccino {
 
   import scala.util.Try
@@ -31,7 +32,6 @@ class Cappuccino {
   type Espresso = String
   type Cappuccino = String
 
-  // Методы-заглушки для отдельных шагов алгоритма:
   def grind(beans: CoffeeBeans): GroundCoffee = s"ground coffee of $beans"
 
   def heatWater(water: Water): Water = water.copy(temperature = 85)
@@ -42,8 +42,6 @@ class Cappuccino {
 
   def combine(espresso: Espresso, frothedMilk: FrothedMilk): Cappuccino = "cappuccino"
 
-  // Исключения, на случай если что-то пойдёт не так
-  // (они понадобяться нам позже):
   case class GrindingException(msg: String) extends Exception(msg)
 
   case class FrothingException(msg: String) extends Exception(msg)
@@ -52,7 +50,6 @@ class Cappuccino {
 
   case class BrewingException(msg: String) extends Exception(msg)
 
-  // последовательно выполним алгоритм:
   def prepareCappuccino(): Try[Cappuccino] = for {
     ground <- Try(grind("arabica beans"))
     water <- Try(heatWater(Water(25)))
@@ -61,13 +58,13 @@ class Cappuccino {
   } yield combine(espresso, foam)
 
   def prepareCappucinoFlatMap(): Try[Cappuccino] =
-    Try(grind("arabica beans")).flatMap(ground =>
-      Try(heatWater(Water(25))).flatMap(water =>
-        Try(brew(ground, water)).flatMap(espresso =>
-          Try(frothMilk("milk")).map(foam =>
-            combine(espresso, foam)
+    Try(grind("arabica beans"))
+      .flatMap(ground => Try(heatWater(Water(25)))
+        .flatMap(water => Try(brew(ground, water))
+          .flatMap(espresso => Try(frothMilk("milk"))
+            .map(foam => combine(espresso, foam)
+            )
           )
         )
       )
-    )
 }
