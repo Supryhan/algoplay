@@ -1,10 +1,20 @@
 package compositions
 
+import scala.util.{Failure, Success}
+
 /**
   * Created by dell on 15.03.2017.
   */
 object Cappuccino extends App {
-  print(new Cappuccino().prepareCappuccino().get)
+  val cappuccino = new Cappuccino
+  cappuccino.prepareCappuccino() match {
+    case Success(value) => println(value)
+    case Failure(exception) => println(exception)
+  }
+  cappuccino.prepareCappucinoFlatMap() match {
+    case Success(value) => println(value)
+    case Failure(exception) => println(exception)
+  }
 }
 class Cappuccino {
 
@@ -49,4 +59,15 @@ class Cappuccino {
     espresso <- Try(brew(ground, water))
     foam <- Try(frothMilk("milk"))
   } yield combine(espresso, foam)
+
+  def prepareCappucinoFlatMap(): Try[Cappuccino] =
+    Try(grind("arabica beans")).flatMap(ground =>
+      Try(heatWater(Water(25))).flatMap(water =>
+        Try(brew(ground, water)).flatMap(espresso =>
+          Try(frothMilk("milk")).map(foam =>
+            combine(espresso, foam)
+          )
+        )
+      )
+    )
 }
