@@ -14,13 +14,9 @@ object FutureOptionTry extends App {
     case None => println("There was an error")
   }
 
-  def findUserById(id: Long)(implicit e: ExecutionContext): Future[Option[User]] = Future.successful {
-    Some(User("K3"))
-  }
+  def findUserById(id: Long)(implicit e: ExecutionContext): Future[Option[User]] = Future.successful(Some(User("K3")))
 
-  def findAddressByUser(user: User)(implicit e: ExecutionContext): Future[Option[Address]] = Future.successful {
-    Some(Address("Addrr13"))
-  }
+  def findAddressByUser(user: User)(implicit e: ExecutionContext): Future[Option[Address]] = Future.successful(Some(Address("Addrr13")))
 
   def findAddressByUserId(id: Long)(implicit e: ExecutionContext): OptionT[Future, Address] =
     for {
