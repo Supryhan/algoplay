@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   "org.scalatest"               %%  "scalatest"       % "3.0.6-SNAP5"  % Test,
   "org.scala-lang"              %   "scala-reflect"   % scalaVersion.value,
   "org.scala-lang"              %   "scala-compiler"  % scalaVersion.value      % "provided",
-  "org.typelevel"               %%  "cats-core"       % "1.6.0",
+  "org.typelevel"               %%  "cats-core"       % "2.0.0-M1",
   "org.scalatestplus.play"      %% "scalatestplus-play"   % "4.0.1"     % Test,
   "com.h2database"              %   "h2"               % "1.4.197"
 )
