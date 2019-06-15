@@ -6,7 +6,7 @@ import cats.implicits._
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
 
-object FutureOptionTry extends App {
+object FutureOption extends App {
   implicit val ec: ExecutionContextExecutor = ExecutionContext.global
   val result = Await.result(findAddressByUserId(13).value, 1.millis)
   result match {
