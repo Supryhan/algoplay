@@ -75,7 +75,7 @@ public class WordMachine {
 
     private int withinRange(int i){
         if(i < MIN || i > MAX){
-            throw new IllegalArgumentException("Number put of integer range");
+            throw new IllegalArgumentException("Number out of integer range");
         }
         return i;
     }
