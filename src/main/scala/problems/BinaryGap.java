@@ -15,58 +15,34 @@ public class BinaryGap {
 
     public static void main(String[] args) {
         BinaryGap b = new BinaryGap();
-        System.out.println(b.solution(1025));
+        System.out.println(b.solution(Integer.MAX_VALUE));
     }
 
     public int solution(int N) {
-        int lastResult = 0;
-        int currentResult = 0;
-        if (N <= 0) return lastResult;
-        if (N == 1) return lastResult;
-        int nn = N;
-        boolean isSequence = false;
-        boolean pref = false, suf = false;
-        while (nn > 1) {
-            int resid = nn % 2;
-            System.out.println("resid=" + resid);
-            nn = nn / 2;
-            if (resid == 0) {
-                if (isSequence) {
-                    currentResult++;
-                } else {
-                    if (currentResult > lastResult) lastResult = currentResult;
-                    isSequence = true;
-                    currentResult = 1;
-                }
-            } else {
-                isSequence = false;
-                if (currentResult > lastResult) lastResult = currentResult;
-                currentResult = 0;
-                System.out.println("nn=" + nn);
-            }
-        }
-        if (currentResult > lastResult) lastResult = currentResult;
-        return lastResult;
-    }
-
-    public int solution2(int N) {
+        System.out.println(N);
         int result = 0;
-        boolean[] massif = new boolean[32];
-        for (int i = 0; i < 32; i++) {
-            if (N % 2 == 1) massif[i] = true;
+        boolean[] massif = new boolean[31];
+        for (int i = massif.length - 1; i >= 0 ; i--) {
+            int n = N % 2;
+            N = N / 2;
+            if ( n == 1) massif[i] = true;
+            System.out.print(" " + n + ",");
         }
+        System.out.println();
+        for(int i = 0; i < massif.length; i++) System.out.print(" " + massif[i] + ",");
+        System.out.println();
         int j = 0;
-        while (true) {
-            if (massif[j] = false && massif[j + 1] == false) {
-                massif[j] = true;
+        while (!massif[j] && j < 30) {
+            massif[j] = true;
+            if (massif[j + 1]) {
                 break;
             }
             j++;
         }
-        j = 31;
-        while (true) {
-            if (massif[j] = false && massif[j - 1] == false) {
-                massif[j] = true;
+        j = 30;
+        while (!massif[j] && j > 0) {
+            massif[j] = true;
+            if (massif[j - 1]) {
                 break;
             }
             j--;
@@ -74,7 +50,7 @@ public class BinaryGap {
 
         int curr = 0;
         boolean seq = false;
-        for(int i = 0; i < 32; i++) {
+        for(int i = 0; i < 31; i++) {
             if(!massif[i]){
                 if (seq) curr++;
                 else {
