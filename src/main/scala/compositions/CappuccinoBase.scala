@@ -43,7 +43,8 @@ class CappuccinoBase {
     water <- Try(heatWater(Water(25)))
     espresso <- Try(brew(ground, water))
     foam <- Try(frothMilk("milk"))
-  } yield combine(espresso, foam)
+    combined <- Try(combine(espresso, foam))
+  } yield combined
 
   def prepareCappucinoFlatMap(): Try[Cappuccino] =
     Try(grind("arabica beans"))

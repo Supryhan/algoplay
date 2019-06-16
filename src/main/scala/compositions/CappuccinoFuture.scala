@@ -1,8 +1,9 @@
 package compositions
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
 
 object CappuccinoFuture extends App {
   val cappuccinoFuture = new CappuccinoFuture
@@ -14,6 +15,7 @@ object CappuccinoFuture extends App {
     case Success(value) => println(value)
     case Failure(exception) => println(exception)
   }
+  Await.result(cappuccinoFuture.prepareCappucinoFlatMap(), Duration.Inf)
 }
 
 class CappuccinoFuture {
@@ -41,11 +43,11 @@ class CappuccinoFuture {
     s"ground coffee of $beans"
   }
 
-  def heatWater(water: Water): Future[Water] = Future { water.copy(temperature = 85) }
+  def heatWater(water: Water): Future[Water] = Future.successful { water.copy(temperature = 85) }
 
-  def frothMilk(milk: Milk): Future[FrothedMilk] = Future { s"frothed $milk" }
+  def frothMilk(milk: Milk): Future[FrothedMilk] = Future.successful { s"frothed $milk" }
 
-  def brew(coffee: GroundCoffee, heatedWater: Water): Future[Espresso] = Future { "espresso" }
+  def brew(coffee: GroundCoffee, heatedWater: Water): Future[Espresso] = Future.successful { "espresso" }
 
   def combine(espresso: Espresso, frothedMilk: FrothedMilk): Cappuccino = "cappuccino"
 
@@ -54,7 +56,8 @@ class CappuccinoFuture {
     water <- heatWater(Water(25))
     espresso <- brew(ground, water)
     foam <- frothMilk("milk")
-  } yield combine(espresso, foam)
+    combined <- Future { combine(espresso, foam) }
+  } yield combined
 
   def prepareCappucinoFlatMap(): Future[Cappuccino] =
     grind("arabica beans")
