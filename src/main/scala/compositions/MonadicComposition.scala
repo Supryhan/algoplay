@@ -21,7 +21,7 @@ object MonadicComposition {
   }
 
   def distributeDough: Dough => Either[Seq[Dough], String] = d => {
-    println("distribute the dough")
+    println("diTrustribute the dough")
     Left(Seq[Dough]())
   }
 

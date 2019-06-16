@@ -2,26 +2,22 @@ package compositions
 
 import scala.util.{Failure, Success}
 
-/**
-  * Created by dell on 15.03.2017.
-  */
-object Cappuccino extends App {
-  val cappuccino = new Cappuccino
-  cappuccino.prepareCappuccino() match {
+object CappuccinoBase extends App {
+  val cappuccinoBase = new CappuccinoBase
+  cappuccinoBase.prepareCappuccino() match {
     case Success(value) => println(value)
     case Failure(exception) => println(exception)
   }
-  cappuccino.prepareCappucinoFlatMap() match {
+  cappuccinoBase.prepareCappucinoFlatMap() match {
     case Success(value) => println(value)
     case Failure(exception) => println(exception)
   }
 }
 
-class Cappuccino {
+class CappuccinoBase {
 
   import scala.util.Try
 
-  // Определим осмысленные синонимы:
   type CoffeeBeans = String
   type GroundCoffee = String
 
@@ -41,14 +37,6 @@ class Cappuccino {
   def brew(coffee: GroundCoffee, heatedWater: Water): Espresso = "espresso"
 
   def combine(espresso: Espresso, frothedMilk: FrothedMilk): Cappuccino = "cappuccino"
-
-  case class GrindingException(msg: String) extends Exception(msg)
-
-  case class FrothingException(msg: String) extends Exception(msg)
-
-  case class WaterBoilingException(msg: String) extends Exception(msg)
-
-  case class BrewingException(msg: String) extends Exception(msg)
 
   def prepareCappuccino(): Try[Cappuccino] = for {
     ground <- Try(grind("arabica beans"))
