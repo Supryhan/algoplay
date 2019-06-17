@@ -11,17 +11,17 @@ object SimpleComposition {
   case class Bread()
 
   def grind: Wheat => Flour = w => {
-    println("make the flour");
+    println("make the flour")
     Flour()
   }
 
   def kneadDough: Flour => Dough = f => {
-    println("make the dough");
+    println("make the dough")
     Dough()
   }
 
   def distributeDough: Dough => Seq[Dough] = d => {
-    println("distribute the dough");
+    println("distribute the dough")
     Seq[Dough]()
   }
 
