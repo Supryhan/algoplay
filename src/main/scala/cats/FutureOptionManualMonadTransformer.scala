@@ -16,7 +16,14 @@ object FutureOptionManualMonadTransformer extends App {
       address <- FutOpt(findAddressByUser(user))
     } yield address).value
 
-  val result = Await.result(findAddressByUserId(13L), 1.millis)
+  def findAddressByUserId2(id: Long): Future[Option[Address]] =
+    FutOpt(findUserById(id))
+      .flatMap(user =>
+        FutOpt(findAddressByUser(user))
+          .map(address => address))
+      .value
+
+  val result = Await.result(findAddressByUserId2(13L), 1.millis)
   result match {
     case Some(address) => print(address.name)
     case None => print("No address found")
