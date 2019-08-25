@@ -1,13 +1,13 @@
-package cats
+package mycats
 
 object TreesOps {
 
   implicit class FunctorOps[F[_], A](source: F[A]) {
-    def map[B](function: A => B)(implicit functor: Functor[F]): F[B] = functor.map(source)(function)
+    def map[B](function: A => B)(implicit functor: FunctorApi[F]): F[B] = functor.map(source)(function)
   }
 
-  implicit val treeFunctor: Functor[Tree] =
-    new Functor[Tree] {
+  implicit val treeFunctor: FunctorApi[Tree] =
+    new FunctorApi[Tree] {
       def map[A, B](tree: Tree[A])(func: A => B): Tree[B] =
         tree match {
           case Branch(left, right) => Branch(map(left)(func), map(right)(func))
@@ -16,7 +16,7 @@ object TreesOps {
     }
 }
 
-trait Functor[F[_]] {
+trait FunctorApi[F[_]] {
   def map[A, B](value: F[A])(f: A => B): F[B]
 }
 

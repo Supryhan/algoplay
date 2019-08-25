@@ -1,7 +1,7 @@
-package cats
+package mycats
 
-import cats.instances.function._ // for Functor
-import cats.syntax.functor._ // for map
+import cats.instances.function._
+import cats.syntax.functor._
 
 object FunctionsComposition extends App {
   val func1: Int => Double = (x: Int) => x.toDouble

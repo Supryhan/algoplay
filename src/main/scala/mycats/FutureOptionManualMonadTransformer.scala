@@ -1,4 +1,4 @@
-package cats
+package mycats
 
 import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
 import scala.concurrent.duration._

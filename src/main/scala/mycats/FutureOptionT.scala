@@ -1,9 +1,10 @@
-package cats
+package mycats
 
-import cats.FutureOption.{Address, User}
-import cats.Storage.users
 import cats.data.OptionT
 import cats.implicits._
+
+import FutureOption.{Address, User}
+import Storage.users
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}

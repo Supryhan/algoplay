@@ -1,4 +1,4 @@
-package cats
+package mycats
 
 import org.scalatest.FunSuite
 

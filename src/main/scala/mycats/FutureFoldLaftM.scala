@@ -1,8 +1,10 @@
-import cats.implicits._
+package mycats
+
 import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.util.control.NonFatal
+import cats.implicits._
 
 /**
   * @author Andrew Ivanov
