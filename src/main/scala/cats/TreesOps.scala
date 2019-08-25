@@ -1,7 +1,10 @@
 package cats
 
-object TreesOps extends App {
-  import cats.syntax.functor._
+object TreesOps {
+
+  implicit class FunctorOps[F[_], A](source: F[A]) {
+    def map[B](function: A => B)(implicit functor: Functor[F]): F[B] = functor.map(source)(function)
+  }
 
   implicit val treeFunctor: Functor[Tree] =
     new Functor[Tree] {
@@ -11,9 +14,10 @@ object TreesOps extends App {
           case Leaf(value) => Leaf(func(value))
         }
     }
+}
 
-  println(TreeFactory.leaf(100).map(_ * 2))
-  println(TreeFactory.branch(TreeFactory.leaf(10), TreeFactory.leaf(20)).map(_ * 2))
+trait Functor[F[_]] {
+  def map[A, B](value: F[A])(f: A => B): F[B]
 }
 
 sealed trait Tree[+A]
