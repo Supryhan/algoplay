@@ -1,5 +1,7 @@
 package mycats
 
+final case class Box[A](value: A)
+
 trait Printable[A] {
   self =>
 
@@ -26,6 +28,17 @@ object Print extends App {
         if (value) "yes" else "no"
     }
 
+//  implicit def boxPrintable[A](implicit p: Printable[A]) =
+//    new Printable[Box[A]] {
+//      def format(box: Box[A]): String =
+//        p.format(box.value)
+//    }
+
+  implicit def boxPrintable[A](implicit p: Printable[A]) =
+    p.contramap[Box[A]](_.value)
+
   format("hello")
   format(true)
+  format(Box("hello world"))
+  format(Box(true))
 }
