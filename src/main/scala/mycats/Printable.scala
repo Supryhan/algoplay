@@ -28,7 +28,7 @@ object Print extends App {
         if (value) "yes" else "no"
     }
 
-  //  implicit def boxPrintable[A](implicit p: Printable[A]) =
+  //  implicit def boxPrintable[A](implicit p: Printable[A]): Printable[Box[A]] =
   //    new Printable[Box[A]] {
   //      def format(box: Box[A]): String =
   //        p.format(box.value)
