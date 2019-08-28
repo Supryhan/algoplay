@@ -17,25 +17,16 @@ trait Printable[A] {
 object Print extends App {
   def format[A](value: A)(implicit p: Printable[A]): String = p.format(value)
 
-  implicit val stringPrintable: Printable[String] =
-    new Printable[String] {
-      def format(value: String): String =
-        "\"" + value + "\""
-    }
-  implicit val booleanPrintable: Printable[Boolean] =
-    new Printable[Boolean] {
-      def format(value: Boolean): String =
-        if (value) "yes" else "no"
-    }
+  implicit val stringPrintable: Printable[String] = (value: String) => "\"" + value + "\""
+  implicit val booleanPrintable: Printable[Boolean] = (value: Boolean) => if (value) "yes" else "no"
+
+  implicit def boxPrintable[A](implicit p: Printable[A]): Printable[Box[A]] = p.contramap[Box[A]](box => box.value)
 
   //  implicit def boxPrintable[A](implicit p: Printable[A]): Printable[Box[A]] =
   //    new Printable[Box[A]] {
   //      def format(box: Box[A]): String =
   //        p.format(box.value)
   //    }
-
-  implicit def boxPrintable[A](implicit p: Printable[A]): Printable[Box[A]] =
-    p.contramap[Box[A]](box => box.value)
 
   format("hello")
   format(true)
