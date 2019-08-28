@@ -35,7 +35,7 @@ object Print extends App {
   //    }
 
   implicit def boxPrintable[A](implicit p: Printable[A]): Printable[Box[A]] =
-    p.contramap[Box[A]](_.value)
+    p.contramap[Box[A]](box => box.value)
 
   format("hello")
   format(true)
