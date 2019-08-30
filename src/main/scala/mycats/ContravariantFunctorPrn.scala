@@ -28,8 +28,8 @@ object Print extends App {
   //        p.format(box.value)
   //    }
 
-  format("hello")
-  format(true)
-  format(Box("hello world"))
-  format(Box(true))
+  println(format("hello"))
+  println(format(true))
+  println(format(Box("hello world")))
+  println(format(Box(true)))
 }
