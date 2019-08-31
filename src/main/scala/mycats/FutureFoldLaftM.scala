@@ -55,11 +55,10 @@ object FutureFoldLeftM extends App {
   val (errs, succ) = Await.result(program, Duration.Inf)
 
   println("*" * 10)
-  println("Errors")
+  println("Errors:")
   errs.foreach(println)
   println("*" * 10)
-  println("*" * 10)
-  println("Success")
+  println("Success:")
   succ.foreach(println)
   println("*" * 10)
 }
