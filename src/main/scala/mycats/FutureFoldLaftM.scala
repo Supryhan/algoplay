@@ -15,24 +15,24 @@ object FutureFoldLeftM extends App {
 
   type ErrMsg = String
 
-  final case class Prod(id: String)
+  final case class Product(id: String)
 
-  final case class Subscr(id: String, prod: Prod)
+  final case class Subscription(id: String, product: Product)
 
-  final case class Conn(id: String, subscr: Subscr)
+  final case class Connection(id: String, subscription: Subscription)
 
-  def prods(e: Env): Future[List[Prod]] =
+  def products(e: Env): Future[List[Product]] =
     e match {
-      case "local" => Future.successful(List(Prod("id1"), Prod("id2"), Prod("id3")))
+      case "local" => Future.successful(List(Product("id1"), Product("id2"), Product("id3")))
       case _ => Future.failed(new Exception("wrong env"))
     }
 
-  def subscrs(p: Prod): Future[List[Subscr]] =
-    if (p.id == "id1") Future.successful(List(Subscr("sub1", p), Subscr("sub2", p)))
+  def subscriptions(p: Product): Future[List[Subscription]] =
+    if (p.id == "id1") Future.successful(List(Subscription("sub1", p), Subscription("sub2", p)))
     else Future.failed(new Exception(s"Error for loading subscrs for prod $p"))
 
-  def conn(s: Subscr): Future[Conn] = {
-    if (s.id == "sub1") Future.successful(Conn("connid", s))
+  def connection(s: Subscription): Future[Connection] = {
+    if (s.id == "sub1") Future.successful(Connection("connid", s))
     else Future.failed(new Exception(s"Could not find conn for $s"))
   }
 
@@ -42,13 +42,13 @@ object FutureFoldLeftM extends App {
     }
 
   val program = for {
-    x <- prods("local")
-    y <- x.foldLeftM((List.empty[String], List.empty[Subscr])) {
-      case ((err, data), v) => process(subscrs(v), err, data)
+    x <- products("local")
+    y <- x.foldLeftM((List.empty[String], List.empty[Subscription])) {
+      case ((err, data), v) => process(subscriptions(v), err, data)
     }
     (errs, data) = y
-    z <- data.foldLeftM((errs, List.empty[Conn])) {
-      case ((err, data), v) => process(conn(v).map(_ :: Nil), err, data)
+    z <- data.foldLeftM((errs, List.empty[Connection])) {
+      case ((err, data), v) => process(connection(v).map(_ :: Nil), err, data)
     }
   } yield z
 
