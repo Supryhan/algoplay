@@ -11,7 +11,8 @@ object ContravariantFunctorShow extends App {
                                                  //           Show[M] =>  (S => M)  => Show[S]
                                                  // contramap(value: F[A])(f: B => A): F[B]
   implicit val showSalary: Show[Salary] = showMoney.contramap[Salary](salary => salary.size)
-  Salary(Money(1000)).show
+
+  println(Salary(Money(1000)).show)
 }
 
 case class Money(amount: Int)
