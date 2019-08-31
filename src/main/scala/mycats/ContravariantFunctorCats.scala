@@ -9,7 +9,11 @@ object ContravariantFunctorCats extends App {
 
   val showString: Show[String] = Show[String]
   val showSymbol: Show[Symbol] = Contravariant[Show].contramap(showString)((sym: Symbol) => s"'${sym.name}")
+
   println(showSymbol.show('dave))
+
+  import cats.syntax.contravariant._ // for contramap
+  println(showString.contramap[Symbol](_.name).show('dave))
 }
 
 trait Contravariant[F[_]] {
