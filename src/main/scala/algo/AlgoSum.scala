@@ -56,7 +56,7 @@ object Solution2 {
 
 object Solution3 extends App {
 
-  case class Tree[+T](c: T, left: Option[Tree[T]], right: Option[Tree[T]])
+  case class Tree[+T](value: T, left: Option[Tree[T]], right: Option[Tree[T]])
 
   var queue = collection.mutable.Queue[Option[Tree[Char]]]()
   val root = Some(Tree('a',
@@ -89,9 +89,9 @@ object Solution3 extends App {
       right = true
     }
     if (queue.nonEmpty) m()
-    if (left) print(t.get.left.get.c)
-    if (right) print(t.get.right.get.c)
-    print(t.get.c)
+    print(t.get.value)
+    if (left) print(t.get.left.get.value)
+    if (right) print(t.get.right.get.value)
   }
 
   m()
