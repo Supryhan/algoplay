@@ -56,9 +56,9 @@ object Solution2 {
 
 object Solution3 extends App {
 
-  case class Tree(c: Char, left: Option[Tree], right: Option[Tree])
+  case class Tree[+T](c: T, left: Option[Tree[T]], right: Option[Tree[T]])
 
-  var queue = collection.mutable.Queue[Option[Tree]]()
+  var queue = collection.mutable.Queue[Option[Tree[Char]]]()
   val root = Some(Tree('a',
                         Some(Tree('b',
                                   Some(Tree('d',
@@ -77,7 +77,7 @@ object Solution3 extends App {
   queue += root
 
   def m(): Unit = {
-    val t: Option[Tree] = queue.dequeue()
+    val t: Option[Tree[Char]] = queue.dequeue()
     var left: Boolean = false
     var right: Boolean = false
     if (t.isDefined && t.get.left.isDefined) {
