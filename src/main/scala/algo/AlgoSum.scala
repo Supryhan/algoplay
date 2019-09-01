@@ -60,10 +60,20 @@ object Solution3 extends App {
 
   var queue = collection.mutable.Queue[Option[Tree]]()
   val root = Some(Tree('a',
-    Some(Tree('b',
-      Some(Tree('d', None, None)), Some(Tree('e', None, None)))),
-    Some(Tree('c',
-      Some(Tree('f', None, None)), Some(Tree('g', None, None))))))
+                        Some(Tree('b',
+                                  Some(Tree('d',
+                                            None,
+                                            None)),
+                                  Some(Tree('e',
+                                            None,
+                                            None)))),
+                        Some(Tree('c',
+                                  Some(Tree('f',
+                                            None,
+                                            None)),
+                                  Some(Tree('g',
+                                            None,
+                                            None))))))
   queue += root
 
   def m(): Unit = {
