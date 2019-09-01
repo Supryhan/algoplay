@@ -79,20 +79,16 @@ object Solution3 extends App {
 
   def m(): Unit = {
     val t: Option[Tree[Char]] = queue.dequeue()
-    var left: Boolean = false
-    var right: Boolean = false
     if (t.isDefined && t.get.left.isDefined) {
-      queue :+ t.get.left
-      left = true
+      queue :+= t.get.left
+      print(t.get.left.get.value)
     }
     if (t.isDefined && t.get.right.isDefined) {
-      queue :+ t.get.right
-      right = true
+      queue :+= t.get.right
+      print(t.get.right.get.value)
     }
     if (queue.nonEmpty) m()
     print(t.get.value)
-    if (left) print(t.get.left.get.value)
-    if (right) print(t.get.right.get.value)
   }
 
   m()
