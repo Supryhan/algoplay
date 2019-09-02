@@ -81,11 +81,9 @@ object Solution3 extends App {
     val t: Option[Tree[Char]] = queue.dequeue()
     if (t.isDefined && t.get.left.isDefined) {
       queue :+= t.get.left
-//      print(t.get.left.get.value)
     }
     if (t.isDefined && t.get.right.isDefined) {
       queue :+= t.get.right
-//      print(t.get.right.get.value)
     }
     if (queue.nonEmpty) m()
     print(t.get.value)
