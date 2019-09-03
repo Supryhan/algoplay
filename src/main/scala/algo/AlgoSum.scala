@@ -58,12 +58,13 @@ object Solution3 extends App {
 
   case class Tree[+T](value: T, left: Option[Tree[T]], right: Option[Tree[T]])
 
-  var queue = collection.mutable.Queue[Option[Tree[Char]]]()
+  import scala.collection.mutable.Queue
+  var queue = Queue[Option[Tree[Char]]]()
   val root: Option[Tree[Char]] =
     Some(Tree('a',
       Some(Tree('b',
         Some(Tree('d',
-          None,
+          Some(Tree('h', None, None)),
           None)),
         Some(Tree('e',
           None,
@@ -75,7 +76,7 @@ object Solution3 extends App {
         Some(Tree('g',
           None,
           None))))))
-  queue += root
+  queue.enqueue(root)
 
   def m(): Unit = {
     val t: Option[Tree[Char]] = queue.dequeue()
