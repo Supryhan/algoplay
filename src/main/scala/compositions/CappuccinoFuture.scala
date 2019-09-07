@@ -7,11 +7,11 @@ import scala.concurrent.duration.Duration
 
 object CappuccinoFuture extends App {
   val cappuccinoFuture = new CappuccinoFuture
-  cappuccinoFuture.prepareCappuccino() onComplete  {
+  cappuccinoFuture.prepareCappuccino() onComplete {
     case Success(value) => println(value)
     case Failure(exception) => println(exception)
   }
-  cappuccinoFuture.prepareCappucinoFlatMap() onComplete  {
+  cappuccinoFuture.prepareCappucinoFlatMap() onComplete {
     case Success(value) => println(value)
     case Failure(exception) => println(exception)
   }
@@ -52,10 +52,10 @@ class CappuccinoFuture {
   def combine(espresso: Espresso, frothedMilk: FrothedMilk): Cappuccino = "cappuccino"
 
   def prepareCappuccino(): Future[Cappuccino] = for {
-    ground <- grind("arabica beans")
-    water <- heatWater(Water(25))
+    ground   <- grind("arabica beans")
+    water    <- heatWater(Water(25))
     espresso <- brew(ground, water)
-    foam <- frothMilk("milk")
+    foam     <- frothMilk("milk")
     combined <- Future { combine(espresso, foam) }
   } yield combined
 
