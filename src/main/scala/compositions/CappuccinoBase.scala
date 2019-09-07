@@ -39,17 +39,17 @@ class CappuccinoBase {
   def combine(espresso: Espresso, frothedMilk: FrothedMilk): Cappuccino = "cappuccino"
 
   def prepareCappuccino(): Try[Cappuccino] = for {
-    ground <- Try(grind("arabica beans"))
-    water <- Try(heatWater(Water(25)))
-    espresso <- Try(brew(ground, water))
+    groundCoffee <- Try(grind("arabica beans"))
+    hotWater <- Try(heatWater(Water(25)))
+    espresso <- Try(brew(groundCoffee, hotWater))
     foam <- Try(frothMilk("milk"))
     combined <- Try(combine(espresso, foam))
   } yield combined
 
   def prepareCappucinoFlatMap(): Try[Cappuccino] =
     Try(grind("arabica beans"))
-      .flatMap(ground => Try(heatWater(Water(25)))
-        .flatMap(water => Try(brew(ground, water))
+      .flatMap(groundCoffee => Try(heatWater(Water(25)))
+        .flatMap(hotWater => Try(brew(groundCoffee, hotWater))
           .flatMap(espresso => Try(frothMilk("milk"))
             .map(foam => combine(espresso, foam)))))
 }
