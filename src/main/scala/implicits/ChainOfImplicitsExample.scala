@@ -1,5 +1,7 @@
 package implicits
 
+import scala.language.higherKinds
+
 object ChainOfImplicitsExample extends App {
 
   sealed trait Description[T] {
