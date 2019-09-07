@@ -3,9 +3,9 @@ package algo
 
 object FibonacciSimple extends App {
 
-  implicit class ReachInt(self: Int) {
+  implicit class ReachInt(value: Int) {
     def fib: Int =
-      self match {
+      value match {
         case 0 | 1 => 1
         case i => (i - 1).fib + (i - 2).fib
       }
