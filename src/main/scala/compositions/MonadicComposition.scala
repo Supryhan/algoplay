@@ -1,6 +1,6 @@
 package compositions
 
-object MonadicComposition {
+object MonadicComposition extends App {
 
   case class Wheat(name: String)
 
@@ -34,16 +34,16 @@ object MonadicComposition {
       Left(Seq[Bread]())
     }
 
-  def bakeRecipe1 = bake(350)(45)
-
-  def main(args: Array[String]): Unit = grind(Wheat("Durum1")) >>= kneadDough >>= distributeDough >>= bakeRecipe1
+  def bakeRecipe1: Seq[Dough] => Either[Seq[Bread], String] = bake(350)(45)
 
   implicit class MonadicForward[Left, Right](twoTrackInput: Either[Left, Right]) {
-    def >>=[Intermediate](switchFunction: Left => Either[Intermediate, Right]) =
+    def >>=[Intermediate](switchFunction: Left => Either[Intermediate, Right]): Either[Intermediate, Right] =
       twoTrackInput match {
         case Left(s) => switchFunction(s)
-        case Right(f) => { println("Broken sequence, root cause: " + f); Right(f) }
+        case Right(f) => println("Broken sequence, root cause: " + f); Right(f)
       }
   }
+
+  grind(Wheat("Durum1")) >>= kneadDough >>= distributeDough >>= bakeRecipe1
 
 }
