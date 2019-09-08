@@ -44,11 +44,11 @@ object FutureFoldLeftM extends App {
   val program = for {
     x <- products("local")
     y <- x.foldLeftM((List.empty[String], List.empty[Subscription])) {
-      case ((err, data1), v: Product) => process(subscriptions(v), err, data1)
+      case ((err: List[String], data1: List[Subscription]), v: Product) => process(subscriptions(v), err, data1)
     }
     (errs, data) = y
     z <- data.foldLeftM((errs, List.empty[Connection])) {
-      case ((err, data2: List[Connection]), v: Subscription) => process(connection(v).map(_ :: Nil), err, data2)
+      case ((err: List[String], data2: List[Connection]), v: Subscription) => process(connection(v).map(_ :: Nil), err, data2)
     }
   } yield z
 
