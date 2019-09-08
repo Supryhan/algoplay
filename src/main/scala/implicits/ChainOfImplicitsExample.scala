@@ -16,8 +16,8 @@ object ChainOfImplicitsExample extends App {
     override def toString: String = name
   }
 
-  implicit class Describable[T](value: T)(implicit descr: Description[T]) {
-    def describe: String = descr.toString
+  implicit class Describable[T](value: T)(implicit description: Description[T]) {
+    def describe: String = description.toString
   }
 
   implicit def listDescr[P](implicit childDescr: Description[P]): Description[List[P]] = ContainerDescr[P, List]("List")
