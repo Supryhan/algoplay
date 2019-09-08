@@ -29,10 +29,10 @@ object ChainOfImplicitsExample extends App {
   implicit def seqDescription[P](implicit childDescr: Description[P]): Description[Seq[P]] =
     ContainerDescription[P, Seq]("Sequence")
 
-  implicit val intDescription = AtomDescription[Int]("Integer")
-  implicit val stringDescription = AtomDescription[String]("String")
-  implicit val booleanDescription = AtomDescription[Boolean]("Boolean")
-  implicit val mapDescription = AtomDescription[Map[Int, Int]]("Map 0:)")
+  implicit val intDescription = AtomDescription[Int](name = "Integer")
+  implicit val stringDescription = AtomDescription[String](name = "String")
+  implicit val booleanDescription = AtomDescription[Boolean](name ="Boolean")
+  implicit val mapDescription = AtomDescription[Map[Int, Int]](name = "Map 0:)")
 
   println(333.describe)
   println("333".describe)
