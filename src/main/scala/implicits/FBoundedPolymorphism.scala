@@ -5,13 +5,13 @@ sealed trait RootOps[A <: RootOps[A]] {
   def getSymbol(implicit symbol: Symbol[A]): Symbol[A] = symbol
 }
 
-trait Alfa extends RootOps[Alfa]
+trait Alpha extends RootOps[Alpha]
 
 trait Beta extends RootOps[Beta]
 
 trait Gamma extends RootOps[Gamma]
 
-case object Alfa extends Alfa
+case object Alpha extends Alpha
 
 case object Beta extends Beta
 
@@ -21,11 +21,11 @@ case class Symbol[A <: RootOps[A]](name: String)
 
 object FBoundedPolymorphism extends App {
 
-  implicit val alfaSymbol = Symbol[Alfa](name = "alfa")
+  implicit val alfaSymbol = Symbol[Alpha](name = "alpha")
   implicit val betaSymbol = Symbol[Beta](name = "beta")
   implicit val gammaSymbol = Symbol[Gamma](name = "gamma")
 
-  println(Alfa.getSymbol)
+  println(Alpha.getSymbol)
   println(Beta.getSymbol)
   println(Gamma.getSymbol)
 }
