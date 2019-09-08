@@ -32,6 +32,7 @@ object ChainOfImplicitsExample extends App {
   implicit val intDescription = AtomDescription[Int]("Integer")
   implicit val stringDescription = AtomDescription[String]("String")
   implicit val booleanDescription = AtomDescription[Boolean]("Boolean")
+  implicit val mapDescription = AtomDescription[Map[Int, Int]]("Map 0:)")
 
   println(333.describe)
   println("333".describe)
@@ -40,17 +41,18 @@ object ChainOfImplicitsExample extends App {
   println(List(false, true, true).describe)
   println(Array("str1", "str2").describe)
   println(Seq(Array(List(1, 2), List(3, 4))).describe)
+  println(Map(1 -> 1).describe)
   println(
-    Seq(
-      Array(
-        List(
-          Seq(1, 2, 3),
-          Seq(1, 2, 3)
-        ),
-        List(
-          Seq(7, 8, 9),
-          Seq(9, 10, 11)
-        )
-      )
-    ).describe)
+      Seq(
+          Array(
+              List(
+                  Seq(1, 2, 3),
+                  Seq(1, 2, 3)
+              ),
+              List(
+                  Seq(7, 8, 9),
+                  Seq(9, 10, 11)
+              )
+          )
+      ).describe)
 }
