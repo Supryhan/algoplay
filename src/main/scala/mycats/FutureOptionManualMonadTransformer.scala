@@ -8,7 +8,7 @@ object FutureOptionManualMonadTransformer extends App {
 
   def findUserById(id: Long): Future[Option[User]] = Future.successful(Some(new User))
 
-  def findAddressByUser(user: User) = Future.successful(Some(new Address("blvd")))
+  def findAddressByUser(user: User): Future[Option[Address]] = Future.successful(Some(Address("blvd")))
 
   def findAddressByUserId(id: Long): Future[Option[Address]] =
     (for {

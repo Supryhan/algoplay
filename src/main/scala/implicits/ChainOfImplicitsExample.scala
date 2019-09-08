@@ -34,14 +34,6 @@ object ChainOfImplicitsExample extends App {
   implicit val booleanDescription = AtomDescription[Boolean](name ="Boolean")
   implicit val mapDescription = AtomDescription[Map[Int, Int]](name = "Map 0:)")
 
-  println(333.describe)
-  println("333".describe)
-  println(true.describe)
-  println(List(1, 2, 3).describe)
-  println(List(false, true, true).describe)
-  println(Array("str1", "str2").describe)
-  println(Seq(Array(List(1, 2), List(3, 4))).describe)
-  println(Map(1 -> 1).describe)
   println(
       Seq(
           Array(
