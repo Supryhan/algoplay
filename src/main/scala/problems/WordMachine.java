@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 public class WordMachine {
-    public static final int MIN = 0;
-    public static final int MAX = 0x7FFF_FFFF;
+    private static final int MIN = 0;
+    private static final int MAX = 0x7FFF_FFFF;
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
     private final Stack<Integer> stack = new Stack<>();
     private static final Map<String, Supplier<Integer>> FUNCTIONS = new HashMap<>();
@@ -25,7 +25,7 @@ public class WordMachine {
         System.out.println(wm.process("1 1 + 2 + DUP +"));
     }
 
-    public int process(String s) {
+    private int process(String s) {
         try {
             Arrays.stream(s.split(" ")).forEach(this::apply);
             return pop();
