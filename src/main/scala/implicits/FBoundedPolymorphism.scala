@@ -21,9 +21,9 @@ case class Symbol[A <: RootOps[A]](name: String)
 
 object FBoundedPolymorphism extends App {
 
-  implicit val alfaSymbol = Symbol[Alfa]("alfa")
-  implicit val betaSymbol = Symbol[Beta]("beta")
-  implicit val gammaSymbol = Symbol[Gamma]("gamma")
+  implicit val alfaSymbol = Symbol[Alfa](name = "alfa")
+  implicit val betaSymbol = Symbol[Beta](name = "beta")
+  implicit val gammaSymbol = Symbol[Gamma](name = "gamma")
 
   println(Alfa.getSymbol)
   println(Beta.getSymbol)
