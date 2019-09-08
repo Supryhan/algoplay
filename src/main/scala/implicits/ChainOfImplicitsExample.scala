@@ -21,13 +21,13 @@ object ChainOfImplicitsExample extends App {
   }
 
   implicit def listDescription[P](implicit childDescr: Description[P]): Description[List[P]] =
-    ContainerDescription[P, List]("List")
+    ContainerDescription[P, List](name = "List")
 
   implicit def arrayDescription[P](implicit childDescr: Description[P]): Description[Array[P]] =
-    ContainerDescription[P, Array]("Array")
+    ContainerDescription[P, Array](name = "Array")
 
   implicit def seqDescription[P](implicit childDescr: Description[P]): Description[Seq[P]] =
-    ContainerDescription[P, Seq]("Sequence")
+    ContainerDescription[P, Seq](name = "Sequence")
 
   implicit val intDescription = AtomDescription[Int](name = "Integer")
   implicit val stringDescription = AtomDescription[String](name = "String")
