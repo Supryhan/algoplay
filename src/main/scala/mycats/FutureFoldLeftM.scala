@@ -52,13 +52,13 @@ object FutureFoldLeftM extends App {
     }
   } yield z
 
-  val (errs, succ) = Await.result(program, Duration.Inf)
+  val (errors, success) = Await.result(program, Duration.Inf)
 
   println("*" * 10)
   println("Errors:")
-  errs.foreach(println)
+  errors.foreach(println)
   println("*" * 10)
   println("Success:")
-  succ.foreach(println)
+  success.foreach(println)
   println("*" * 10)
 }
