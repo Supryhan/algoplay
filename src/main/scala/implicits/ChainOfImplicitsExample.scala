@@ -8,11 +8,11 @@ object ChainOfImplicitsExample extends App {
     def name: String
   }
 
-  case class ContainerDescr[P, M[_]](name: String)(implicit childDescr: Description[P]) extends Description[M[P]] {
-    override def toString: String = s"$name of $childDescr"
+  case class ContainerDescription[P, M[_]](name: String)(implicit childDescription: Description[P]) extends Description[M[P]] {
+    override def toString: String = s"$name of $childDescription"
   }
 
-  case class AtomDescr[P](name: String) extends Description[P] {
+  case class AtomDescription[P](name: String) extends Description[P] {
     override def toString: String = name
   }
 
@@ -20,15 +20,15 @@ object ChainOfImplicitsExample extends App {
     def describe: String = description.toString
   }
 
-  implicit def listDescr[P](implicit childDescr: Description[P]): Description[List[P]] = ContainerDescr[P, List]("List")
+  implicit def listDescription[P](implicit childDescr: Description[P]): Description[List[P]] = ContainerDescription[P, List]("List")
 
-  implicit def arrayDescr[P](implicit childDescr: Description[P]): Description[Array[P]] = ContainerDescr[P, Array]("Array")
+  implicit def arrayDescription[P](implicit childDescr: Description[P]): Description[Array[P]] = ContainerDescription[P, Array]("Array")
 
-  implicit def seqDescr[P](implicit childDescr: Description[P]): Description[Seq[P]] = ContainerDescr[P, Seq]("Sequence")
+  implicit def seqDescription[P](implicit childDescr: Description[P]): Description[Seq[P]] = ContainerDescription[P, Seq]("Sequence")
 
-  implicit val intDescr = AtomDescr[Int]("Integer")
-  implicit val strDescr = AtomDescr[String]("String")
-  implicit val boolDescr = AtomDescr[Boolean]("Boolean")
+  implicit val intDescription = AtomDescription[Int]("Integer")
+  implicit val stringDescription = AtomDescription[String]("String")
+  implicit val booleanDescription = AtomDescription[Boolean]("Boolean")
 
   println(List(1, 2, 3).describe)
   println(List(false, true, true).describe)
