@@ -20,16 +20,22 @@ object ChainOfImplicitsExample extends App {
     def describe: String = description.toString
   }
 
-  implicit def listDescription[P](implicit childDescr: Description[P]): Description[List[P]] = ContainerDescription[P, List]("List")
+  implicit def listDescription[P](implicit childDescr: Description[P]): Description[List[P]] =
+    ContainerDescription[P, List]("List")
 
-  implicit def arrayDescription[P](implicit childDescr: Description[P]): Description[Array[P]] = ContainerDescription[P, Array]("Array")
+  implicit def arrayDescription[P](implicit childDescr: Description[P]): Description[Array[P]] =
+    ContainerDescription[P, Array]("Array")
 
-  implicit def seqDescription[P](implicit childDescr: Description[P]): Description[Seq[P]] = ContainerDescription[P, Seq]("Sequence")
+  implicit def seqDescription[P](implicit childDescr: Description[P]): Description[Seq[P]] =
+    ContainerDescription[P, Seq]("Sequence")
 
   implicit val intDescription = AtomDescription[Int]("Integer")
   implicit val stringDescription = AtomDescription[String]("String")
   implicit val booleanDescription = AtomDescription[Boolean]("Boolean")
 
+  println(333.describe)
+  println("333".describe)
+  println(true.describe)
   println(List(1, 2, 3).describe)
   println(List(false, true, true).describe)
   println(Array("str1", "str2").describe)
