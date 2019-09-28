@@ -31,7 +31,7 @@ object PrimitivInCats extends App {
 class Id[A] {
   type Id[A] = A
 
-  def pure[A](a: A): Id[A] = a
+  def pure(a: A): Id[A] = a
 
   def map[B](a: Id[A])(f: A => B): Id[B] = f(a)
 
