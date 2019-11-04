@@ -1,0 +1,23 @@
+package mycats
+
+object PrimitivesInCats extends App {
+
+  import scala.language.higherKinds
+  import cats.Monad
+  import cats.syntax.functor._
+  import cats.syntax.flatMap._
+  type D[A] = A
+
+  def sumSquare[F[_] : Monad](a: F[Int], b: F[Int]): F[Int] =
+    for {
+      x <- a
+      y <- b
+    } yield x * x + y * y
+
+  import cats.instances.option._
+  import cats.instances.list._
+
+  println(sumSquare(Option(2), Option(5)))
+  println(sumSquare(List(2), List(5, 6)))
+  println(sumSquare(3: D[Int], 4: D[Int]))
+}
