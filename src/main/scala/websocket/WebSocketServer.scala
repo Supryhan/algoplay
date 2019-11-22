@@ -1,17 +1,16 @@
 package websocket
 
-import akka.actor.{Actor, ActorSystem}
-
-import scala.io.StdIn
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
 
 object WebSocketServer extends App {
 
   implicit val actorSystem = ActorSystem("akka-system")
-//  implicit val flowMaterializer = ActorMaterializer()
-//
-//  val interface = "localhost"
-//  val port = 8080
-//
+  implicit val flowMaterializer = ActorMaterializer()
+
+  val interface = "localhost"
+  val port = 8080
+
 //  import Directives._
 //
 //  val route = get {
@@ -26,5 +25,5 @@ object WebSocketServer extends App {
 //  import actorSystem.dispatcher
 //
 //  binding.flatMap(_.unbind()).onComplete(_ => actorSystem.shutdown())
-//  println("Server is down...")
+  println("Server is down...")
 }
