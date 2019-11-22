@@ -4,7 +4,6 @@ import cats.data.OptionT
 import cats.implicits._
 
 import FutureOption.{Address, User}
-import Storage.users
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
@@ -18,6 +17,7 @@ object FutureOption extends App {
   }
 
   def findUserById(id: Int)(implicit e: ExecutionContext): Future[Option[User]] = {
+    import Storage.users
     users(id) match {
       case user: User => Future.successful(Some(user))
       case _ => Future.failed(new Exception("Wrong user's id"))
