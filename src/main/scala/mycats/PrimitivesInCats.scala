@@ -20,4 +20,19 @@ object PrimitivesInCats extends App {
   println(sumSquare(Option(2), Option(5)))
   println(sumSquare(List(2), List(5, 6)))
   println(sumSquare(3: D[Int], 4: D[Int]))
+
+  import cats.syntax.either._
+
+  def countPositive(nums: List[Int]) =
+    nums.foldLeft(0.asRight[String]) { (accumulator, num) =>
+      if (num > 0) {
+        accumulator.map(_ + 1)
+      } else {
+        Left("Negative. Stopping!")
+      }
+    }
+
+  println(countPositive(List(1, 2, 3)))
+  println(countPositive(List(1, -2, 3)))
+
 }
