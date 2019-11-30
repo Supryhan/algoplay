@@ -32,7 +32,11 @@ object PrimitivesInCats extends App {
       }
     }
 
-  println(countPositive(List(1, 2, 3)))
-  println(countPositive(List(1, -2, 3)))
+  println(countPositive(List(1, 2, 3))) // Right(3)
+  println(countPositive(List(1, -2, 3))) // Left(Negative. Stopping!)
 
+  println(Either.fromTry(scala.util.Try("foo".toInt)))
+  //Left(java.lang.NumberFormatException: For input string: "foo")
+  println(Either.fromOption[String, Int](None, "Badness"))
+  //Left(Badness)
 }
