@@ -39,4 +39,12 @@ object PrimitivesInCats extends App {
   //Left(java.lang.NumberFormatException: For input string: "foo")
   println(Either.fromOption[String, Int](None, "Badness"))
   //Left(Badness)
+
+  (-1).asRight[String].ensure("Must be non-negative!")(_ > 0)
+  "error".asLeft[Int].recover {
+    case str: String => -1
+  }
+  "error".asLeft[Int].recoverWith {
+    case str: String => Right(-1)
+  }
 }
