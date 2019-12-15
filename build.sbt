@@ -13,6 +13,7 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 //addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
 
 val libraryVersion = "1.5.0"
+val circeVersion = "0.11.1"
 
 libraryDependencies ++= Seq(
   "org.scalaz"                  %% "scalaz-zio"       % "0.9",
@@ -34,7 +35,8 @@ libraryDependencies ++= Seq(
   "org.typelevel"               %%  "cats-core"       % "2.0.0-M1",
   "org.typelevel"               %%  "cats-kernel"     % "2.0.0-M1",
   "org.scalatestplus.play"      %% "scalatestplus-play"   % "4.0.1"     % Test,
-  "com.h2database"              %   "h2"               % "1.4.197"
+  "com.h2database"              %   "h2"              % "1.4.197",
+  "io.circe"                    %% "circe-parser"     % circeVersion
 )
 
 // for @Lenses macro support
