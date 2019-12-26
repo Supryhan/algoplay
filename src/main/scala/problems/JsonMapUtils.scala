@@ -13,7 +13,7 @@ object ElasticSearchProcessor extends App {
       |     "baz": 123,
       |     "list of stuff": [ 4, 5, 6 ],
       |     "trickyMap": [
-      |       {"key1": "value1"},
+      |       {"key1": {"Simple Name": "Simple Value"}},
       |       {"key2": {"innerName": "innerValue"}}
       |     ]
       |   }""".stripMargin
@@ -22,7 +22,7 @@ object ElasticSearchProcessor extends App {
   val mapCursor = parsedJson.hcursor
 
   print(mapCursor.downField("trickyMap").downArray.as[Json] match {
-    case Right(value) => value.hcursor.downField("key1").as[String] match {
+    case Right(value) => value.hcursor.downField("key1").downField("Simple Name").as[String] match {
       case Right(value) => value
       case Left(value) => value
     }
@@ -30,3 +30,4 @@ object ElasticSearchProcessor extends App {
   })
 
 }
+
