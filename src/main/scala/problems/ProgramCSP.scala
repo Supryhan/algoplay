@@ -26,7 +26,7 @@ object ProgramCSP extends App {
   }
 
   def optional[T, U](k: T => U): T => U = {
-    (v: T) => {
+    v: T => {
       if (v != null) {
         k(v)
       } else {
@@ -45,5 +45,5 @@ object ProgramCSP extends App {
 
   println(programCSP(123))
 
-  println(programCSP(1234))
+//  println(programCSP(1234))
 }
