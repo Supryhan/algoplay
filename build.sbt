@@ -34,9 +34,11 @@ libraryDependencies ++= Seq(
   "org.scala-lang"              %   "scala-compiler"  % scalaVersion.value      % "provided",
   "org.typelevel"               %%  "cats-core"       % "2.0.0-M1",
   "org.typelevel"               %%  "cats-kernel"     % "2.0.0-M1",
-  "org.scalatestplus.play"      %% "scalatestplus-play"   % "4.0.1"     % Test,
+  "ch.qos.logback"              %   "logback-classic"   % "1.2.3",
+  "com.typesafe.scala-logging"  %%  "scala-logging"    % "3.9.2",
+  "org.scalatestplus.play"      %%  "scalatestplus-play"   % "4.0.1"     % Test,
   "com.h2database"              %   "h2"              % "1.4.197",
-  "io.circe"                    %% "circe-parser"     % circeVersion
+  "io.circe"                    %%  "circe-parser"     % circeVersion
 )
 
 // for @Lenses macro support

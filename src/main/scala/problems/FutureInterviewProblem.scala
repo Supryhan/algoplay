@@ -2,19 +2,19 @@ package problems
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.{Success, Failure}
+import scala.util.{Failure, Success}
+import com.typesafe.scalalogging.{LazyLogging, Logger}
 
-object FutureInterviewProblem {
+object FutureInterviewProblem extends LazyLogging {
 
   type SimpleService[T] = () => Future[T]
 
   def repeater[T](service: SimpleService[T], attempt: Int): Future[T] = {
-    println(s"Attempt:$attempt")
     val r = service()
     r onComplete {
-      case Success(value) => value
-      case Failure(exception) if attempt > 1 => repeater(service, attempt - 1)
-      case Failure(exception) => exception
+      case Success(value) => {logger.info(s"Success, attempt:$attempt"); value}
+      case Failure(exception) if attempt > 1 => {logger.info(s"Failure, up, attempt:$attempt"); repeater(service, attempt - 1)}
+      case Failure(exception) => {logger.info(s"Failure, exception, attempt:$attempt"); exception}
     }
     r
   }
@@ -28,8 +28,8 @@ object FutureInterviewProblem {
       }
 
     repeater(buggyService _, 5) onComplete {
-      case Success(value) => print(value)
-      case Failure(exception) => print(exception)
+      case Success(value) => logger.info(value)
+      case Failure(exception) => logger.info(exception.getMessage)
     }
     Thread.sleep(2500)
   }
