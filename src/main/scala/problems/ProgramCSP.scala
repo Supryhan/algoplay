@@ -38,7 +38,9 @@ object ProgramCSP extends App {
   def programCSP(id: Long): Info = {
     getUserCsp(id) {
       optional { user =>
-        getInfoCsp(user)(identity)
+        getInfoCsp(user) {
+          optional(identity)
+        }
       }
     }
   }
