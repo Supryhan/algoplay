@@ -4,36 +4,45 @@ import com.typesafe.scalalogging.LazyLogging
 import io.circe._
 import io.circe.parser._
 
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
+import scala.util.{Failure, Success}
+
 class JsonMapUtils {
 }
 
 object ElasticSearchProcessor extends App with LazyLogging {
+  implicit val ec: ExecutionContextExecutor = ExecutionContext.global
 
-  val rawJsonWithMap: String =
+  val rawJsonWithMap: Future[String] = Future.successful(
     """{
       |     "foo": "bar",
       |     "baz": 123,
       |     "list of stuff": [ 4, 5, 6 ],
-      |     "trickyMap": [
+      |     "traickyMap": [
       |       {"key1": {"Simple Name": "Simple Value"}},
       |       {"key2": {"innerName": "innerValue"}, total: 1}
       |     ]
-      |   }""".stripMargin
+      |   }""".stripMargin)
 
-  val rawJsonWithNoMap: String =
+  val rawJsonWithNoMap: Future[String] = Future.successful(
     """{
       |     "foo": "bar",
       |     "baz": 123,
       |     "list of stuff": [ 4, 5, 6 ]
-      |   }""".stripMargin
+      |   }""".stripMargin)
 
-  val j = parse("""{"foo":"bar","baz":123}""")
-  j match {
+  print(">>>f1")
+  val j1 = parse("""{"foo":"bar","baz":123}""")
+  j1 match {
     case Right(value) => println(value)
     case Left(ex) => println(ex)
   }
-  parse("""{"foo":"bar","baz":123}""").getOrElse(Json.Null).hcursor.downField("trickyMap")
-
+  print(">>>f2")
+  val j2 = parse("""{"foo":"bar","baz":123}""").getOrElse(Json.Null).hcursor.downField("trickyMap").as[Json]
+  j2 match {
+    case Right(value) => println(value)
+    case Left(ex) => println(ex)
+  }
 //  logger.info(total(rawJsonWithMap))
 
   def total(rawString: String): String = {
@@ -48,6 +57,12 @@ object ElasticSearchProcessor extends App with LazyLogging {
 //      case Left(value) => value
 //    }
     ""
+  }
+  def proccess(f: Future[String])(implicit e: ExecutionContext): Future[String] = {
+    f.transform( (_ => _): String => String,
+    case Success(_) => Success("OK")
+    case Failure(_) => Success("KO")
+    )
   }
 
 }
