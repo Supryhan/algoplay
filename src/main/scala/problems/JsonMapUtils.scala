@@ -58,12 +58,12 @@ object ElasticSearchProcessor extends App with LazyLogging {
 //    }
     ""
   }
-  def proccess(f: Future[String])(implicit e: ExecutionContext): Future[String] = {
-    f.transform( (_ => _): String => String,
-    case Success(_) => Success("OK")
-    case Failure(_) => Success("KO")
-    )
-  }
+//  def proccess(f: Future[String])(implicit e: ExecutionContext): Future[String] = {
+//    f.transform( (_ => _): String => String,
+//    case Success(_) => Success("OK")
+//    case Failure(_) => Success("KO")
+//    )
+//  }
 
 }
 
