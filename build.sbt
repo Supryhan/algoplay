@@ -38,7 +38,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging"  %%  "scala-logging"    % "3.9.2",
   "org.scalatestplus.play"      %%  "scalatestplus-play"   % "4.0.1"     % Test,
   "com.h2database"              %   "h2"              % "1.4.197",
-  "io.circe"                    %%  "circe-parser"     % circeVersion
+  "io.circe"                    %%  "circe-parser"     % circeVersion,
+  "com.chuusai"                 %% "shapeless"        % "2.3.3"
 )
 
 // for @Lenses macro support
