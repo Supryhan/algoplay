@@ -32,7 +32,7 @@ object MonoidSyntax extends App {
     }
   }
 
-  def combineValues[T](map: Map[String, List[T]])(monoid: Monoid[T]): Map[String, T] = map.mapValues(monoid.concat)
+  def combineValues[T](map: Map[String, List[T]])(implicit monoid: Monoid[T]): Map[String, T] = map.mapValues(monoid.concat)
 
   implicit class MonoidSyntax[A](val a: A) extends AnyVal {
     def |+|(a2: A)(implicit monoid: Monoid[A]): A = monoid.append(a, a2)
