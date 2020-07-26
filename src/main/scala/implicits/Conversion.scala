@@ -1,28 +1,28 @@
 package implicits
 
 object Conversion extends App {
-  //
-  //  class A(val n: Int)
-  //
-  //  class B(val m: Int, val n: Int)
-  //
-  //  class C(val m: Int, val n: Int, val o: Int) {
-  //    def total = m + n + o
-  //  }
-  //
-  //  implicit def toA(n: Int): A = new A(n)
-  //
-  //  implicit def aToB[A1](a: A1)(implicit f: A1 => A): B =
-  //    new B(a.n, a.n)
-  //
-  //  implicit def bToC[B1](b: B1)(implicit f: B1 => B): C =
-  //    new C(b.m, b.n, b.m + b.n)
-  //
-  //  // works
-  //  println(5.total)
-  //  println(new A(5).total)
-  //  println(new B(5, 5).total)
-  //  println(new C(5, 5, 10).total)
+
+    class A(val n: Int)
+
+    class B(val m: Int, val n: Int)
+
+    class C(val m: Int, val n: Int, val o: Int) {
+      def total: Int = m + n + o
+    }
+
+    implicit def toA(n: Int): A = new A(n)
+
+    implicit def aToB[A1](a: A1)(implicit f: A1 => A): B =
+      new B(a.n, a.n)
+
+    implicit def bToC[B1](b: B1)(implicit f: B1 => B): C =
+      new C(b.m, b.n, b.m + b.n)
+
+    // works
+    println(5.total)
+    println(new A(5).total)
+    println(new B(5, 5).total)
+    println(new C(5, 5, 10).total)
 
   print("------------------")
 
@@ -53,8 +53,8 @@ object Conversion extends App {
 //          .map(c => c))
 //
 //  println(result2)
-  print("----------")
-  val states = Set("Alabama", "Alaska", "Wyoming")
-  val lengths = states map (st => st.length)
+  println("----------")
+  val states: List[String] = List("Alabama", "Alaska", "Wyoming")
+  val lengths: List[Int] = states map (_.length)
   print(lengths)
 }
