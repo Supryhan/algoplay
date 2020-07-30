@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %%  "monocle-refined" % libraryVersion,
   "com.github.julien-truffaut"  %%  "monocle-law"     % libraryVersion % Test,
   "org.scalacheck"              %%  "scalacheck"      % "1.14.0"       % Test,
-  "org.scalatest"               %%  "scalatest"       % "3.0.6-SNAP5"  % Test,
+  "org.scalatest"               %%  "scalatest"       % "3.2.0-SNAP4"  % Test,
   "org.scala-lang"              %   "scala-reflect"   % scalaVersion.value,
   "org.scala-lang"              %   "scala-compiler"  % scalaVersion.value      % "provided",
   "org.typelevel"               %%  "cats-core"       % "2.0.0-M1",
@@ -38,8 +38,12 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging"  %%  "scala-logging"    % "3.9.2",
   "org.scalatestplus.play"      %%  "scalatestplus-play"   % "4.0.1"     % Test,
   "com.h2database"              %   "h2"              % "1.4.197",
-  "io.circe"                    %%  "circe-parser"     % circeVersion,
-  "com.chuusai"                 %% "shapeless"        % "2.3.3"
+  "com.softwaremill.macwire"    %%  "macros"            % "2.3.7"  % "provided",
+  "com.softwaremill.macwire"    %% "macrosakka" % "2.3.6" % "provided",
+  "com.softwaremill.macwire"    %% "util"             % "2.3.6",
+  "com.softwaremill.macwire"    %% "proxy"            % "2.3.6",
+  "io.circe"                    %%  "circe-parser"    % circeVersion,
+  "com.chuusai"                 %%  "shapeless"       % "2.3.3"
 )
 
 // for @Lenses macro support
