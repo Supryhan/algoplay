@@ -2,7 +2,7 @@ name := "algoplay"
 
 version := "0.1"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.11"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -32,8 +32,8 @@ libraryDependencies ++= Seq(
   "org.scalatest"               %%  "scalatest"       % "3.2.0-SNAP4"  % Test,
   "org.scala-lang"              %   "scala-reflect"   % scalaVersion.value,
   "org.scala-lang"              %   "scala-compiler"  % scalaVersion.value      % "provided",
-  "org.typelevel"               %%  "cats-core"       % "2.0.0-M1",
-  "org.typelevel"               %%  "cats-kernel"     % "2.0.0-M1",
+  "org.typelevel"               %%  "cats-core"       % "2.0.0",
+  "org.typelevel"               %%  "cats-kernel"     % "2.0.0",
   "ch.qos.logback"              %   "logback-classic"   % "1.2.3",
   "com.typesafe.scala-logging"  %%  "scala-logging"    % "3.9.2",
   "org.scalatestplus.play"      %%  "scalatestplus-play"   % "4.0.1"     % Test,
@@ -54,5 +54,7 @@ scalacOptions ++= Seq(
 //  "-deprecation",
 //  "-Xfatal-warnings",
 //  "-language:reflectiveCalls",
-  "-Ypartial-unification"
+  "-Ypartial-unification",
+//  "-Xlog-implicits",
+//  "-Xprint:jvm"
 )
