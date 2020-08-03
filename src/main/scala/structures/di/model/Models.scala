@@ -13,5 +13,5 @@ class TrainLoader(implicit craneController: CraneController, pointSwitcher: Poin
 class TrainDispatch()
 
 class TrainStation(implicit trainShunter: TrainShunter, trainLoader: TrainLoader, trainDispatch: TrainDispatch) {
-  def prepareAndDispatchNextTrain() = println(s">go!")
+  def prepareAndDispatchNextTrain() = { println(s">go!"); 1 }
 }

@@ -9,6 +9,6 @@ object Wiring1 extends App {
   implicit lazy val craneController = new CraneController
   implicit lazy val trainLoader = new TrainLoader
   implicit lazy val trainDispatch = new TrainDispatch
-  implicit lazy val trainStation = new TrainStation
-  trainStation.prepareAndDispatchNextTrain()
+  lazy val trainStation = new TrainStation
+  println(trainStation.prepareAndDispatchNextTrain())
 }

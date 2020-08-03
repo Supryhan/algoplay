@@ -18,7 +18,11 @@ object Wiring2 extends App {
   // for which a new instance is create on each usage
   lazy val trainStationEast = wire[TrainStation]
   lazy val trainStationWest = wire[TrainStation]
+  def trainStationSouth = wire[TrainStation]
+  def trainStationNoth = wire[TrainStation]
 
-  trainStationEast.prepareAndDispatchNextTrain()
-  trainStationWest.prepareAndDispatchNextTrain()
+  println(trainStationEast.prepareAndDispatchNextTrain())
+  println(trainStationWest.prepareAndDispatchNextTrain())
+  println(trainStationSouth.prepareAndDispatchNextTrain())
+  println(trainStationNoth.prepareAndDispatchNextTrain())
 }
