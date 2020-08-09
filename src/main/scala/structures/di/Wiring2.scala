@@ -1,4 +1,6 @@
-package structures.di.model
+package structures.di
+
+import structures.di.model._
 
 object Wiring2 extends App {
 
@@ -18,7 +20,9 @@ object Wiring2 extends App {
   // for which a new instance is create on each usage
   lazy val trainStationEast = wire[TrainStation]
   lazy val trainStationWest = wire[TrainStation]
+
   def trainStationSouth = wire[TrainStation]
+
   def trainStationNoth = wire[TrainStation]
 
   println(trainStationEast.prepareAndDispatchNextTrain())
