@@ -7,6 +7,8 @@ import com.typesafe.scalalogging.LazyLogging
 
 object BaseApproach extends App with LazyLogging {
 
+  type KleisliIO[A, B] = Kleisli[IO, A, B]
+
   val r = scala.util.Random
 
   val generate: Unit => Int = _ => r.nextInt(100)
@@ -37,10 +39,10 @@ object BaseApproach extends App with LazyLogging {
   val processIO: Int => IO[Double] = num => IO.pure(num * math.Pi)
   val saveIO: Double => IO[Boolean] = number => IO.pure(true)
 
-  val kleisliCombine_1: Kleisli[IO, Unit, Boolean] = {
-    val generateK: Kleisli[IO, Unit, Int] = Kleisli(generateIO)
-    val processK: Kleisli[IO, Int, Double] = Kleisli(processIO)
-    val saveK: Kleisli[IO, Double, Boolean] = Kleisli(saveIO)
+  val kleisliCombine_1: KleisliIO[Unit, Boolean] = {
+    val generateK: KleisliIO[Unit, Int] = Kleisli(generateIO)
+    val processK: KleisliIO[Int, Double] = Kleisli(processIO)
+    val saveK: KleisliIO[Double, Boolean] = Kleisli(saveIO)
     generateK andThen processK andThen saveK
   }
   logger.info(s"Kleilis example 1: ${kleisliCombine_1.run(()).unsafeRunSync()}")
