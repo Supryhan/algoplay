@@ -14,9 +14,16 @@ object CatsTraining extends App {
   }
 
   object Monoid {
-    implicit val i: Mon[String] = new Mon[String] {
-      def \|+|/(a1: String, a2: String): String = s".$a1.$a2"
+    implicit val str: Mon[String] = new Mon[String] {
+      def \|+|/(a1: String, a2: String): String = s"$a1$em$a2"
+
       def em: String = "->"
+    }
+
+    implicit val int: Mon[Int] = new Mon[Int] {
+      def \|+|/(a1: Int, a2: Int): Int = s"$a1$em$a2".toInt
+
+      def em: Int = 0
     }
   }
 
@@ -27,5 +34,6 @@ object CatsTraining extends App {
   import Monoid._
 
   println("a1" |+| "b4")
+  println(1 |+| 4)
 
 }
