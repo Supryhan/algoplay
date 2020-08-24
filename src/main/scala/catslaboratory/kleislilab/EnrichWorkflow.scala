@@ -4,37 +4,38 @@ import cats.data.Kleisli
 import cats.effect.IO
 import cats.implicits.catsSyntaxTuple2Semigroupal
 import catslaboratory.kleislilab.EnrichWorkflow.{Query, Workbook}
+import catslaboratory.kleislilab.KleisliOps.KleisliIO
 import com.softwaremill.macwire.wire
 
 object EnrichWorkflow extends App {
   type Query = String
-  type KleisliIO[A, B] = Kleisli[IO, A, B]
   type Workbook = List[String]
 
-  val getFromDb1: Query => IO[List[String]] = wire[GetFromSourse1]
-  val getFromDb2: Query => IO[List[String]] = wire[GetFromSourse2]
+  val getFromDb1: Query => List[String] = wire[GetFromSourse1]
+  val getFromDb2: Query => List[String] = wire[GetFromSourse2]
 
+  //TODO: need to integrate into solution
   val getFromService: KleisliIO[Unit, Map[String, Int]] = Kleisli { _: Unit =>
     IO(Map("7" -> 7, "8" -> 8, "9" -> 9))
   }
-  val createWorkbook: List[String] => IO[Workbook] = wire[CreateWorkbook]
+  val createWorkbook: List[String] => Workbook = wire[CreateWorkbook]
 
-
-  val result: Workbook = (Kleisli(getFromDb1), Kleisli(getFromDb2))
+  import KleisliOps._
+  val result: Workbook = (getFromDb1.toKleisliIO, getFromDb2.toKleisliIO)
     .mapN(_ ::: _)
-    .andThen(createWorkbook)
+    .andThen(createWorkbook.toKleisliIO)
     .run(new Query).unsafeRunSync()
   result.foreach(x => println(x))
 }
 
-class GetFromSourse1 extends (Query => IO[List[String]]) {
-  override def apply(query: Query): IO[List[String]] = IO(List("1", "2", "3"))
+class GetFromSourse1 extends (Query => List[String]) {
+  override def apply(query: Query): List[String] = List("1", "2", "3")
 }
 
-class GetFromSourse2 extends (Query => IO[List[String]]) {
-  override def apply(query: Query): IO[List[String]] = IO(List("4", "5", "6"))
+class GetFromSourse2 extends (Query => List[String]) {
+  override def apply(query: Query): List[String] = List("4", "5", "6")
 }
 
-class CreateWorkbook extends (List[String] => IO[Workbook]) {
-  override def apply(list: List[String]): IO[Workbook] = IO(list)
+class CreateWorkbook extends (List[String] => Workbook) {
+  override def apply(list: List[String]): Workbook = list
 }
