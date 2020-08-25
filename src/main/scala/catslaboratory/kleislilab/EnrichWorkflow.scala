@@ -11,17 +11,17 @@ object EnrichWorkflow extends App {
   type Query = String
   type Workbook = List[String]
 
-  val getFromDb1: Query => List[String] = wire[GetFromSourse1]
-  val getFromDb2: Query => List[String] = wire[GetFromSourse2]
-
-  //TODO: need to integrate into solution
   val getFromService: KleisliIO[Unit, Map[String, Int]] = Kleisli { _: Unit =>
     IO(Map("7" -> 7, "8" -> 8, "9" -> 9))
   }
+  val getFromDb1: Query => List[String] = wire[GetFromSourse1]
+  import KleisliOps._
+  val getFromDb2: Query => IO[List[String]] = wire[GetFromSourse2].apply _
+
   val createWorkbook: List[String] => Workbook = wire[CreateWorkbook]
 
-  import KleisliOps._
-  val result: Workbook = (getFromDb1.toKleisliIO, getFromDb2.toKleisliIO)
+
+  val result: Workbook = (getFromDb1.toKleisliIO, Kleisli(getFromDb2))
     .mapN(_ ::: _)
     .andThen(createWorkbook.toKleisliIO)
     .run(new Query).unsafeRunSync()
@@ -32,8 +32,13 @@ class GetFromSourse1 extends (Query => List[String]) {
   override def apply(query: Query): List[String] = List("1", "2", "3")
 }
 
-class GetFromSourse2 extends (Query => List[String]) {
-  override def apply(query: Query): List[String] = List("4", "5", "6")
+class GetFromSourse2(getFromService: KleisliIO[Unit, Map[String, Int]]) {
+  def apply(query: Query): IO[List[String]] = {
+    val r: IO[List[String]] = for {
+      tmp <- getFromService(())
+    } yield List("4", "5", "6") ::: tmp.keySet.toList
+    r
+  }
 }
 
 class CreateWorkbook extends (List[String] => Workbook) {
