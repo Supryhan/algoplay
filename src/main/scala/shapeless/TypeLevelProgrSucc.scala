@@ -7,8 +7,6 @@ object TypeLevelProgrSucc extends App {
   def show[T](value: T)(implicit tag: TypeTag[T]) =
     tag.toString().replace("shapeless.TypeLevelProgrSucc", "")
 
-  println(show(List(1, 2, 3, 4, 5, 6, 7)))
-
   trait Nat
 
   class Zero extends Nat
@@ -25,20 +23,20 @@ object TypeLevelProgrSucc extends App {
   type Nine = Succ[Seven]
   type Ten = Succ[Nine]
 
-  //One < Two
   trait <[A <: Nat, B <: Nat]
 
-
   object < {
-    implicit def lt1[B <: Nat]: <[Zero, Succ[B]] = new <[Zero, Succ[B]] {}
-    implicit def lt2[B <: Nat]: One < Succ[B] = new <[One, Succ[B]] {}
-    implicit def lt3[B <: Nat]: Two < Succ[B] = new <[Two, Succ[B]] {}
+    implicit def lt[B <: Nat]: Zero < Succ[B] = new <[Zero, Succ[B]] {}
 
-    def apply[A <: Nat, B <: Nat](implicit _lt: <[A, B]): A < B = _lt
+    implicit def inductive[A <: Nat, B <: Nat](implicit _lt: A < B): Succ[A] < Succ[B] = new <[Succ[A], Succ[B]] {}
+
+    def apply[A <: Nat, B <: Nat](implicit _lt: A < B): A < B = _lt
   }
 
-  val comparer1: <[Zero, Ten] = <.apply[Zero, Ten]
-  val comparer2: <[One, Ten] = <[One, Ten]
-  val comparer3: <[Two, Ten] = <[Two, Ten]
+  val comparer1: Zero < Ten = <[Zero, Ten]
+  val comparer2: One < Ten = <[One, Ten]
+  val comparer3: Two < Ten = <[Two, Ten]
+  val comparer4: Four < Ten = <[Four, Ten]
 
+  println(show(List(1, 2, 3, 4, 5, 6, 7)))
 }
