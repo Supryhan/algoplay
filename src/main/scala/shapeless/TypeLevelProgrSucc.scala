@@ -38,5 +38,10 @@ object TypeLevelProgrSucc extends App {
   val comparer3: Two < Ten = <[Two, Ten]
   val comparer4: Four < Ten = <[Four, Ten]
 
+  implicitly[Zero < Ten]
+  implicitly[One < Ten]
+  implicitly[Two < Ten]
+  implicitly[Four < Ten]
+
   println(show(List(1, 2, 3, 4, 5, 6, 7)))
 }
