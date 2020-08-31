@@ -5,7 +5,7 @@ object TypeLevelProgrSucc extends App {
   import scala.reflect.runtime.universe._
 
   def show[T](value: T)(implicit tag: TypeTag[T]) =
-    tag.toString().replace("shapeless.TypeLevelProgrSucc", "")
+    tag.toString().replace("shapeless.TypeLevelProgrSucc.", "")
 
   trait Nat
 
@@ -20,7 +20,8 @@ object TypeLevelProgrSucc extends App {
   type Five = Succ[Four]
   type Six = Succ[Five]
   type Seven = Succ[Six]
-  type Nine = Succ[Seven]
+  type Eight = Succ[Seven]
+  type Nine = Succ[Eight]
   type Ten = Succ[Nine]
 
   trait <[A <: Nat, B <: Nat]
@@ -34,14 +35,25 @@ object TypeLevelProgrSucc extends App {
   }
 
   val comparer1: Zero < Ten = <[Zero, Ten]
-  val comparer2: One < Ten = <[One, Ten]
   val comparer3: Two < Ten = <[Two, Ten]
-  val comparer4: Four < Ten = <[Four, Ten]
-
+//  val comparer3err: Ten < Two = <[Ten, Two]
+  val comparer4: Four < Eight = <[Four, Eight]
   implicitly[Zero < Ten]
-  implicitly[One < Ten]
-  implicitly[Two < Ten]
-  implicitly[Four < Ten]
+  println(show(comparer1))
+
+  trait <=[A <: Nat, B <: Nat]
+
+  object <= {
+    implicit def lt[B <: Nat]: Zero <= B = new <=[Zero, B] {}
+
+    implicit def inductive[A <: Nat, B <: Nat](implicit _lte: A <= B): Succ[A] <= Succ[B] = new <=[Succ[A], Succ[B]] {}
+
+    def apply[A <: Nat, B <: Nat](implicit _lte: A <= B): A <= B = _lte
+  }
+
+  def comparer5: Zero <= Zero = <=[Zero, Zero]
+//  def comparer6err: One <= Zero = <=[One, Zero]
+  println(show(comparer5))
 
   println(show(List(1, 2, 3, 4, 5, 6, 7)))
 }
