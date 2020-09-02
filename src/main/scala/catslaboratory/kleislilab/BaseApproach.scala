@@ -76,4 +76,13 @@ object BaseApproach extends App with LazyLogging {
     }
   }")
 
+  val result3: Kleisli[Option, Int, Double] = Kleisli((x: Int) => Option(x.toString))
+    .flatMap((s: String) => Kleisli((x: Int) => Option(s.toDouble)))
+  println(s"Result: ${
+    result3.run(44) match {
+      case Some(value) => value
+      case None => "Error"
+    }
+  }")
+
 }
