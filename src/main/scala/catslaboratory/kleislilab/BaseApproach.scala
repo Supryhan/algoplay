@@ -48,11 +48,32 @@ object BaseApproach extends App with LazyLogging {
   logger.info(s"Kleilis example 1: ${kleisliCombine_1.run(()).unsafeRunSync()}")
 
   val kleisliCombine_2: Kleisli[IO, Unit, Boolean] = Kleisli(generateIO) >>> Kleisli(processIO) >>> Kleisli(saveIO)
-  logger.info(s"Kleilis example 2: ${kleisliCombine_2.run(()).unsafeRunSync()}")
+  logger.info(s"Kleislis example 2: ${kleisliCombine_2.run(()).unsafeRunSync()}")
 
   val kleisliCombine_3: Kleisli[IO, Unit, Boolean] = Kleisli(generateIO)
     .andThen(processIO)
     .andThen(saveIO)
-  logger.info(s"Kleilis example 3: ${kleisliCombine_3.run(()).unsafeRunSync()}")
+  logger.info(s"Kleislis example 3: ${kleisliCombine_3.run(()).unsafeRunSync()}")
+
+  val optionStr = Kleisli { x: Int => Option(x.toString) }
+  val optionDouble = Kleisli { s: String => Option(s.toDouble) }
+  val result1: Kleisli[Option, Int, Double] = optionStr.andThen(optionDouble)
+  println(s"Result: ${
+    result1.run(42) match {
+      case Some(value) => value
+      case None => "Error"
+    }
+  }")
+
+  val result2: Int => Option[Double] = (i: Int) => for {
+    s <- optionStr.run(i)
+    d <- optionDouble.run(s)
+  } yield d
+  println(s"Result: ${
+    result2(43) match {
+      case Some(value) => value
+      case None => "Error"
+    }
+  }")
 
 }

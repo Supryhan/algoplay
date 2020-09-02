@@ -38,7 +38,6 @@ object TypeLevelProgrSucc extends App {
   val comparer3: Two < Ten = <[Two, Ten]
 //  val comparer3err: Ten < Two = <[Ten, Two]
   val comparer4: Four < Eight = <[Four, Eight]
-  implicitly[Zero < Ten]
   println(show(comparer1))
 
   trait <=[A <: Nat, B <: Nat]
