@@ -4,17 +4,21 @@ object MonoidSyntax extends App {
 
   trait Monoid[A] {
     def empty: A
+
     def append(a1: A, a2: A): A
+
     def concat(list: List[A]): A = list.foldRight(empty)(append)
   }
 
   object Monoid {
     implicit val IntMonoid: Monoid[Int] = new Monoid[Int] {
       def empty: Int = 0
+
       def append(a1: Int, a2: Int): Int = a1 + a2
     }
     implicit val BoolMonoid: Monoid[Boolean] = new Monoid[Boolean] {
       def empty: Boolean = false
+
       def append(a1: Boolean, a2: Boolean): Boolean = a1 && a2
     }
   }
@@ -32,7 +36,7 @@ object MonoidSyntax extends App {
     }
   }
 
-  def combineValues[T](map: Map[String, List[T]])(implicit monoid: Monoid[T]): Map[String, T] = map.mapValues(monoid.concat)
+  def combineValues[T](map: Map[String, List[T]])(implicit monoid: Monoid[T]) = map.mapValues(monoid.concat)
 
   implicit class MonoidSyntax[A](val a: A) extends AnyVal {
     def |+|(a2: A)(implicit monoid: Monoid[A]): A = monoid.append(a, a2)

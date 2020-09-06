@@ -27,9 +27,10 @@ object LinearzationAndImplicits extends App {
 
   println(5.shows)
   // prints '5‘
+  import scala.language.postfixOps
   locally {
     implicit val AltIntShow = new Show[Int] {
-      def shows(i: Int) = (1 to i) map (_ => "|") mkString
+      def shows(i: Int) = (1 to i).map(_ => "|").mkString
     }
     //    println(5.shows) // prints '|||||'
   }

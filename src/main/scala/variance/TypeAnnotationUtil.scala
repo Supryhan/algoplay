@@ -18,6 +18,7 @@ object TypeAnnotationUtil extends App {
       }
       case Failure(exception) => println(s">>>$exception")
     }
+    import scala.language.postfixOps
     Await.result(entity, 3 second)
   }
 }
