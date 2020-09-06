@@ -1,8 +1,8 @@
 package catslaboratory
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class TreeFactoryTest extends FunSuite {
+class TreeFactoryTest extends AnyFunSuite {
 
   import TreesOps._
 

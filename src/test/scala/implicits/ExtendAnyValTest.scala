@@ -1,8 +1,8 @@
 package implicits
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class ExtendAnyValTest extends FunSuite {
+class ExtendAnyValTest extends AnyFunSuite {
 
   import ExtendAnyVal._
 

@@ -1,8 +1,8 @@
 package structures
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class AmazonBFSTest extends FunSuite {
+class AmazonBFSTest extends AnyFunSuite {
 
   test("test AmazonBFS process properly") {
     val gTest = Map(

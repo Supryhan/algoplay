@@ -1,8 +1,8 @@
 package structures.stack
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class StackTest extends FunSuite {
+class StackTest extends AnyFunSuite {
 
   test("I can store three integers") {
     val stack = Cons(1, Cons(2, Cons(3, Empty)))

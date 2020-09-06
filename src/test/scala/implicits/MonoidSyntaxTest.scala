@@ -1,8 +1,8 @@
 package implicits
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class MonoidSyntaxTest extends FunSuite {
+class MonoidSyntaxTest extends AnyFunSuite {
 
   import MonoidSyntax._
 

@@ -1,8 +1,8 @@
 package variance
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class FunctionMiddleTest extends FunSuite {
+class FunctionMiddleTest extends AnyFunSuite {
 
   import FunctionMiddle._
 

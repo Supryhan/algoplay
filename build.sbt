@@ -32,6 +32,7 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %% "monocle-refined"  % monocle,
   "com.github.julien-truffaut"  %% "monocle-law"      % monocle    % Test,
   "org.scalacheck"              %% "scalacheck"       % "1.14.3"   % Test,
+  "org.scalactic"               %% "scalactic"        % "3.3.0-SNAP2",
   "org.scalatest"               %% "scalatest"        % "3.3.0-SNAP2"    % Test,
   "org.scalatest"               %% "scalatest-funsuite" % "3.3.0-SNAP2"  % Test,
   "org.scala-lang"              %  "scala-reflect"    % scalaVersion.value,
