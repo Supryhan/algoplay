@@ -1,6 +1,7 @@
 package problems
 
 object ProgramCSP extends App {
+  type Name = String
 
   case class User(id: Long)
 
@@ -9,21 +10,15 @@ object ProgramCSP extends App {
   val users = Map(123L -> User(123))
   val info = Map(123L -> Info("Tom"))
 
-  def getUser(id: Long): User = {
-    users.getOrElse(id, null)
-  }
+  def getUser(id: Long): User = users.getOrElse(id, null)
 
-  def getInfo(user: User): Info = {
-    info.getOrElse(user.id, null)
-  }
+  def getInfo(user: User): Info = info.getOrElse(user.id, null)
 
-  def getUserCsp[T](id: Long)(k: User => T): T = {
-    k(getUser(id))
-  }
+  def getName(info: Info): Name = info.name
 
-  def getInfoCsp[T](user: User)(k: Info => T): T = {
-    k(getInfo(user))
-  }
+  def getUserCsp[T](id: Long)(k: User => T): T = k(getUser(id))
+
+  def getInfoCsp[T](user: User)(k: Info => T): T = k(getInfo(user))
 
   def optional[T, U](k: T => U): T => U = {
     v: T => {
@@ -35,11 +30,13 @@ object ProgramCSP extends App {
     }
   }
 
-  def programCSP(id: Long): Info = {
+  def programCSP(id: Long): Name = {
     getUserCsp(id) {
       optional { user =>
         getInfoCsp(user) {
-          optional(identity)
+          optional { info =>
+            getName(info)
+          }
         }
       }
     }
@@ -47,5 +44,5 @@ object ProgramCSP extends App {
 
   println(programCSP(123))
 
-//  println(programCSP(1234))
+  //  println(programCSP(1234))
 }
