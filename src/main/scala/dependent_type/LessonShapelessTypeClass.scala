@@ -1,4 +1,4 @@
-package shapeless
+package dependent_type
 
 object LessonShapelessTypeClass extends App {
   sealed trait Bool
