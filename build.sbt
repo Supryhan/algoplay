@@ -35,6 +35,7 @@ libraryDependencies ++= Seq(
   "org.scalactic"               %% "scalactic"        % "3.3.0-SNAP2",
   "org.scalatest"               %% "scalatest"        % "3.3.0-SNAP2"    % Test,
   "org.scalatest"               %% "scalatest-funsuite" % "3.3.0-SNAP2"  % Test,
+  "org.specs2"                  %% "specs2-core"      % "4.10.5"  % Test,
   "org.scala-lang"              %  "scala-reflect"    % scalaVersion.value,
   "org.scala-lang"              %  "scala-compiler"   % scalaVersion.value  % Provided,
   "org.typelevel"               %% "cats-core"        % "2.2.0",
@@ -66,3 +67,4 @@ scalacOptions ++= Seq(
 //  "-Xlog-implicits",
 //  "-Xprint:jvm"
 )
+scalacOptions in Test ++= Seq("-Yrangepos")
