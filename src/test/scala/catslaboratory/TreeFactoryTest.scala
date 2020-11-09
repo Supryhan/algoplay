@@ -1,25 +1,29 @@
 package catslaboratory
 
-import org.scalatest.funsuite.AnyFunSuite
+import org.specs2.mutable.Specification
 
-class TreeFactoryTest extends AnyFunSuite {
+class TreeFactoryTest extends Specification {
 
   import TreesOps._
 
-  test("Leaf's value should be doubled") {
-    val original = TreeFactory.leaf(100)
-    val function = (n: Int) => n * 2
-    val expected = TreeFactory.leaf(200)
+  "Leaf's value" should {
+    "be doubled" in {
+      val original: Tree[Int] = TreeFactory.leaf(100)
+      val function: Int => Int = (n: Int) => n * 2
+      val expected: Tree[Int] = TreeFactory.leaf(200)
 
-    original.map(function) eq expected
+      original.map(function) must beEqualTo(expected)
+    }
   }
 
-  test("All Leafs' values in Branch should be doubles") {
-    val original = TreeFactory.branch(TreeFactory.leaf(10), TreeFactory.leaf(20))
-    val function = (n: Int) => n * 2
-    val expected = TreeFactory.branch(TreeFactory.leaf(20), TreeFactory.leaf(40))
+  "All Leafs' values in Branch" should {
+    "be doubled" in {
+      val original = TreeFactory.branch(TreeFactory.leaf(10), TreeFactory.leaf(20))
+      val function = (n: Int) => n * 2
+      val expected = TreeFactory.branch(TreeFactory.leaf(20), TreeFactory.leaf(40))
 
-    original.map(function) eq expected
+      original.map(function) must beEqualTo(expected)
+    }
   }
 
 }
