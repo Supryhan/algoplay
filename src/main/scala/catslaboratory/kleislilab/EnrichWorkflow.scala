@@ -14,9 +14,9 @@ object EnrichWorkflow extends App {
   val getFromService: KleisliIO[Unit, Map[String, Int]] = Kleisli { _: Unit =>
     IO(Map("7" -> 7, "8" -> 8, "9" -> 9))
   }
-  val getFromDb1: Query => List[String] = wire[GetFromSourse1]
+  val getFromDb1: Query => List[String] = wire[GetFromSource1]
   import KleisliOps._
-  val getFromDb2: Query => IO[List[String]] = wire[GetFromSourse2].apply _
+  val getFromDb2: Query => IO[List[String]] = wire[GetFromSource2].apply _
 
   val createWorkbook: List[String] => Workbook = wire[CreateWorkbook]
 
@@ -28,17 +28,14 @@ object EnrichWorkflow extends App {
   result.foreach(x => println(x))
 }
 
-class GetFromSourse1 extends (Query => List[String]) {
+class GetFromSource1 extends (Query => List[String]) {
   override def apply(query: Query): List[String] = List("1", "2", "3")
 }
 
-class GetFromSourse2(getFromService: KleisliIO[Unit, Map[String, Int]]) {
-  def apply(query: Query): IO[List[String]] = {
-    val r: IO[List[String]] = for {
-      tmp <- getFromService(())
-    } yield List("4", "5", "6") ::: tmp.keySet.toList
-    r
-  }
+class GetFromSource2(getFromService: KleisliIO[Unit, Map[String, Int]]) {
+  def apply(query: Query): IO[List[String]] = for {
+    tmp <- getFromService(())
+  } yield List("4", "5", "6") ::: tmp.keySet.toList
 }
 
 class CreateWorkbook extends (List[String] => Workbook) {
