@@ -1,4 +1,4 @@
-package shapeless
+package dependent_type
 
 object TypeLevelProgrSucc extends App {
 

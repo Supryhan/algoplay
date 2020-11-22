@@ -1,4 +1,4 @@
-package shapeless
+package dependent_type
 
 object L22ShapelessTypeClassMultNat extends App {
   import scala.language.higherKinds
