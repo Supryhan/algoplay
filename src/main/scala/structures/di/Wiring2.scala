@@ -25,8 +25,8 @@ object Wiring2 extends App {
 
   def trainStationNoth = wire[TrainStation]
 
-  println(trainStationEast.prepareAndDispatchNextTrain())
-  println(trainStationWest.prepareAndDispatchNextTrain())
-  println(trainStationSouth.prepareAndDispatchNextTrain())
-  println(trainStationNoth.prepareAndDispatchNextTrain())
+  trainStationEast.prepareAndDispatchNextTrain
+  trainStationWest.prepareAndDispatchNextTrain
+  trainStationSouth.prepareAndDispatchNextTrain
+  trainStationNoth.prepareAndDispatchNextTrain
 }
