@@ -11,42 +11,28 @@ object BuilderPattern extends App {
   case object Tall extends Glass
   case object Tulip extends Glass
 
-  case class OrderOfScotch(
-                            brand: String,
-                            mode: Preparation,
-                            isDouble: Boolean,
-                            glass: Option[Glass]
-                          )
+  case class OrderOfScotch(brand: String,
+                           mode: Preparation,
+                           isDouble: Boolean,
+                           glass: Option[Glass])
 
-  abstract class TRUE
-  abstract class FALSE
+  sealed class TRUE
+  sealed class FALSE
 
-  class ScotchBuilder[HB, HM, HD](
-                                   val theBrand: Option[String],
-                                   val theMode: Option[Preparation],
-                                   val theDoubleStatus: Option[Boolean],
-                                   val theGlass: Option[Glass]
-                                 ) {
-    def withBrand(b: String) =
-      new ScotchBuilder[TRUE, HM, HD](
-        Some(b),
-        theMode,
-        theDoubleStatus,
-        theGlass
-      )
+  class ScotchBuilder[HB, HM, HD](val theBrand: Option[String],
+                                  val theMode: Option[Preparation],
+                                  val theDoubleStatus: Option[Boolean],
+                                  val theGlass: Option[Glass]) {
+    def withBrand(b: String): ScotchBuilder[TRUE, HM, HD] =
+      new ScotchBuilder[TRUE, HM, HD](Some(b), theMode, theDoubleStatus, theGlass)
 
-    def withMode(p: Preparation) =
-      new ScotchBuilder[HB, TRUE, HD](
-        theBrand,
-        Some(p),
-        theDoubleStatus,
-        theGlass
-      )
+    def withMode(p: Preparation): ScotchBuilder[HB, TRUE, HD] =
+      new ScotchBuilder[HB, TRUE, HD](theBrand, Some(p), theDoubleStatus, theGlass)
 
-    def isDouble(b: Boolean) =
+    def isDouble(b: Boolean): ScotchBuilder[HB, HM, TRUE] =
       new ScotchBuilder[HB, HM, TRUE](theBrand, theMode, Some(b), theGlass)
 
-    def withGlass(g: Glass) =
+    def withGlass(g: Glass): ScotchBuilder[HB, HM, HD] =
       new ScotchBuilder[HB, HM, HD](theBrand, theMode, theDoubleStatus, Some(g))
   }
 
@@ -58,7 +44,7 @@ object BuilderPattern extends App {
           builder.theMode.get,
           builder.theDoubleStatus.get,
           builder.theGlass
-        );
+        )
     }
 
   def builder = new ScotchBuilder[FALSE, FALSE, FALSE](None, None, None, None)
