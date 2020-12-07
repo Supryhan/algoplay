@@ -10,5 +10,5 @@ object Wiring1 extends App {
   implicit lazy val trainLoader = new TrainLoader
   implicit lazy val trainDispatch = new TrainDispatch
   lazy val trainStation = new TrainStation
-  println(trainStation.prepareAndDispatchNextTrain())
+  println(trainStation.prepareAndDispatchNextTrain)
 }
