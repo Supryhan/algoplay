@@ -47,5 +47,5 @@ object Wiring3 extends App {
     with LoadingModule
     with StationModule
 
-  modules.trainStation.prepareAndDispatchNextTrain()
+  modules.trainStation.prepareAndDispatchNextTrain
 }

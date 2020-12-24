@@ -13,10 +13,11 @@ class TrainLoader(implicit craneController: CraneController, pointSwitcher: Poin
 class TrainDispatch()
 
 class TrainStation(implicit trainShunter: TrainShunter, trainLoader: TrainLoader, trainDispatch: TrainDispatch) {
-  def prepareAndDispatchNextTrain {
+  def prepareAndDispatchNextTrain(): Unit = {
     println(s">>>TrainDispatch[hash]:${trainDispatch.hashCode}")
     println(s">>>TrainShunter[hash]:${trainShunter.hashCode}")
     println(s">>>TrainLoader[hash]:${trainLoader.hashCode}")
+    println(s">>>TrainStation[hash]:${this.hashCode}")
     println()
   }
 }
