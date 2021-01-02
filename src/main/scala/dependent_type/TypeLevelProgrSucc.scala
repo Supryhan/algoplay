@@ -61,4 +61,19 @@ object TypeLevelProgrSucc extends App {
   }
   implicitly[IsSameType[String, String]]
   println(show(List(1, 2, 3, 4, 5, 6, 7)))
+
+  import scala.reflect.ClassTag
+
+  object ListUtils {
+    def retrieve[T](list: List[Any])(implicit tag: ClassTag[T]) =
+      list.flatMap {
+        case element: T => Some(element)
+        case _ => None
+      }
+  }
+
+  val list: List[Any] = List(3, 10, "string", List(), "anotherString")
+  val result: List[String] = ListUtils.retrieve[String](list)
+  println(s"result:$result") // List(string, anotherString)
+
 }
