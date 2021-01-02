@@ -54,5 +54,11 @@ object TypeLevelProgrSucc extends App {
 //  def comparer6err: One <= Zero = <=[One, Zero]
   println(show(comparer5))
 
+
+  sealed abstract class IsSameType[X, Y]
+  object IsSameType {
+    implicit def tpEquals[A] = new IsSameType[A, A]{}
+  }
+  implicitly[IsSameType[String, String]]
   println(show(List(1, 2, 3, 4, 5, 6, 7)))
 }
