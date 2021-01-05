@@ -36,7 +36,7 @@ object TypeLevelProgrSucc extends App {
 
   val comparer1: Zero < Ten = <[Zero, Ten]
   val comparer3: Two < Ten = <[Two, Ten]
-//  val comparer3err: Ten < Two = <[Ten, Two]
+//  val comparer3err: Ten < Two = <[Ten, Two] // Compile error
   val comparer4: Four < Eight = <[Four, Eight]
   println(show(comparer1))
 
@@ -51,15 +51,19 @@ object TypeLevelProgrSucc extends App {
   }
 
   def comparer5: Zero <= Zero = <=[Zero, Zero]
-//  def comparer6err: One <= Zero = <=[One, Zero]
+//  def comparer6err: One <= Zero = <=[One, Zero] // Compile error
   println(show(comparer5))
+  implicitly[Seven <= Eight]
+  implicitly[<=[Two, Ten]]
 
 
   sealed abstract class IsSameType[X, Y]
   object IsSameType {
-    implicit def tpEquals[A] = new IsSameType[A, A]{}
+    implicit def tpEquals[A]: IsSameType[A, A] = new IsSameType[A, A]{}
   }
   implicitly[IsSameType[String, String]]
+//  implicitly[IsSameType[Int, String]] // Compile error
+
   println(show(List(1, 2, 3, 4, 5, 6, 7)))
 
   import scala.reflect.ClassTag
