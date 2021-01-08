@@ -1,4 +1,6 @@
-package structures.di.model
+package structures
+package di
+package model
 
 import structures.di.model.shunting.PointSwitcher2
 
