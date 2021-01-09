@@ -20,4 +20,6 @@ object LessonShapelessTypeClass extends App {
   }
 
   implicitly[Or.Aux[True, False, True]]
+  implicitly[Or.Aux[False, False, False]]
+//  implicitly[Or.Aux[True, False, False]] // Compile error: True & False -> True
 }
