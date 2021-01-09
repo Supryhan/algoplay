@@ -51,7 +51,8 @@ libraryDependencies ++= Seq(
   "com.softwaremill.macwire"    %% "util"             % "2.3.7",
   "com.softwaremill.macwire"    %% "proxy"            % "2.3.7",
   "io.circe"                    %% "circe-parser"     % circeVersion,
-  "com.chuusai"                 %% "shapeless"        % "2.4.0-M1"
+  "com.chuusai"                 %% "shapeless"        % "2.4.0-M1",
+  "com.github.pureconfig"       %% "pureconfig"       % "0.14.0"
 )
 
 // for @Lenses macro support
