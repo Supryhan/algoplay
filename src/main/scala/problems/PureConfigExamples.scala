@@ -5,9 +5,15 @@ import pureconfig._
 import pureconfig.generic.auto._
 
 object PureConfigExamples extends App {
-  val result: Result[ServiceConf] = ConfigSource.default.load[ServiceConf]
-  val res: Object = result.getOrElse(null)
-  println(s"Config: $res")
+  val source: Result[ServiceConf] = ConfigSource.default.load[ServiceConf]
+//  val source: Result[ServiceConf] = ConfigSource.defaultApplication.load[ServiceConf]
+  println(s"Config: ${getConf(source).toString}")
+
+  def getConf(source: Result[ServiceConf]): Option[ServiceConf] = source match {
+    case Right(value) => Some(value)
+    case Left(_) => None
+  }
+
 }
 
 case class Port(number: Int) extends AnyVal
