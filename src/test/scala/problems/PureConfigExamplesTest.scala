@@ -1,12 +1,11 @@
 package problems
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.specs2.control.Properties.aProperty
-import org.specs2.matcher.MustThrownMatchers.ok
-import problems.PureConfigExamples.getConf
 import pureconfig.ConfigReader.Result
 import pureconfig.ConfigSource
 import pureconfig.generic.auto._
+
+import java.io.File
 
 class PureConfigExamplesTest extends AnyFunSuite {
 
@@ -24,12 +23,14 @@ class PureConfigExamplesTest extends AnyFunSuite {
     })
   }
 
-  test("test config print") {
-    val r = getConf(source)
-    println(r match {
-      case Some(value) => value.host
-      case None => "none"
-    })
-    ok
+  test("test config has correct host") {
+    val actual: Option[ServiceConf] = getConf(source)
+    val expectedHost = ServiceConf(
+      "test-example.com",
+      Port(8080),
+      false,
+      List(PrivateKey(new File("/home/test-user/myauthkey")), Login("testpureconfig", "12345678"))
+    )
+    assert(actual.map(x => x.host).getOrElse("error") == expectedHost.host)
   }
 }
