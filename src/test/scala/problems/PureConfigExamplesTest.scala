@@ -29,6 +29,7 @@ class PureConfigExamplesTest extends AnyFunSuite {
       "test-example.com",
       Port(8080),
       false,
+      1331,
       List(PrivateKey(new File("/home/test-user/myauthkey")), Login("testpureconfig", "12345678"))
     )
     assert(actual.map(x => x.host).getOrElse("error") == expectedHost.host)

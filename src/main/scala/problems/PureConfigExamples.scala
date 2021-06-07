@@ -11,11 +11,12 @@ object PureConfigExamples extends App {
 //  val source: Result[ServiceConf] = ConfigSource.defaultApplication.load[ServiceConf]
   println(s"Config: ${getConf(source).toString}")
 
+//  implicit val myIntReader: ConfigReader[Number] = ConfigReader[Int].map(n => Number(Id(n)))
+
   def getConf(source: Result[ServiceConf]): Option[ServiceConf] = source match {
     case Right(value) => Some(value)
     case Left(_) => None
   }
-
 }
 
 case class Port(number: Int) extends AnyVal
@@ -29,5 +30,6 @@ case class ServiceConf(
                         host: String,
                         port: Port,
                         useHttps: Boolean,
+                        numberrId: Int,
                         authMethods: List[AuthMethod]
                       )
