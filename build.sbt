@@ -16,7 +16,7 @@ resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releas
 
 val monocle = "2.1.0"
 val circeVersion = "0.13.0"
-val akkaVersion = "2.6.8"
+val akkaVersion = "2.6.15"
 val akkaHttpVersion = "10.2.0"
 
 libraryDependencies ++= Seq(
@@ -31,6 +31,7 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut"  %% "monocle-state"    % monocle,
   "com.github.julien-truffaut"  %% "monocle-refined"  % monocle,
   "com.github.julien-truffaut"  %% "monocle-law"      % monocle    % Test,
+  "eu.timepit"                  %% "refined"          % "0.9.26",
   "org.scalacheck"              %% "scalacheck"       % "1.14.3"   % Test,
   "org.scalactic"               %% "scalactic"        % "3.3.0-SNAP2",
   "org.scalatest"               %% "scalatest"        % "3.3.0-SNAP2"    % Test,
