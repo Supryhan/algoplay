@@ -9,6 +9,8 @@ object FnF extends App {
   val printer: ActorRef[Printer.PrintIt] = system
 
   printer ! Printer.PrintIt("message")
+
+  system.terminate()
 }
 
 object Printer {
