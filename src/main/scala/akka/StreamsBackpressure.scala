@@ -8,7 +8,7 @@ object StreamsBackpressure extends App {
 
   implicit val system = ActorSystem(Behaviors.empty, "Streams-Backpressure")
 
-  val source = Source(0 to 99)
+  val source: Source[Int, NotUsed] = Source(0 to 99)
   val flow = Flow[Int].map { i =>
     Thread.sleep(100)
     i + 1
