@@ -2,7 +2,6 @@ package catslaboratory
 
 object PrimitivesInCats extends App {
 
-  import scala.language.higherKinds
   import cats.Monad
   import cats.syntax.functor._
   import cats.syntax.flatMap._
