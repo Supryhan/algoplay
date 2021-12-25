@@ -8,7 +8,8 @@ object ContravariantFunctorCats extends App {
   import cats.instances.string._
 
   val showString: Show[String] = Show[String]
-  val showSymbol: Show[Symbol] = Contravariant[Show].contramap(showString)((sym: Symbol) => s"'${sym.name}")
+  val showSymbol: Show[Symbol] = Contravariant[Show]
+    .contramap[String, Symbol](showString)((sym: Symbol) => s"'${sym.name}")
 
   println(showSymbol.show('dave))
 
