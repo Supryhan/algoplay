@@ -13,8 +13,10 @@ import eu.timepit.refined.types.all.NonEmptyString
 
 object CoerceFeature extends App {
 
+  type NonEmptyStringFtp = NonEmptyString
+
   val str: String = "some runtime value"
-  val preFtp1: Either[String, NonEmptyString] = refineV[NonEmpty](str)
+  val preFtp1: Either[String, NonEmptyStringFtp] = refineV[NonEmpty](str)
   println(s"Refine result 1: $preFtp1")
   println(s"Refine result 2: ${refineV[NonEmpty]("")}")
   println(s"Refine result 3: ${refineV[Empty]("")}")
@@ -26,18 +28,18 @@ object CoerceFeature extends App {
 
 
   type GTFiveFtp = Int Refined Greater[5]
-  object GTFiveFtp extends RefinedTypeOps[GTFiveFtp, Int]
+  object GTFiveOps extends RefinedTypeOps[GTFiveFtp, Int]
   val number: Int = 33
-  val preFtp2: Either[String, GTFiveFtp] = GTFiveFtp.from(number)
+  val preFtp2: Either[String, GTFiveFtp] = GTFiveOps.from(number)
   println(s"Refine result 4: $preFtp2")
   println(s"Refine result 5: ${refineV[Greater[5]](33)}")
   println(s"Refine result 6: ${refineV[Greater[5]](3)}")
 
-  case class MyType(a: NonEmptyString, b: GTFiveFtp)
+  case class MyType(a: NonEmptyStringFtp, b: GTFiveFtp)
 
   def validate(a: String, b: Int): ValidatedNel[String, MyType] = (
     NonEmptyString.from(a).toValidatedNel,
-    GTFiveFtp.from(b).toValidatedNel
+    GTFiveOps.from(b).toValidatedNel
     ).mapN(MyType.apply)
 
   println(validate("name", 42))
