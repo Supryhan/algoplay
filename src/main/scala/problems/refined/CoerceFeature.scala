@@ -40,7 +40,7 @@ object CoerceFeature extends App {
   def validate(a: String, b: Int): ValidatedNel[String, MyType] = (
     NonEmptyString.from(a).toValidatedNel,
     GTFiveOps.from(b).toValidatedNel
-    ).mapN(MyType.apply)
+    ).mapN(MyType)
 
   println(validate("name", 42))
 
