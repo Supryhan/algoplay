@@ -1,6 +1,6 @@
 package problems.refined
 
-import cats.data.ValidatedNel
+import cats.data.{EitherNel, ValidatedNel}
 import cats.implicits._
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.collection.{Contains, Empty}
@@ -37,11 +37,20 @@ object CoerceFeature extends App {
 
   case class MyType(a: NonEmptyStringFtp, b: GTFiveFtp)
 
-  def validate(a: String, b: Int): ValidatedNel[String, MyType] = (
-    NonEmptyString.from(a).toValidatedNel,
+  def validateNel(a: String, b: Int): ValidatedNel[String, MyType] = (
+    NonEmptyString.from(a).toValidatedNel, // Either[String, NonEmptyString] => ValidatedNel[String, NonEmptyString]
     GTFiveOps.from(b).toValidatedNel
     ).mapN(MyType)
 
-  println(validate("name", 42))
+  println(validateNel("name", 42)) // Valid(MyType(name,42))
+  println(validateNel("", 4)) // Invalid(NonEmptyList(Predicate isEmpty() did not fail., Predicate failed: (4 > 5).))
+
+  def validateEitherNel(a: String, b: Int): EitherNel[String, MyType] = (
+    NonEmptyString.from(a).toEitherNel, // Either[String, NonEmptyString] => EitherNel[String, NonEmptyString]
+    GTFiveOps.from(b).toEitherNel
+    ).parMapN(MyType)
+
+  println(validateEitherNel("name", 42)) // Right(MyType(name,42))
+  println(validateEitherNel("", 4)) // Left(NonEmptyList(Predicate isEmpty() did not fail., Predicate failed: (4 > 5).))
 
 }
