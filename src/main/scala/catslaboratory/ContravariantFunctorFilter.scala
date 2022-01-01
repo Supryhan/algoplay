@@ -6,40 +6,33 @@ trait Filter[T] {
   def filter(value: T): Boolean
 }
 
+case class SmallPack(value: String)
+case class Pack(value: SmallPack)
+case class LargePack(value: Pack)
+
 object Filter {
 
   def apply[T](implicit instance: Filter[T]): Filter[T] = instance
 
-  def filter[A](v: A)(implicit flt: Filter[A]): Boolean = flt.filter(v)
-
-  implicit object StringFilter extends Filter[String] {
-    override def filter(value: String): Boolean = value.length > 13
-  }
-
-  implicit object IntFilter extends Filter[Int] {
-    override def filter(value: Int): Boolean = value == 42
-  }
+  def filter[A](v: A)(implicit instance: Filter[A]): Boolean = instance.filter(v)
 
   val simpleFilterFunctor: Contravariant[Filter] = new Contravariant[Filter] {
-    override def contramap[A, B](fa: Filter[A])(f: B => A): Filter[B] = new Filter[B] {
-      override def filter(value: B): Boolean = fa.filter(f(value))
-    }
+    override def contramap[A, B](fa: Filter[A])(f: B => A): Filter[B] = (value: B) => fa.filter(f(value))
   }
+
+  implicit val stringFilter: Filter[String] = (value: String) => value.length > 13
+  implicit val intFilter: Filter[Int] = (value: Int) => value == 42
+
+  implicit val filterSmallPack: Filter[SmallPack] = simpleFilterFunctor.contramap[String, SmallPack](Filter[String])((sb: SmallPack) => sb.value)
+  implicit val filterPack: Filter[Pack] = simpleFilterFunctor.contramap[SmallPack, Pack](filterSmallPack)((b: Pack) => b.value)
+  implicit val filterLargePack: Filter[LargePack] = simpleFilterFunctor.contramap[Pack, LargePack](filterPack)((lb: LargePack) => lb.value)
+
 }
 
 object ContravariantFunctorFilter extends App {
 
-  import Filter.simpleFilterFunctor
+  val largePack: LargePack = LargePack(Pack(SmallPack("very long pack results in true")))
 
-  case class SmallBox(value: String)
-  case class Box(value: SmallBox)
-  case class LargeBox(value: Box)
+  println(s"Result: ${Filter.filter(largePack)}")
 
-  val filterString: Filter[String] = Filter[String]
-
-  val filterSmallBox: Filter[SmallBox] = simpleFilterFunctor.contramap[String, SmallBox](filterString)((sb: SmallBox) => sb.value)
-  val filterBox: Filter[Box] = simpleFilterFunctor.contramap[SmallBox, Box](filterSmallBox)((b: Box) => b.value)
-  val filterLargeBox: Filter[LargeBox] = simpleFilterFunctor.contramap[Box, LargeBox](filterBox)((lb: LargeBox) => lb.value)
-
-  println(s"Result: ${filterLargeBox.filter(LargeBox(Box(SmallBox("very long box results in true"))))}")
 }
