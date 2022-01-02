@@ -2,7 +2,7 @@ name := "algoplay"
 
 version := "0.1"
 
-scalaVersion := "2.13.3"
+scalaVersion := "2.13.6"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -15,9 +15,11 @@ resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releas
 //addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.10")
 
 val monocle = "2.1.0"
-val circeVersion = "0.13.0"
-val akkaVersion = "2.6.15"
-val akkaHttpVersion = "10.2.0"
+val circeVersion = "0.14.1"
+val macwireVersion = "2.5.2"
+val akkaVersion = "2.6.18"
+val akkaHttpVersion = "10.2.6"
+val zioVersion = "2.0.0-RC1"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"           %% "akka-actor-typed" % akkaVersion,
@@ -34,28 +36,28 @@ libraryDependencies ++= Seq(
   "eu.timepit"                  %% "refined"          % "0.9.28",
   "eu.timepit"                  %% "refined-cats"     % "0.9.28",
   "io.estatico"                 %% "newtype"          % "0.4.4",
-  "org.scalacheck"              %% "scalacheck"       % "1.14.3"   % Test,
-  "org.scalactic"               %% "scalactic"        % "3.3.0-SNAP2",
-  "org.scalatest"               %% "scalatest"        % "3.3.0-SNAP2"    % Test,
-  "org.scalatest"               %% "scalatest-funsuite" % "3.3.0-SNAP2"  % Test,
-  "org.specs2"                  %% "specs2-core"      % "4.10.5"  % Test,
+  "org.scalacheck"              %% "scalacheck"       % "1.15.4"   % Test,
+  "org.scalactic"               %% "scalactic"        % "3.2.9",
+  "org.scalatest"               %% "scalatest"        % "3.2.9"    % Test,
+  "org.scalatest"               %% "scalatest-funsuite" % "3.2.9"  % Test,
+  "org.specs2"                  %% "specs2-core"      % "4.13.1"  % Test,
   "org.scala-lang"              %  "scala-reflect"    % scalaVersion.value,
   "org.scala-lang"              %  "scala-compiler"   % scalaVersion.value  % Provided,
-  "org.typelevel"               %% "cats-core"        % "2.2.0",
-  "org.typelevel"               %% "cats-kernel"      % "2.0.0",
-  "org.typelevel"               %% "cats-effect"      % "2.2.0-RC3",
-  "org.scalaz"                  %  "scalaz-zio_2.13.0-M5" % "1.0-RC1",
-  "ch.qos.logback"              %  "logback-classic"  % "1.2.3",
-  "com.typesafe.scala-logging"  %% "scala-logging"    % "3.9.2",
+  "org.typelevel"               %% "cats-core"        % "2.7.0",
+  "org.typelevel"               %% "cats-kernel"      % "2.7.0",
+  "org.typelevel"               %% "cats-effect"      % "3.3.0",
+  "dev.zio"                     %% "zio"              % zioVersion,
+  "ch.qos.logback"              %  "logback-classic"  % "1.2.10",
+  "com.typesafe.scala-logging"  %% "scala-logging"    % "3.9.4",
   "org.scalatestplus.play"      %% "scalatestplus-play"   % "5.1.0"    % Test,
-  "com.h2database"              %  "h2"               % "1.4.200",
-  "com.softwaremill.macwire"    %% "macros"           % "2.3.7"         % Provided,
-  "com.softwaremill.macwire"    %% "macrosakka"       % "2.3.7" % Provided,
-  "com.softwaremill.macwire"    %% "util"             % "2.3.7",
-  "com.softwaremill.macwire"    %% "proxy"            % "2.3.7",
+  "com.h2database"              %  "h2"               % "2.0.204",
+  "com.softwaremill.macwire"    %% "macros"           % macwireVersion % Provided,
+  "com.softwaremill.macwire"    %% "macrosakka"       % macwireVersion % Provided,
+  "com.softwaremill.macwire"    %% "util"             % macwireVersion,
+  "com.softwaremill.macwire"    %% "proxy"            % macwireVersion,
   "io.circe"                    %% "circe-parser"     % circeVersion,
-  "com.chuusai"                 %% "shapeless"        % "2.4.0-M1",
-  "com.github.pureconfig"       %% "pureconfig"       % "0.14.0"
+  "com.chuusai"                 %% "shapeless"        % "2.3.7",
+  "com.github.pureconfig"       %% "pureconfig"       % "0.17.1"
 )
 
 // for @Lenses macro support

@@ -29,9 +29,6 @@ object ValidatedApproach extends App {
     def errorMessage: String = "You must be aged 18 and not older than 75 to use our services."
   }
 
-
-
-
   import cats.implicits._
 
   sealed trait FormValidator {

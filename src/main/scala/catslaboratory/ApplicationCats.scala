@@ -1,6 +1,7 @@
 package catslaboratory
 
 import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import cats.implicits._
 
 object ApplicationCats extends App {

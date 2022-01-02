@@ -1,13 +1,12 @@
 package zio
 
+import zio.Console.{printLine, readLine}
+
 import java.io.IOException
 
-import scalaz.zio.App
-import scalaz.zio.console._
+object MyZioApp extends ZIOAppDefault {
 
-object MyZioApp extends App {
-
-  def run(args: List[String]) =
+   def run: ZIO[Console, Nothing, Int] =
     myAppLogic
       .either
       .map((s: Either[IOException, Unit]) =>
@@ -17,8 +16,9 @@ object MyZioApp extends App {
 
   val myAppLogic =
     for {
-      _ <- putStrLn("Hello! What is your name?")
-      n <- getStrLn
-      _ <- putStrLn(s"Hello, ${n}, good to meet you!")
+      _ <- printLine("Hello! What is your name?")
+      n <- readLine
+      _ <- printLine(s"Hello, ${n}, good to meet you!")
     } yield ()
+
 }

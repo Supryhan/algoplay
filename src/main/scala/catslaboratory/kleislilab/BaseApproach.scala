@@ -2,6 +2,7 @@ package catslaboratory.kleislilab
 
 import cats.data.Kleisli
 import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import cats.implicits._
 import com.typesafe.scalalogging.LazyLogging
 
