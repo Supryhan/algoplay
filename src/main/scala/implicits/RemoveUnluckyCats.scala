@@ -1,6 +1,6 @@
 package implicits
 
-class RemoveUnluckyCats {
+object RemoveUnluckyCats extends App {
   //Write a Truthy typeclass, which allows to call
   def trueOrNot(): Boolean = ??? //function on any type
 
@@ -31,6 +31,8 @@ class RemoveUnluckyCats {
 
 //  trains.removeUnlucky      //shoud be List(Train(k2839))
 //  cats.removeUnlucky        //shoud be List(Cat(5,white))
+  println(s"Trains: ${trains.filterNot(x => x.is13)}")
+  println(s"Unlucky: ${cats.filterNot(c => c.isBlack || c.age == 13)}")
 }
 
 class X {
@@ -52,11 +54,11 @@ object TC extends App {
     implicit val stringWriter: JsonWriter[String] = value => JsString(value)
     implicit val personWriter: JsonWriter[Int] = value => JsNumber(value.toDouble)
     implicit val optionIntWriter: JsonWriter[Option[Int]] = {
-      case Some(value) => JsNull
+      case Some(i) => i.toJson
       case None => JsNull
     }
     implicit val optionPersonWriter: JsonWriter[Option[String]] = {
-      case Some(value) => JsNull
+      case Some(str) => str.toJson
       case None => JsNull
     }
 
@@ -79,7 +81,11 @@ object TC extends App {
     def toJson(implicit w: JsonWriter[A]): Json = w.write(value)
   }
 
-  1.toJson
-  "1".toJson
-  Option(1).toJson
+  println(1.toJson)
+  println("2".toJson)
+  println(Option(3).toJson)
+  println(Option("4").toJson)
+
+  val o: Option[String] = None
+  println(o.toJson)
 }
