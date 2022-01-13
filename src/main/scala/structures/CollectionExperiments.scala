@@ -72,4 +72,19 @@ object CollectionExperiments extends App {
   val operations2 = cube.flatMap(slice => slice.flatMap(row => row.map(_ + 1).map(("hello", _))))
   println(operations2)
 
+  case class TestResult(id: String, successfulAsserts: Int, totalAsserts: Int) {
+    def succeeded: Boolean = successfulAsserts == totalAsserts
+  }
+  val results = List(TestResult("test 1", 10, 10), TestResult("test 2", 2, 6))
+  val executionTimeList = List(("test 1", 100), ("test 2", 230))
+  val numberOfAssertsWithExecutionTime: List[(String, Int, Int)] = {
+    for {
+      result <- results
+      (id, time) <- executionTimeList
+      if result.id == id
+    } yield (id, result.totalAsserts, time)
+  }
+
+  println(numberOfAssertsWithExecutionTime)
+
 }
