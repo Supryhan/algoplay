@@ -1,9 +1,9 @@
-package problems
+package problems.future
 
 object FutureListProcessing extends App {
 
-  import scala.concurrent.Future
   import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.concurrent.Future
 
   def f1(i: Int) = Future(i)
 
