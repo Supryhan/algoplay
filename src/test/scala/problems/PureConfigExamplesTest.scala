@@ -9,6 +9,7 @@ import java.io.File
 
 class PureConfigExamplesTest extends AnyFunSuite {
 
+  // VM options: -Dconfig.resource=local/env.conf
   val source: Result[ServiceConf] = ConfigSource.default.load[ServiceConf]
 
   def getConf(source: Result[ServiceConf]): Option[ServiceConf] = source match {
@@ -26,6 +27,7 @@ class PureConfigExamplesTest extends AnyFunSuite {
   test("test config has correct host") {
     val actual: Option[ServiceConf] = getConf(source)
     val expectedHost = ServiceConf(
+      "local",
       "test-example.com",
       Port(8080),
       false,
