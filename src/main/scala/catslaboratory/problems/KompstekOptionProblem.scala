@@ -18,7 +18,7 @@ object KompstekOptionProblem extends App {
     (for {
       e <- toListResult(input)
       ee: List[IO[Option[Result2]]] = e.map(result1 => resultToOptionResult(result1))
-      s = ee.sequence
+      s: IO[List[Option[Result2]]] = ee.sequence
       eee: IO[List[Result2]] = s.map(_.map(_.fold(Result2(""))(c => c)))
     } yield eee).flatten
   }
