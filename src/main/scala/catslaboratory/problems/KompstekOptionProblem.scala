@@ -1,24 +1,28 @@
 package catslaboratory.problems
 
 import cats.effect._
+import cats.implicits._
 import cats.effect.unsafe.implicits.global
 
 
 object KompstekOptionProblem extends App {
 
-  def strToList(str: String): IO[List[String]] = IO {
-    str.toList.map(c => c.toString)
+  case class Result1(value: String)
+  case class Result2(value: String)
+
+  def toListResult(str: String): IO[List[Result1]] = List(Result1(str), Result1(str), Result1("")).pure[IO]
+
+  def resultToOptionResult(result: Result1): IO[Option[Result2]] =  Result2(result.value).some.pure[IO]
+
+  def solution(input: String): IO[List[Result2]] = {
+    (for {
+      e <- toListResult(input)
+      ee: List[IO[Option[Result2]]] = e.map(result1 => resultToOptionResult(result1))
+      s = ee.sequence
+      eee: IO[List[Result2]] = s.map(_.map(_.fold(Result2(""))(c => c)))
+    } yield eee).flatten
   }
 
-  def strToInt(list: List[String]): IO[List[Int]] = IO {
-    list.map(s => s.toInt)
-  }
-
-  def solution(input: String): IO[List[Int]] = for {
-    e <- strToList(input)
-    ee <- strToInt(e)
-  } yield ee
-
-  val result: List[Int] = solution("1234").unsafeRunSync()
-  result.foreach(println(_))
+  val list: List[Result2] = solution("1234").unsafeRunSync()
+  list.foreach(println(_))
 }
