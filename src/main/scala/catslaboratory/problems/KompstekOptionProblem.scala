@@ -2,6 +2,7 @@ package catslaboratory.problems
 
 import cats.effect._
 import cats.implicits._
+import cats.syntax.applicative
 import cats.effect.unsafe.implicits.global
 
 

@@ -1,8 +1,11 @@
 package catslaboratory.monadslab
 
+import cats.implicits.catsSyntaxApplicativeId
+
 object Monads extends App {
   val aList: List[String] = List("a", "b", "c")
   val bList: List[Int] = List(1, 2, 3)
+  val listOption: List[Option[Int]] = List(Option(1), Option(2), Option(3))
 
   def combineLists(aList: List[String], bList: List[Int]): List[(String, Int)] =
     for {
@@ -24,6 +27,22 @@ object Monads extends App {
     override def flatMap[A, B](ma: List[A])(f: A => List[B]): List[B] = ma.flatMap(f)
   }
 
+  implicit val optionMonad: Monad[Option] = new Monad[Option] {
+    override def pure[A](a: A): Option[A] = Option(a)
+    override def flatMap[A, B](ma: Option[A])(f: A => Option[B]): Option[B] = ma.flatMap(f)
+  }
+
   println(combineLists(aList, bList))
   println(combine(aList, bList))
+  println(combine(aList, bList))
+
+  println(1.pure[Option])
+
+  import cats.syntax.either._
+  println((-1).asRight[String].ensure("help")(_ > 0))
+
+  println("error".asLeft[Int].recover {
+    x: String =>
+      x.mkString(":")
+  })
 }
