@@ -4,7 +4,6 @@ import cats.effect._
 import cats.implicits._
 import cats.effect.unsafe.implicits.global
 
-
 object KompstekOptionProblem extends App {
 
   case class Result1(value: String)
