@@ -2,6 +2,8 @@ package catslaboratory.kleislilab
 
 import cats.Id
 import cats.data.WriterT
+import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 
 object WriterOps extends App {
 
@@ -46,4 +48,14 @@ object WriterOps extends App {
 
   val k3: (List[String], Int) = writer3.run
   println(k3)
+
+  type WriterIO[W, A] = WriterT[IO, W, A]
+  type LoggedIO[A] = WriterIO[List[String], A]
+
+  val writer4 = for {
+    a <- true.pure[LoggedIO]
+    b <- WriterT[IO, List[String], Boolean](IO{ (List("a", "b", "c"), false)  })
+  } yield a || b
+
+  println(writer4.run.unsafeRunSync()._2)
 }
