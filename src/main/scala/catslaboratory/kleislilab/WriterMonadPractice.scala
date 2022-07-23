@@ -5,7 +5,7 @@ import cats.data.WriterT
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
 
-object WriterOps extends App {
+object WriterMonadPractice extends App {
 
   import cats.data.Writer
 
