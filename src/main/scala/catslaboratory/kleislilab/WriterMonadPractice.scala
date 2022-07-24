@@ -31,9 +31,9 @@ object WriterMonadPractice extends App {
   val result: (List[String], Int) = lb.run
 
   val writer1: WriterT[Id, List[String], Int] = for {
-    a <- 10.pure[Logged]
-    _ <- List("a", "b", "c").tell
-    b <- 32.writer(List("x", "y", "z"))
+    a <- 10.pure[Logged] // Writer[Id, List[String], Int]
+    _ <- List("a", "b", "c").tell // Writer[Id, List[String], Unit]
+    b <- 32.writer(List("x", "y", "z")) // Writer[Id, List[String], Int]
   } yield a + b
 
   val k1: (List[String], Int) = writer1.run
