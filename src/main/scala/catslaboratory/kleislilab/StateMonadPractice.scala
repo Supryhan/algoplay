@@ -18,9 +18,9 @@ object StateMonadPractice extends App {
   }
 
   val result: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
-    a <- catState
-    b <- nextTrueState
-  } yield (a, b)
+    oneCat <- catState
+    twoCat <- nextTrueState
+  } yield (oneCat, twoCat)
 
   println(result.run(CatsState(false)).unsafeRunSync())
 
