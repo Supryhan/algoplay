@@ -16,12 +16,19 @@ object StateMonadPractice extends App {
     state: CatsState =>
       IO.pure((CatsState(true), Cat(Bread("final"), "name2")))
   }
+  println(s"Run Tuple: ${catState.run(CatsState(false)).unsafeRunSync()}")
+  println(s"Run A: ${catState.runA(CatsState(false)).unsafeRunSync()}")
+  println(s"Run State: ${catState.runS(CatsState(false)).unsafeRunSync()}")
+  println(s"State modify: ${catState.modify(cat => cat.copy(value = false)).runS(CatsState(false)).unsafeRunSync()}")
+  println(s"State inspect: ${catState.inspect(cat => "Hello World value!").run(CatsState(false)).unsafeRunSync()}")
 
-  val result: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
+  val t: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
     oneCat <- catState
     twoCat <- nextTrueState
   } yield (oneCat, twoCat)
 
-  println(result.run(CatsState(false)).unsafeRunSync())
+  val result: (CatsState, (Cat, Cat)) = t.run(CatsState(false)).unsafeRunSync()
+
+  println(s"State for-comprehension: $result")
 
 }
