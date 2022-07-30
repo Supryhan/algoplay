@@ -20,8 +20,8 @@ object StateMonadPractice extends App {
   println(s"Run Tuple: $tupl")
   val `value`: Cat = catState.runA(CatsState(false)).unsafeRunSync()
   println(s"Run A: ${`value`}")
-  val getValue: State[CatsState, CatsState] = State.get[CatsState]
-  println(s"Run A: ${`value`}")
+  val getStateAndValue: (CatsState, CatsState) = StateT.get[IO, CatsState].run(CatsState(true)).unsafeRunSync()
+  println(s"Return the input state as state and as value without modifying it: ${getStateAndValue}")
   val state: CatsState = catState.runS(CatsState(false)).unsafeRunSync()
   println(s"Run State: $state")
   val newState: CatsState = catState.modify(cat => cat.copy(value = false)).runS(CatsState(true)).unsafeRunSync()
