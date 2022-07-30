@@ -1,6 +1,6 @@
 package catslaboratory.kleislilab
 
-import cats.data.{IndexedStateT, StateT}
+import cats.data.{IndexedStateT, State, StateT}
 import cats.effect.IO
 import catslaboratory.kleislilab.ReaderMonadPractice.{Bread, Cat, Name}
 import cats.effect.unsafe.implicits.global
@@ -10,17 +10,24 @@ object StateMonadPractice extends App {
 
   val catState: StateT[IO, CatsState, Cat] = StateT[IO, CatsState, Cat] {
     state: CatsState =>
-      IO.pure((CatsState(true), Cat(Bread("init"), "name1")))
+      IO.pure((state, Cat(Bread("init"), "name1")))
   }
   val nextTrueState: StateT[IO, CatsState, Cat] = StateT[IO, CatsState, Cat] {
     state: CatsState =>
       IO.pure((CatsState(true), Cat(Bread("final"), "name2")))
   }
-  println(s"Run Tuple: ${catState.run(CatsState(false)).unsafeRunSync()}")
-  println(s"Run A: ${catState.runA(CatsState(false)).unsafeRunSync()}")
-  println(s"Run State: ${catState.runS(CatsState(false)).unsafeRunSync()}")
-  println(s"State modify: ${catState.modify(cat => cat.copy(value = false)).runS(CatsState(false)).unsafeRunSync()}")
-  println(s"State inspect: ${catState.inspect(cat => "Hello World value!").run(CatsState(false)).unsafeRunSync()}")
+  val tupl: (CatsState, Cat) = catState.run(CatsState(false)).unsafeRunSync()
+  println(s"Run Tuple: $tupl")
+  val `value`: Cat = catState.runA(CatsState(false)).unsafeRunSync()
+  println(s"Run A: ${`value`}")
+  val getValue: State[CatsState, CatsState] = State.get[CatsState]
+  println(s"Run A: ${`value`}")
+  val state: CatsState = catState.runS(CatsState(false)).unsafeRunSync()
+  println(s"Run State: $state")
+  val newState: CatsState = catState.modify(cat => cat.copy(value = false)).runS(CatsState(true)).unsafeRunSync()
+  println(s"State modify function: $newState")
+  val stateAndNewValue: (CatsState, Name) = catState.inspect(catsState => "Hello World value!").run(CatsState(false)).unsafeRunSync()
+  println(s"State inspect, but value was affected: $stateAndNewValue ")
 
   val t: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
     oneCat <- catState
