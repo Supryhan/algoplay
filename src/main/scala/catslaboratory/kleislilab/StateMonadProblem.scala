@@ -52,7 +52,13 @@ object StateMonadProblem extends App {
     ans <- evalOne("+")
   } yield ans
 
-  println(program.run(Nil).value)
-  println(evalAll(List("1", "2", "+", "3", "+", "2", "*")).run(Nil).value)
+  val programs = for {
+    _ <- evalAll(List("1", "2", "+"))
+    _ <- evalAll(List("3", "+"))
+    ans <- evalAll(List("2", "*"))
+  } yield ans
+
+  println(program.runA(Nil).value)
+  println(programs.runA(Nil).value)
 
 }
