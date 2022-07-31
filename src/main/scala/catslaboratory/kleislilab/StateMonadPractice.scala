@@ -22,6 +22,8 @@ object StateMonadPractice extends App {
   println(s"Run A: ${`value`}")
   val getStateAndValue: (CatsState, CatsState) = StateT.get[IO, CatsState].run(CatsState(true)).unsafeRunSync()
   println(s"Return the input state as state and as value without modifying it: ${getStateAndValue}")
+  val setStateAndValue: (CatsState, Unit) = StateT.set[IO, CatsState](CatsState(true)).run(CatsState(true)).unsafeRunSync()
+  println(s"Return the input state as state and as value - unit without modifying it all: ${setStateAndValue}")
   val state: CatsState = catState.runS(CatsState(false)).unsafeRunSync()
   println(s"Run State: $state")
   val newState: CatsState = catState.modify(cat => cat.copy(value = false)).runS(CatsState(true)).unsafeRunSync()
