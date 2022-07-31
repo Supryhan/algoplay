@@ -61,4 +61,7 @@ object StateMonadProblem extends App {
   println(program.runA(Nil).value)
   println(programs.runA(Nil).value)
 
+  def evalInput(input: String): Int = evalAll(input.split(" ").toList).runA(Nil).value
+  println(evalInput("1 2 + 3 + 2 * 1 -"))
+
 }
