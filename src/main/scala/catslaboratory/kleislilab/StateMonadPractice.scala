@@ -31,12 +31,20 @@ object StateMonadPractice extends App {
   val stateAndNewValue: (CatsState, Name) = catState.inspect(catsState => "Hello World value!").run(CatsState(false)).unsafeRunSync()
   println(s"State inspect, but value was affected: $stateAndNewValue ")
 
-  val t: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
+  val t1: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] = for {
     oneCat <- catState
     twoCat <- nextTrueState
   } yield (oneCat, twoCat)
 
-  val result: (CatsState, (Cat, Cat)) = t.run(CatsState(false)).unsafeRunSync()
+  val t2: IndexedStateT[IO, CatsState, CatsState, (Cat, Cat)] =
+    catState
+      .flatMap(oneCat =>
+        nextTrueState.map(twoCat =>
+          (oneCat, twoCat)
+        )
+      )
+
+  val result: (CatsState, (Cat, Cat)) = t1.run(CatsState(false)).unsafeRunSync()
 
   println(s"State for-comprehension: $result")
 
