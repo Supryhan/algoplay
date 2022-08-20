@@ -52,7 +52,7 @@ object WriterMonadPractice extends App {
   type WriterIO[W, A] = WriterT[IO, W, A]
   type LoggedIO[A] = WriterIO[List[String], A]
 
-  val writer4 = for {
+  def writer4: WriterT[IO, List[String], Boolean]  = for {
     a <- true.pure[LoggedIO]
     b <- WriterT[IO, List[String], Boolean](IO{ (List("a", "b", "c"), false)  })
   } yield a || b
