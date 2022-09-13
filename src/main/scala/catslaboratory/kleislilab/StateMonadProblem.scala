@@ -24,8 +24,9 @@ object StateMonadProblem extends App {
 
   def evalAll(input: List[String]): CalcState[Int] =
     input
-      .foldLeft(0.pure[CalcState]) { (a, b) =>
-        a.flatMap(_ => evalOne(b))
+      .foldLeft(0.pure[CalcState]) {
+        (a, b) =>
+          a.flatMap(_ => evalOne(b))
       }
 
   def operand(num: Int): CalcState[Int] =
@@ -39,11 +40,10 @@ object StateMonadProblem extends App {
       case b :: a :: tail =>
         val ans = func(a, b)
         (ans :: tail, ans)
-      case _ =>
-        sys.error("Fail!")
+      case _ => sys.error("Fail!")
     }
 
-  val result = evalOne("42").runA(Nil).value
+  val result: Int = evalOne("42").runA(Nil).value
   println(result)
 
   val program = for {

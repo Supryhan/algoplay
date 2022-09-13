@@ -12,8 +12,9 @@ object EnrichWorkflow extends App {
   type Query = String
   type Workbook = List[String]
 
-  val getFromService: KleisliIO[Unit, Map[String, Int]] = Kleisli { _: Unit =>
-    IO(Map("7" -> 7, "8" -> 8, "9" -> 9))
+  val getFromService: KleisliIO[Unit, Map[String, Int]] = Kleisli {
+    _: Unit =>
+      IO(Map("7" -> 7, "8" -> 8, "9" -> 9))
   }
   val getFromDb1: Query => List[String] = wire[GetFromSource1]
   import KleisliOps._
