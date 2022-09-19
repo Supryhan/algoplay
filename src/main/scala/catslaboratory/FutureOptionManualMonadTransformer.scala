@@ -20,7 +20,7 @@ object FutureOptionManualMonadTransformer extends App {
     FutOpt(findUserById(id))
       .flatMap(user =>
         FutOpt(findAddressByUser(user))
-          .map(address => address))
+          .map(identity))
       .value
 
   val result = Await.result(findAddressByUserId2(13L), 1.millis)
@@ -30,12 +30,10 @@ object FutureOptionManualMonadTransformer extends App {
   }
 
   case class FutOpt[A](value: Future[Option[A]]) {
-
-    def map[B](f: A => B): FutOpt[B] =
-      FutOpt(value.map(optA => optA.map(f)))
-
+    def pure[S](value: Future[Option[S]]): FutOpt[S] = FutOpt(value)
+    def map[B](f: A => B): FutOpt[B] = FutOpt(value.map(_.map(f)))
     def flatMap[B](f: A => FutOpt[B]): FutOpt[B] =
-      FutOpt(value.flatMap {
+      pure(value.flatMap {
         case Some(a) => f(a).value
         case None => Future.successful(None)
       })
