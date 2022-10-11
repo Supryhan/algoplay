@@ -1,4 +1,4 @@
-package websocket
+package servers.websocket
 
 import akka.Done
 import akka.actor.typed.ActorSystem

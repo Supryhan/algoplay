@@ -20,6 +20,7 @@ val macwireVersion = "2.5.2"
 val akkaVersion = "2.6.18"
 val akkaHttpVersion = "10.2.6"
 val zioVersion = "2.0.0-RC1"
+val http4sVersion = "0.23.16"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"           %% "akka-actor-typed" % akkaVersion,
@@ -58,7 +59,10 @@ libraryDependencies ++= Seq(
   "com.softwaremill.macwire"    %% "proxy"            % macwireVersion,
   "io.circe"                    %% "circe-parser"     % circeVersion,
   "com.chuusai"                 %% "shapeless"        % "2.3.7",
-  "com.github.pureconfig"       %% "pureconfig"       % "0.17.1"
+  "com.github.pureconfig"       %% "pureconfig"       % "0.17.1",
+  "org.http4s"                  %% "http4s-dsl"       % http4sVersion,
+  "org.http4s"                  %% "http4s-ember-server" % http4sVersion,
+  "org.http4s"                  %% "http4s-ember-client" % http4sVersion
 )
 
 // for @Lenses macro support
