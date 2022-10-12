@@ -62,7 +62,8 @@ libraryDependencies ++= Seq(
   "com.github.pureconfig"       %% "pureconfig"       % "0.17.1",
   "org.http4s"                  %% "http4s-dsl"       % http4sVersion,
   "org.http4s"                  %% "http4s-ember-server" % http4sVersion,
-  "org.http4s"                  %% "http4s-ember-client" % http4sVersion
+  "org.http4s"                  %% "http4s-ember-client" % http4sVersion,
+  "org.typelevel"               %% "squants"          % "1.6.0"
 )
 
 // for @Lenses macro support
