@@ -11,11 +11,15 @@ object Routes {
     private[routes] val prefixPath = "/items"
 
     object BrandQueryParam extends OptionalQueryParamDecoderMatcher[BrandParam]("brand")
+
     private val httpRoutes: HttpRoutes[F] = HttpRoutes.of[F] {
+
       case GET -> Root :? BrandQueryParam (brand) =>
         Ok(brand.fold(items.findAll)(b => items.findBy(b.toDomain)))
+
     }
     val routes: HttpRoutes[F] = Router(
-      prefixPath -> httpRoutes)
+      prefixPath -> httpRoutes
+    )
   }
 }

@@ -28,7 +28,7 @@ object Item {
                                                             ev: Validate[T, P]): QueryParamDecoder[T Refined P] =
     QueryParamDecoder[T]
       .emap(refineV[P](_)
-        .leftMap(m ႍ=> ParseFailure(m, m)))
+        .leftMap(m => ParseFailure(m, m)))
 
 
   @newtype case class ItemId(value: UUID)
