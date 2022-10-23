@@ -1,6 +1,8 @@
 package servers.http4s.models
 
 import cats.implicits.toBifunctorOps
+import derevo.cats.show
+import derevo.{Derivation, derive}
 import eu.timepit.refined.api.{Refined, Validate}
 import eu.timepit.refined.auto.autoUnwrap
 import eu.timepit.refined.refineV
@@ -10,6 +12,7 @@ import org.http4s.{ParseFailure, QueryParamDecoder}
 import squants.market.Money
 
 import java.util.UUID
+import scala.annotation.implicitNotFound
 
 object Item {
   trait Items[F[_]] {
@@ -20,10 +23,27 @@ object Item {
     def update(item: UpdateItem): F[Unit]
   }
 
+  @derive(queryParam, show)
   @newtype case class BrandParam(value: NonEmptyString) {
     def toDomain: BrandName =
       BrandName(value.toLowerCase.capitalize)
   }
+
+  trait Derive[F[_]]
+    extends Derivation[F]
+//      with NewTypeDerivation[F] {
+    {
+    def instance(implicit ev: OnlyNewtypes): Nothing = ev.absurd
+    @implicitNotFound("Only newtypes instances can be derived")
+    abstract final class OnlyNewtypes {
+      def absurd: Nothing = ???
+    }
+  }
+
+
+  import org.http4s.QueryParamDecoder
+  object queryParam extends Derive[QueryParamDecoder]
+
   implicit def refinedParamDecoder[T: QueryParamDecoder, P](implicit
                                                             ev: Validate[T, P]): QueryParamDecoder[T Refined P] =
     QueryParamDecoder[T]
