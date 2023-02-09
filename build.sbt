@@ -15,12 +15,13 @@ resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releas
 //addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.10")
 
 val monocle = "2.1.0"
-val circeVersion = "0.14.1"
+val circeVersion = "0.14.3"
 val macwireVersion = "2.5.2"
 val akkaVersion = "2.6.18"
 val akkaHttpVersion = "10.2.6"
 val zioVersion = "2.0.0-RC1"
 val http4sVersion = "0.23.16"
+val derevoVersion = "0.13.0"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"           %% "akka-actor-typed" % akkaVersion,
@@ -57,12 +58,17 @@ libraryDependencies ++= Seq(
   "com.softwaremill.macwire"    %% "macrosakka"       % macwireVersion % Provided,
   "com.softwaremill.macwire"    %% "util"             % macwireVersion,
   "com.softwaremill.macwire"    %% "proxy"            % macwireVersion,
+  "io.circe"                    %% "circe-core"       % circeVersion,
   "io.circe"                    %% "circe-parser"     % circeVersion,
+  "io.circe"                    %% "circe-generic"    % circeVersion,
+  "io.circe"                    %% "circe-refined"    % circeVersion,
   "com.chuusai"                 %% "shapeless"        % "2.3.7",
   "com.github.pureconfig"       %% "pureconfig"       % "0.17.1",
+  "tf.tofu"                     %% "derevo-core"      % derevoVersion,
   "org.http4s"                  %% "http4s-dsl"       % http4sVersion,
   "org.http4s"                  %% "http4s-ember-server" % http4sVersion,
   "org.http4s"                  %% "http4s-ember-client" % http4sVersion,
+  "org.http4s"                  %% "http4s-circe"     % http4sVersion,
   "org.typelevel"               %% "squants"          % "1.6.0",
   "org.manatki"                 %% "derevo-cats"      % "0.11.6"
 )
