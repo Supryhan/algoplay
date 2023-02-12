@@ -1,6 +1,6 @@
 package problems.leetcode
 
-object Roman2Integer {
+object Roman2Integer extends App {
   def romanToInt(s: String): Int = {
     val mapping = Map(
       'I' -> 1,
@@ -11,17 +11,16 @@ object Roman2Integer {
       'D' -> 500,
       'M' -> 1000)
 
-    s.toList.foldLeft((0, 0)){(t: (Int, Int), c: Char) => {
-      val current = mapping(c)
-      val summAccumulated = t._1 + current
-      if((t._2 == 1 && (current == 5 || current == 10))
-        || (t._2 == 10 && (current == 50 || current == 100))
-        || (t._2 == 100 && (current == 500 || current == 1000)))
-        (summAccumulated - 2 * t._2, 0)
-      else if(current == 1 || current == 10 || current == 100)
-        (summAccumulated, current)
+    s.map(mapping).foldLeft((0, 0)){(t: (Int, Int), c: Int) => {
+      val summ = t._1 + c
+      if((t._2 == 1 && (c == 5 || c == 10))
+        || (t._2 == 10 && (c == 50 || c == 100))
+        || (t._2 == 100 && (c == 500 || c == 1000)))
+        (summ - 2 * t._2, 0)
+      else if(c == 1 || c == 10 || c == 100)
+        (summ, c)
       else
-        (summAccumulated, 0)
+        (summ, 0)
     }}._1
   }
 }
