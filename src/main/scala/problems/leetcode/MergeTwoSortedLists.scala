@@ -26,19 +26,11 @@ object MergeTwoSortedLists extends App {
         current.next = list2
         current
       } else if(list1.x < list2.x){
-        val n = new ListNode(list1.x)
-        current.next = n
-        merge(n, list1.next, list2)
-      } else if(list2.x < list1.x){
-        val n = new ListNode(list2.x)
-        current.next = n
-        merge(n, list1, list2.next)
+        current.next = list1
+        merge(list1, list1.next, list2)
       } else {
-        val n1 = new ListNode(list1.x)
-        val n2 = new ListNode(list2.x)
-        current.next = n1
-        current.next.next = n2
-        merge(n2, list1.next, list2.next)
+        current.next = list2
+        merge(list2, list1, list2.next)
       }
     }
     val initNode = new ListNode()
