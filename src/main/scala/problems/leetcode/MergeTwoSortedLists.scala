@@ -15,38 +15,38 @@ object MergeTwoSortedLists extends App {
     }
   }
 
-  def mergeTwoLists(list1: ListNode, list2: ListNode): ListNode = {
-    def merge(current: ListNode, list1: ListNode, list2: ListNode): ListNode = {
-      if(list1 == null && list2 == null)
-        current
-      else if(list2 == null) {
-        current.next = list1
-        current
-      } else if(list1 == null) {
-        current.next = list2
-        current
-      } else if(list1.x < list2.x){
-        current.next = list1
-        merge(list1, list1.next, list2)
+  def mergeTwoLists(startNodeA: ListNode, startNodeB: ListNode): ListNode = {
+    def merge(currentNode: ListNode, nodeFromListA: ListNode, nodeFromListB: ListNode): ListNode = {
+      if(nodeFromListA == null && nodeFromListB == null)
+        currentNode
+      else if(nodeFromListB == null) {
+        currentNode.next = nodeFromListA
+        currentNode
+      } else if(nodeFromListA == null) {
+        currentNode.next = nodeFromListB
+        currentNode
+      } else if(nodeFromListA.x < nodeFromListB.x){
+        currentNode.next = nodeFromListA
+        merge(nodeFromListA, nodeFromListA.next, nodeFromListB)
       } else {
-        current.next = list2
-        merge(list2, list1, list2.next)
+        currentNode.next = nodeFromListB
+        merge(nodeFromListB, nodeFromListA, nodeFromListB.next)
       }
     }
     val initNode = new ListNode()
-    merge(initNode, list1, list2)
+    merge(initNode, startNodeA, startNodeB)
 
-    if(list1 == null && list2 == null)
+    if(startNodeA == null && startNodeB == null)
       null
     else
       initNode.next
   }
 
-  val l1 = new ListNode(-1, new ListNode(2, new ListNode(4, null)))
-  val l2 = new ListNode(-3, new ListNode(0, new ListNode(4, new ListNode(5, null))))
+  val listA = new ListNode(-1, new ListNode(2, new ListNode(4, null)))
+  val listB = new ListNode(-3, new ListNode(0, new ListNode(4, new ListNode(5, null))))
 
 
-  val result = mergeTwoLists(l1, l2)
+  val result = mergeTwoLists(listA, listB)
 
   println(s">>>merge:${if(result == null) null else result}<<<")
 
