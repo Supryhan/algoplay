@@ -1,6 +1,6 @@
 package problems.leetcode
 
-object Roman2Integer extends App {
+object P13Roman2Integer extends App {
   def romanToInt(s: String): Int = {
     val mapping = Map(
       'I' -> 1,

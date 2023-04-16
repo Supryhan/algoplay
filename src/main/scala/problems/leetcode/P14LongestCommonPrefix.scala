@@ -1,6 +1,6 @@
 package problems.leetcode
 
-object LongestCommonPrefix {
+object P14LongestCommonPrefix {
   def longestCommonPrefix(strs: Array[String]): String = {
     if(strs.isEmpty) return ""
     strs.foldLeft(strs.head){(acc, s) =>

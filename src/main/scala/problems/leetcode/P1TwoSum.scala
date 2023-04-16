@@ -1,6 +1,6 @@
 package problems.leetcode
 
-object TwoSum {
+object P1TwoSum {
   def twoSum(nums: Array[Int], target: Int): Array[Int] = {
 
     if(nums.length < 2)

@@ -2,7 +2,7 @@ package problems.leetcode
 
 import scala.annotation.tailrec
 
-object PalindromeNumber {
+object P9PalindromeNumber {
 
   //1
   def isPalindrome(x: Int): Boolean =

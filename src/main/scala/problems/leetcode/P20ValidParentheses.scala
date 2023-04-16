@@ -2,7 +2,7 @@ package problems.leetcode
 
 import scala.annotation.tailrec
 
-object ValidParentheses {
+object P20ValidParentheses {
   def isValid(s: String): Boolean = {
     val result = clearing(s.toList, List.empty[Char])
     if(result.isEmpty)
