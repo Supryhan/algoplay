@@ -1,8 +1,9 @@
 package problems.future
 
+import java.math.BigInteger
 import scala.concurrent.Future
 
-class FutureLaws extends App {
+object FutureLaws extends App {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -22,6 +23,7 @@ class FutureLaws extends App {
     _ <- fd1
     _ <- fd2
   } yield ()
+
   println(s"Defs: $ed")
 
 }
