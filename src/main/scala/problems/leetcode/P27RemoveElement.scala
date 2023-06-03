@@ -6,7 +6,7 @@ object P27RemoveElement extends App {
       case (index, value) if value != `val` =>
         nums(index) = value
         index + 1
-      case (index, value) => index
+      case (index, _) => index
     }
   }
 
