@@ -1,8 +1,8 @@
-package problems.leetcode;
+package problems;
 
-public class P35SearchInsertPositionJ {
+public class P35SearchInsertPosition {
     public static void main(String[] args) {
-        P35SearchInsertPositionJ problem = new P35SearchInsertPositionJ();
+        P35SearchInsertPosition problem = new P35SearchInsertPosition();
         System.out.println("1: " + problem.searchInsertOLogN(new int[]{1,2,3,4,5,6}, 2));
         System.out.println("2: " + problem.searchInsertOLogN(new int[]{}, 2));
         System.out.println("3: " + problem.searchInsertOLogN(new int[]{1,3,4,5,6}, 2));

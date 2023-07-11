@@ -1,4 +1,4 @@
-package core;
+package multithreading;
 
 class Waiter implements Runnable {
     private boolean shouldFinish;

@@ -1,12 +1,12 @@
-package problems.leetcode;
+package problems;
 
 import java.util.Arrays;
 
 import static java.lang.System.arraycopy;
 
-public class P66PlusOneJ {
+public class P66PlusOne {
     public static void main(String[] args) {
-        P66PlusOneJ problem = new P66PlusOneJ();
+        P66PlusOne problem = new P66PlusOne();
         System.out.println("1: " + Arrays.toString(problem.plusOne(new int[]{1, 2, 3, 4, 5})));
         System.out.println("2: " + Arrays.toString(problem.plusOne(new int[]{9})));
     }

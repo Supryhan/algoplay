@@ -1,9 +1,9 @@
-package problems.leetcode;
+package problems;
 
 
-public class P58LengthOfLastWordJ {
+public class P58LengthOfLastWord {
     public static void main(String[] args) {
-        P58LengthOfLastWordJ problem = new P58LengthOfLastWordJ();
+        P58LengthOfLastWord problem = new P58LengthOfLastWord();
         System.out.println("1: " + problem.lengthOfLastWord("Hello World"));
         System.out.println("2: " + problem.lengthOfLastWord("   fly me   to   the moon  "));
         System.out.println("3: " + problem.lengthOfLastWord("luffy is still joyboy"));
