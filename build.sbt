@@ -22,6 +22,8 @@ val akkaHttpVersion = "10.2.6"
 val zioVersion = "2.0.0-RC1"
 val http4sVersion = "0.23.16"
 val derevoVersion = "0.13.0"
+val reactivestreams = "1.0.4"
+val reactivejava = "3.1.6"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"           %% "akka-actor-typed" % akkaVersion,
@@ -70,7 +72,10 @@ libraryDependencies ++= Seq(
   "org.http4s"                  %% "http4s-ember-client" % http4sVersion,
   "org.http4s"                  %% "http4s-circe"     % http4sVersion,
   "org.typelevel"               %% "squants"          % "1.6.0",
-  "org.manatki"                 %% "derevo-cats"      % "0.11.6"
+  "org.manatki"                 %% "derevo-cats"      % "0.11.6",
+  "org.reactivestreams"         % "reactive-streams"  % reactivestreams,
+  "org.reactivestreams"         % "reactive-streams-tck" % reactivestreams % Test,
+  "io.reactivex.rxjava3"         % "rxjava"           % reactivejava
 )
 
 // for @Lenses macro support
