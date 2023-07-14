@@ -75,7 +75,7 @@ libraryDependencies ++= Seq(
   "org.manatki"                 %% "derevo-cats"      % "0.11.6",
   "org.reactivestreams"         % "reactive-streams"  % reactivestreams,
   "org.reactivestreams"         % "reactive-streams-tck" % reactivestreams % Test,
-  "io.reactivex.rxjava3"         % "rxjava"           % reactivejava
+  "io.reactivex.rxjava3"        % "rxjava"            % reactivejava
 )
 
 // for @Lenses macro support
