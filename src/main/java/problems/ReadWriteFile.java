@@ -3,6 +3,7 @@ package problems;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ReadWriteFile {
     public static void main(String[] args) {
@@ -12,6 +13,10 @@ public class ReadWriteFile {
         } catch (IOException ioe) {
             System.out.println("IO Error!");
         }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Input your name:");
+        String inputName = scanner.nextLine();
+        System.out.println("Hello " + inputName);
     }
 
 

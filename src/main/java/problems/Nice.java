@@ -15,6 +15,8 @@ class NiceInterviewImpl implements Distance {
         System.out.println(problem.findClosestDistance(new Integer[]{9, 35, 27, 4, 45, 39, 15}));
         System.out.println(problem.findClosestDistance(new Integer[]{3, 6, 19, 12, 4, 27, 6, 21}));
         System.out.println(problem.findClosestDistance(new Integer[]{}));
+
+        new NiceInterviewImpl().doEmployeesOperations();
     }
 
     @Override
@@ -33,5 +35,30 @@ class NiceInterviewImpl implements Distance {
         }
         Arrays.sort(newArray);
         return newArray[0];
+    }
+
+    private void doEmployeesOperations() {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("z1"));
+        employees.add(new Employee("k1"));
+        employees.add(new Employee("c1"));
+        employees.forEach(System.out::print);
+        employees.sort(Comparator.comparing(Employee::getName));
+        System.out.println();
+        employees.forEach(System.out::print);
+    }
+}
+
+class Employee {
+    String name;
+    public Employee(String name) {
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public String toString() {
+        return name + " ";
     }
 }
