@@ -11,17 +11,19 @@ object KompstekOptionProblem extends App {
 
   def toListResult(str: String): IO[List[Result1]] = List(Result1(str), Result1(str), Result1("")).pure[IO]
 
-  def resultToOptionResult(result: Result1): IO[Option[Result2]] =  Result2(result.value).some.pure[IO]
+  def resultToOptionResult(result: Result1): IO[Option[Result2]] = Result2(result.value).some.pure[IO]
 
-  def solution(input: String): IO[List[Result2]] = {
-    (for {
-      e <- toListResult(input)
-      ee: List[IO[Option[Result2]]] = e.map(result1 => resultToOptionResult(result1))
-      s: IO[List[Option[Result2]]] = ee.sequence
-      eee: IO[List[Result2]] = s.map(_.map(_.fold(Result2(""))(c => c)))
-    } yield eee).flatten
-  }
+  def solution(input: String): IO[List[Result2]] =
+    for {
+      listR1 <- toListResult(input)
+      listOptR2 <- listR1.map(resultToOptionResult).sequence
+    } yield listOptR2.map(_.fold(Result2(""))(identity)).filterNot(_ == Result2(""))
 
   val list: List[Result2] = solution("1234").unsafeRunSync()
-  list.foreach(println(_))
+  println(list)
+  println(s"case 1 - List is not empty: ${list.nonEmpty}")
+
+  val listEmpty: List[Result2] = solution("").unsafeRunSync()
+  println(s"case 2 - List is empty: ${listEmpty.isEmpty}")
+
 }
