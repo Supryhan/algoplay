@@ -1,9 +1,12 @@
 package problems;
 
+import java.util.stream.Stream;
+
 public class NewCoreFeatures {
     public static void main(String[] args) {
         NewCoreFeatures newCoreFeatures = new NewCoreFeatures();
         newCoreFeatures.newBreakFeature();
+        newCoreFeatures.noneMatching();
     }
 
     void newBreakFeature() {
@@ -18,6 +21,14 @@ public class NewCoreFeatures {
             System.out.println("This4");
         }
         System.out.println("this5");
+    }
+
+    void noneMatching() {
+        if (Stream.of(false, false, false, false).noneMatch(x -> x == true)) {
+            System.out.println("All match");
+        } else {
+            System.out.println("False");
+        }
     }
 
 }
