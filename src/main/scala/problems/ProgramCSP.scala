@@ -43,5 +43,7 @@ object ProgramCSP extends App {
   }
 
   println(programCSP(123))
+
   println(programCSP(1234))
+
 }
