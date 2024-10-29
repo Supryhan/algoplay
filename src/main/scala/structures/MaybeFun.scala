@@ -6,9 +6,9 @@ object MaybeFun extends App {
     if (index != -1) Just(index) else MyNil
   }
 
-//  println(position(List.empty[Int], 1).getOrElse(AnyRef))
-//  println(position(List(), 1).getOrElse(AnyRef))
-//  println(position(List(0, 1, 2, 3, 4), 4).getOrElse(-1))
+  println(position(List.empty[Int], 1).getOrElse(AnyRef))
+  println(position(List(), 1).getOrElse(AnyRef))
+  println(position(List(0, 1, 2, 3, 4), 4).getOrElse(-1))
   val ll1: List[Char] =  List("one","two", "three", "") flatMap { _.toList }
   val ll2: List[List[Char]] =  List("one","two", "three", "") map { _.toList }
   println(ll1)

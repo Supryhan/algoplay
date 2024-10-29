@@ -41,9 +41,7 @@ object ProgramCSP extends App {
       }
     }
   }
-
+  println(info(users.get(123).get.id).name)
   println(programCSP(123))
-
   println(programCSP(1234))
-
 }

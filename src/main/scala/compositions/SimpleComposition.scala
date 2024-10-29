@@ -34,6 +34,9 @@ object SimpleComposition {
   def bakeRecipe1: Seq[Dough] => Seq[Bread] = bake(350)(45)
 
   def main(args: Array[String]): Unit = {
+    print(
+      bake(350)(45)(distributeDough(kneadDough(grind(Wheat()))))
+    )
     (grind >> kneadDough >> distributeDough >> bakeRecipe1) (Wheat())
   }
 
