@@ -1,14 +1,14 @@
 package implicits
 
-sealed trait Animal
+private[implicits] sealed trait Animal
 
-case object Dog extends Animal
+private[implicits] case object Dog extends Animal
 
-case object Bear extends Animal
+private[implicits] case object Bear extends Animal
 
-case object Cow extends Animal
+private[implicits] case object Cow extends Animal
 
-case class Habitat[A <: Animal](name: String)
+private[implicits] case class Habitat[A <: Animal](name: String)
 
 object ImplicitClassSimpleImpl extends App {
 

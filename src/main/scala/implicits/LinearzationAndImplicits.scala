@@ -35,28 +35,28 @@ object LinearzationAndImplicits extends App {
     //    println(5.shows) // prints '|||||'
   }
 
-  class MyFunction extends Function1[Int, Int] {
+  private[implicits] class MyFunction extends Function1[Int, Int] {
     def apply(arg: Int): Int = arg
   }
 
 
-  class Animal {
+  private class Animal {
     def f() = "Animal"
   }
 
-  trait Furry extends Animal {
+  private trait Furry extends Animal {
     override def f() = "Furry (super = " + super.f + ")"
   }
 
-  trait HasLegs extends Animal {
+  private trait HasLegs extends Animal {
     override def f() = "HasLegs (super = " + super.f + ")"
   }
 
-  trait FourLegged extends HasLegs {
+  private trait FourLegged extends HasLegs {
     override def f() = "FourLegged (super = " + super.f + ")"
   }
 
-  class Cat extends Animal with Furry with FourLegged {
+  private class Cat extends Animal with Furry with FourLegged {
     override def f() = "Cat (super = " + super.f + ")"
   }
 

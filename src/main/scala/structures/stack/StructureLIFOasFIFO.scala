@@ -39,6 +39,7 @@ class StructureLIFOasFIFO[T] {
   }
 
   private def transfer(): Unit = {
+//    outStack = inStack.reverse
     while (inStack.nonEmpty) {
       inStack match {
         case head :: tail =>

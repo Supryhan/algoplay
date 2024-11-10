@@ -2,7 +2,7 @@ package problems.simple
 
 import problems.simple.Simulate.runMachine
 
-case class State[S, +A](run: S => (S, A)) {
+private[simple] case class State[S, +A](run: S => (S, A)) {
   def map[B](f: A => B): State[S, B] = flatMap(a => State.unit(f(a)))
   def map2[B, C](sb: State[S, B])(f: (A, B) => C): State[S, C] = flatMap(a => sb.map(b => f(a, b)))
   def flatMap[B](f: A => State[S, B]): State[S, B] = State( s => {
@@ -11,7 +11,7 @@ case class State[S, +A](run: S => (S, A)) {
   })
 }
 
-object State {
+private[simple] object State {
   def unit[S, A](a: A): State[S, A] = State(s => (s, a))
   def get[S]: State[S, S] = State(s => (s, s))
   def set[S](s: S): State[S, Unit] = State(s => (s, ()))
@@ -20,13 +20,13 @@ object State {
 
 }
 
-sealed trait Input
-case object Coin extends Input
-case object Turn extends Input
+private[simple] sealed trait Input
+private[simple] case object Coin extends Input
+private[simple] case object Turn extends Input
 
-case class Machine(locked: Boolean, candies: Int, coins: Int)
+private[simple] case class Machine(locked: Boolean, candies: Int, coins: Int)
 
-object Simulate {
+private[simple] object Simulate {
   def runMachine(inputs: List[Input]): State[Machine, (Int, Int)] = State(
     machine => {
       val processed = inputs.foldLeft(machine) {
@@ -41,7 +41,7 @@ object Simulate {
   )
 }
 
-object RunStateMachine extends App {
+private[simple] object RunStateMachine extends App {
   println(runMachine(List(Coin)).run(Machine(locked = true, 1, 1)))
   println(runMachine(List(Turn)).run(Machine(locked = false, 1, 1)))
 }

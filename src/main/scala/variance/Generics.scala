@@ -30,22 +30,22 @@ class C extends B {
   def c() {}
 }
 
-sealed abstract class Animal2
-case class Cat2() extends Animal2
-class Cat22() extends Cat2
-case class Dog2() extends Animal2
+//private sealed abstract class Animal
+//private case class Cat() extends Animal
+//private class CatChild() extends Cat
+//private case class DogChild() extends Animal
 
-case class Box2[+A](value: A) {
+private case class Box[+A](value: A) {
   def set[B >: A](a: B): A = value
 }
-case class Box22[-A, +B](value: B) {
+private case class BoxNP[-A, +B](value: B) {
   def set(a: A): B = value
 }
 
-object Box2 extends App {
-  val catBox = new Box2[Cat2](Cat2())
-  val animalBox: Box2[Animal2] = catBox
-  val dog = new Dog2
+private object Box extends App {
+  val catBox = new Box[Cat](Cat(14, "ham"))
+  val animalBox: Box[Animal] = catBox
+  val dog = Dog
   animalBox.set(dog)
-  Box2[Cat2](new Cat22()).set(new Animal2{})
+  Box[Cat](ShroedingersCat).set(new Animal(tongue = "tongue"){override val age: Int = 0; override def isAlive: Boolean = false;})
 }

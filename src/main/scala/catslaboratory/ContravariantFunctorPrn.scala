@@ -1,8 +1,8 @@
 package catslaboratory
 
-final case class Box[A](value: A)
+private[catslaboratory] final case class Box[A](value: A)
 
-trait Printable[A] {
+private[catslaboratory] trait Printable[A] {
   self =>
 
   def format(value: A): String
@@ -15,7 +15,7 @@ trait Printable[A] {
 //    }
 }
 
-object Print extends App {
+private[catslaboratory] object Print extends App {
   def format[A](value: A)(implicit p: Printable[A]): String = p.format(value)
 
   implicit val stringPrintable: Printable[String] = (value: String) => "\"" + value + "\""
