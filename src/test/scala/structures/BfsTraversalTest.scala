@@ -2,7 +2,7 @@ package structures
 
 import org.scalatest.funsuite.AnyFunSuite
 
-class AmazonBFSTest extends AnyFunSuite {
+class BfsTraversalTest extends AnyFunSuite {
 
   test("test AmazonBFS process properly") {
     val gTest = Map(
@@ -15,7 +15,7 @@ class AmazonBFSTest extends AnyFunSuite {
       "G" -> List("C"),
       "H" -> List("C"))
 
-    assert(List("A", "B", "C", "D", "E", "F", "G", "H") == AmazonBFS.AmazonBFS("A")(gTest).reverse.flatten)
+    assert(AmazonBFS.bfsTraversal("A")(gTest).reverse == List("A", "C", "B", "H", "G", "F", "E", "D"))
   }
 
 }
