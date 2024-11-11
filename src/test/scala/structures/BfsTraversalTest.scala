@@ -5,7 +5,7 @@ import org.scalatest.funsuite.AnyFunSuite
 class BfsTraversalTest extends AnyFunSuite {
 
   test("test AmazonBFS process properly") {
-    val gTest = Map(
+    val gTest: Map[String, List[String]] = Map(
       "A" -> List("B", "C"),
       "B" -> List("A", "D", "E"),
       "C" -> List("A", "F", "G", "H"),
