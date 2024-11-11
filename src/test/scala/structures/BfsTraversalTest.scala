@@ -16,6 +16,7 @@ class BfsTraversalTest extends AnyFunSuite {
       "H" -> List("C"))
 
     assert(AmazonBFS.bfsTraversal("A")(gTest).reverse == List("A", "C", "B", "H", "G", "F", "E", "D"))
+
   }
 
 }
