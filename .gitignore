@@ -38,3 +38,6 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
+# Ignore cashe Coursier
+null/Coursier/cache/
+
