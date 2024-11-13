@@ -27,3 +27,35 @@ object QuickSort extends App {
   val sortedList = quicksort(unsortedList)
   println(sortedList)
 }
+
+
+object CounterExample extends App {
+
+  class Counter {
+    @volatile var counter = 0
+    def incrementCounter(): Unit = synchronized {
+      // delay for simulation
+      val currentValue = counter
+      println(s"Thread ${Thread.currentThread().getName} reads counter: $currentValue")
+      Thread.sleep(100) // dalay for race condition
+      counter = currentValue + 1
+      println(s"Thread ${Thread.currentThread().getName} increments counter to: ${counter}")
+    }
+  }
+
+  val counter = new Counter()
+
+  val thread1 = new Thread(() => counter.incrementCounter(), "Thread-1")
+  val thread2 = new Thread(() => counter.incrementCounter(), "Thread-2")
+  val thread3 = new Thread(() => counter.incrementCounter(), "Thread-3")
+
+  thread1.start()
+  thread2.start()
+  thread3.start()
+
+  thread1.join()
+  thread2.join()
+  thread3.join()
+
+  println(s"Final counter value: ${counter.counter}")
+}
