@@ -4,7 +4,7 @@ metadata:
   name: hello
 spec:
   containers:
-    - name : container-hello
+    - name: container-hello
       image: nginx:latest
       ports:
         - containerPort: 80
