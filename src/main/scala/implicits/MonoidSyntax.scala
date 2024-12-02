@@ -24,27 +24,27 @@ object MonoidSyntax extends App {
   }
 
   trait Show[A] {
-    def show(a: A): String
+    def convertToString(a: A): String
   }
 
   object Show {
     implicit val IntShow: Show[Int] = new Show[Int] {
-      def show(a: Int): String = a.toString
+      def convertToString(a: Int): String = a.toString
     }
     implicit val BoolShow: Show[Boolean] = new Show[Boolean] {
-      def show(a: Boolean): String = String.valueOf(a)
+      def convertToString(a: Boolean): String = String.valueOf(a)
     }
   }
 
   def combineValues[T](map: Map[String, List[T]])(implicit monoid: Monoid[T]): Map[String, T] =
     map.view.mapValues(monoid.concat).toMap
 
-  implicit class MonoidSyntax[A](val a: A) extends AnyVal {
-    def |+|(a2: A)(implicit monoid: Monoid[A]): A = monoid.append(a, a2)
+  implicit class MonoidSyntax[A](val a1: A) extends AnyVal {
+    def |+|(a2: A)(implicit monoid: Monoid[A]): A = monoid.append(a1, a2)
   }
 
   implicit class ShowSyntax[A](val a: A) extends AnyVal {
-    def show(implicit show: Show[A]): String = show.show(a)
+    def show(implicit show: Show[A]): String = show.convertToString(a)
   }
 
   def addAndShow[A: Monoid : Show](a1: A, a2: A): String = (a1 |+| a2).show
@@ -52,3 +52,5 @@ object MonoidSyntax extends App {
   println(addAndShow(true, false))
   println(addAndShow(1, 2))
 }
+
+

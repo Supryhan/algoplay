@@ -1,5 +1,10 @@
 package implicits
 
+
+sealed trait Container[T] {
+  def apply(container: List[T]): Unit
+}
+
 object ImplicitsCases extends App {
   implicit def stringImpl: Container[String] = new Container[String] {
     override def apply(container: List[String]): Unit = print("string \n")
@@ -15,7 +20,3 @@ object ImplicitsCases extends App {
   convert(List("1", "2", "3"))
 }
 
-
-sealed trait Container[T] {
-  def apply(container: List[T]): Unit
-}
