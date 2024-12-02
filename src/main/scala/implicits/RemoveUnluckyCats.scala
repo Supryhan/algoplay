@@ -1,19 +1,14 @@
 package implicits
 
+/**
+  * Task: Develop a Scala application that demonstrates filtering collections of custom case classes, `Train` and `Cat`, based on specific
+  * conditions. The `Train` objects should be filtered to exclude any trains whose name contains the number "13". Meanwhile,
+  * `Cat` objects should be filtered to exclude any cats that are either black in color or 13 years old.
+  *
+  * The primary purpose is to showcase the flexibility of typeclasses in Scala, applying custom logic to different data types
+  * and demonstrating practical use cases like filtering collections based on custom conditions.
+  */
 object RemoveUnluckyCats extends App {
-  //Write a Truthy typeclass, which allows to call
-  def trueOrNot(): Boolean = ??? //function on any type
-
-  implicit class A[T](value: T) {
-    def trueOrNot(): Boolean = true
-  }
-
-  1.trueOrNot()
-  (0.0).trueOrNot()
-  'a'.trueOrNot()
-  List().trueOrNot()
-  new Exception("no exception").trueOrNot()
-
 
   case class Train(name: String) {
     def is13: Boolean = name.contains("13")
