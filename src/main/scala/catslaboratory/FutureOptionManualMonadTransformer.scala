@@ -30,14 +30,19 @@ object FutureOptionManualMonadTransformer extends App {
   }
 
   case class FutOpt[A](value: Future[Option[A]]) {
-    def pure[S](value: Future[Option[S]]): FutOpt[S] = FutOpt(value)
     def map[B](f: A => B): FutOpt[B] = FutOpt(value.map(_.map(f)))
+
     def flatMap[B](f: A => FutOpt[B]): FutOpt[B] =
-      pure(value.flatMap {
+      FutOpt(value.flatMap {
         case Some(a) => f(a).value
         case None => Future.successful(None)
       })
   }
+
+  object FutOpt {
+    def empty[B]: FutOpt[B] = FutOpt(Future.successful(None))
+  }
+
 
   case class Address(name: String)
 
