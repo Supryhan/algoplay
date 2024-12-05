@@ -34,11 +34,16 @@ public class WordMachine {
         }
     }
 
-    private void apply(String s) {
-        if (NUMERIC_PATTERN.matcher(s).matches()) {
-            push(Integer.valueOf(s));
+    private void apply(String token) {
+        if (NUMERIC_PATTERN.matcher(token).matches()) {
+            push(Integer.valueOf(token));
         } else {
-            FUNCTIONS.get(s).get();
+            Supplier<Integer> function = FUNCTIONS.get(token);
+            if (function != null) {
+                function.get();
+            } else {
+                throw new IllegalArgumentException("Unknown operation: " + token);
+            }
         }
     }
 

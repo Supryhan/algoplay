@@ -1,81 +1,62 @@
 package problems.simple
 
-import cats.data.EitherT
-import cats.implicits._
-import cats.effect.IO
-import scala.util.matching.Regex
-
-object WordMachine {
+object WordMachine extends App {
 
   private val MIN = 0
   private val MAX = 0x7FFF_FFFF
-  private val NumericPattern: Regex = "\\d+".r
+  private val NumericPattern = "\\d+".r
 
   type Stack = List[Int]
   type Result[T] = Either[String, T]
 
-  def main(args: Array[String]): Unit = {
-    val wm = new WordMachine
-    val result = wm.process("1 1 + 2 + DUP +")
-    println(result)
+  val userInput = "1 1 + 2 + DUP +"
+  println(process(userInput))
+
+  def process(input: String): Result[Int] =
+    input
+      .split(" ")
+      .toList
+      .foldLeft[Result[Stack]](Right(List.empty[Int])) {
+        (stack, token) => apply(stack, token)
+      }.map(_.head)
+
+  private def apply(stack: Result[Stack], token: String): Result[Stack] = token match {
+    case NumericPattern() => stack.flatMap(stack => push(stack, token.toInt))
+    case "POP" => stack.flatMap(stack => pop(stack))
+    case "DUP" => stack.flatMap(stack => dup(stack))
+    case "+" => stack.flatMap(stack => add(stack))
+    case "-" => stack.flatMap(stack => sub(stack))
+    case _ => Left(s"Unknown operation: $token")
   }
 
-  class WordMachine {
+  private def push(state: Stack, value: Int): Result[Stack] =
+    withinRange(value).map(_.head :: state)
 
-    def process(input: String): Result[Int] =
-      input
-        .split(" ")
-        .toList
-        .foldM(
-          List.empty[Int]
-        )(
-          (stack, token) => apply(stack, token)
-        ).flatMap(pop).map(_._1)
-
-    private def apply(stack: Stack, token: String): Result[Stack] = token match {
-      case NumericPattern() => push(stack, token.toInt)
-      case "POP" => pop(stack).map(_._2)
-      case "DUP" => dup(stack)
-      case "+" => add(stack)
-      case "-" => sub(stack)
-      case _ => Left(s"Unknown operation: $token")
+  private def pop(stack: Stack): Result[Stack] =
+    stack match {
+      case _ :: tail => Right(tail)
+      case Nil => Left("Too few elements are available")
     }
 
-    private def push(stack: Stack, value: Int): Result[Stack] = {
-      withinRange(value).map(validValue => validValue :: stack)
+  private def dup(stack: Stack): Result[Stack] =
+    stack match {
+      case head :: tail => Right(head :: head :: tail)
+      case Nil => Left("Too few elements are available")
     }
 
-    private def pop(stack: Stack): Result[(Int, Stack)] = {
-      stack match {
-        case head :: tail => Right((head, tail))
-        case Nil => Left("Too few elements are available")
-      }
+  private def add(stack: Stack): Result[Stack] =
+    stack match {
+      case a :: b :: _ => Right(stack).flatMap(pop).flatMap(pop).flatMap(push(_: Stack, a + b))
+      case _ => Left("Too few elements are available")
     }
 
-    private def dup(stack: Stack): Result[Stack] = {
-      stack match {
-        case head :: _ => Right(head :: stack)
-        case Nil => Left("Too few elements are available")
-      }
+  private def sub(stack: Stack): Result[Stack] =
+    stack match {
+      case a :: b :: _ => Right(stack).flatMap(pop).flatMap(pop).flatMap(push(_: Stack, a - b))
+      case _ => Left("Too few elements are available")
     }
 
-    private def add(stack: Stack): Result[Stack] = {
-      stack match {
-        case a :: b :: tail => push(tail, a + b)
-        case _ => Left("Too few elements are available")
-      }
-    }
+  private def withinRange(value: Int): Result[Stack] = Either
+    .cond(value >= MIN && value <= MAX, List(value), "Number is out of integer range")
 
-    private def sub(stack: Stack): Result[Stack] = {
-      stack match {
-        case a :: b :: tail => push(tail, b - a)
-        case _ => Left("Too few elements are available")
-      }
-    }
-
-    private def withinRange(value: Int): Result[Int] = {
-      if (value < MIN || value > MAX) Left("Number is out of integer range")
-      else Right(value)
-    }
-  }
 }
