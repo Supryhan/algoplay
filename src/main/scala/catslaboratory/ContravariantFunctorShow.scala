@@ -5,6 +5,9 @@ import cats.implicits._
 
 object ContravariantFunctorShow extends App {
 
+  case class Money(amount: String)
+  case class Salary(size: Money)
+
 
   implicit val showMoney: Show[Money] = Show.show((m: Money) => s"money: $$${m.amount}")
 
@@ -16,7 +19,3 @@ object ContravariantFunctorShow extends App {
   println(Money("100").show)
   println(Salary(Money("1000500")).show)
 }
-
-case class Money(amount: String)
-
-case class Salary(size: Money)

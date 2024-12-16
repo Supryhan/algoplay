@@ -1,5 +1,7 @@
 package core
 
+import scala.collection.WithFilter
+
 object ForExpressionTranslation extends App {
 
   case class Wrapper(value: String) extends AnyVal
