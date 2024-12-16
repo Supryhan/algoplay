@@ -24,6 +24,7 @@ hs_err_pid*
 *.log
 
 # sbt specific
+sbt.json
 .cache
 .history
 .lib/
