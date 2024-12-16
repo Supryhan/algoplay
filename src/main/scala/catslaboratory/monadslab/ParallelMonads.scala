@@ -55,6 +55,10 @@ object ParallelMonads extends App {
   val comp: List[Option[Int]] = Functor[List].compose[Option].map(List(Option(1)))(identity)
   val composedFunctor: Functor[({type λ[α] = List[Option[α]]})#λ] = Functor[List].compose[Option]
 
+  type ListOption[A] = List[Option[A]]
+  val alternativeComposedFunctor: Functor[ListOption] = Functor[List].compose[Option]
+  alternativeComposedFunctor.map(List(Some(1)))(identity)
+
 
 
   //  implicit val forIO: Applicative[IO] =
