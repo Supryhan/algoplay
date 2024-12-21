@@ -1,5 +1,7 @@
 package core
 
+import utils.Logger.log
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future, Promise}
@@ -19,8 +21,8 @@ object ControllableFuture extends App {
   val f = getData(42).map(_.toUpperCase)
 
   f.onComplete {
-    case Success(value) => println(value)
-    case Failure(exception) => println("exception")
+    case Success(value) => log(value)
+    case Failure(exception) => log("exception")
   }
   Await.result(f, Duration.Inf)
 }
