@@ -24,9 +24,9 @@ package codinginterview
  *   - Resource Management: Check how errors are handled during file writing.
  */
 
-import java.io.{FileWriter, PrintWriter}
-import java.time.format.DateTimeFormatter
+import java.io.{File, FileWriter, PrintWriter}
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 object LoggingTask extends App {
 
@@ -36,18 +36,19 @@ object LoggingTask extends App {
   }
 
   private class Logger {
+    private val logDirectory = "./logs/"
     private var currentLogLevel: LogLevel.Value = LogLevel.INFO
     private var logFileWriter: PrintWriter = _
 
     def changeLogLevel(newLevel: LogLevel.Value): Unit = {
       currentLogLevel = newLevel
     }
-
     def log(message: String, level: LogLevel.Value): Unit = {
       if (level >= currentLogLevel) {
         if (logFileWriter == null) {
+          ensureLogDirectoryExists()
           val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-          val logFileName = s"log_${dtFormatter.format(LocalDate.now())}.txt"
+          val logFileName = s"${logDirectory}log_${dtFormatter.format(LocalDate.now())}.txt"
           logFileWriter = new PrintWriter(new FileWriter(logFileName, true))
         }
         logFileWriter.println(s"${LocalDate.now()} [$level]: $message")
@@ -58,6 +59,13 @@ object LoggingTask extends App {
     def close(): Unit = {
       if (logFileWriter != null) {
         logFileWriter.close()
+      }
+    }
+
+    private def ensureLogDirectoryExists(): Unit = {
+      val directory = new File(logDirectory)
+      if (!directory.exists()) {
+        directory.mkdirs()
       }
     }
   }

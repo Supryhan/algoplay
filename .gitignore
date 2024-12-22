@@ -1,44 +1,39 @@
 # Created by .ignore support plugin (hsz.mobi)
-### Java template
-#*.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Java and Scala classes
+*.class
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Log directories
+logs/
 
-### IntelliJ IDEA ###
-.idea
+# Build directories
+target/
+project/target/
+project/project/
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/
+lib_managed/
+src_managed/
+project/boot/
+sbt.json
+
+# IntelliJ IDEA specific
+.idea/
 *.iws
 *.iml
 *.ipr
 projectoutput/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
-### Scala template
-*.class
-*.log
-
-# sbt specific
-sbt.json
-.cache
-.history
-.lib/
-dist/*
-target/
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
 
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
 
-# Ignore cashe Coursier
-null/Coursier/cache/
-
+# Coursier cache
+Coursier/cache/

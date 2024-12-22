@@ -45,6 +45,7 @@ class StructureLIFOasFIFO[T] {
         case head :: tail =>
           outStack = head :: outStack
           inStack = tail
+        case Nil =>
       }
     }
   }

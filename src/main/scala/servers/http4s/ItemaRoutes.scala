@@ -1,5 +1,7 @@
 package servers.http4s
 
+trait ItemaRoutes
+
 //import cats.Monad
 //import org.http4s.HttpRoutes
 //import org.http4s.dsl.Http4sDsl

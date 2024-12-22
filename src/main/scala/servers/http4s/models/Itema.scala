@@ -1,5 +1,7 @@
 package servers.http4s.models
 
+trait Itema
+
 //import cats.implicits.toBifunctorOps
 //import derevo.cats.show
 //import derevo.{Derivation, NewTypeDerivation, derive}
