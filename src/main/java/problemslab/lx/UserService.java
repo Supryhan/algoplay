@@ -1,10 +1,7 @@
 package problemslab.lx;
 
 public class UserService {
-
-  UserCache userCache;
-  boolean isCacheUsed = true;
-
+  private UserCache userCache;
   private UserRepository userRepository;
 
   public UserService(UserRepository userRepository, UserCache userCache) {
@@ -13,14 +10,13 @@ public class UserService {
   }
 
   public UserEntity findUserById(Long id) {
-    if (isCacheUsed) {
-      userCache.updateCacheState();
-      boolean isUser = userCache.isUser(id);
-      if (isUser) {
-        return userCache.getCachedUser(id);
-      } else {
-        return userRepository.findUserById(id);
+    UserEntity user = userCache.getUser(id);
+    if (user == null) {
+      user = userRepository.findUserById(id);
+      if (user != null) {
+        userCache.putUser(id, user);
       }
-    } else return null;
+    }
+    return user;
   }
 }

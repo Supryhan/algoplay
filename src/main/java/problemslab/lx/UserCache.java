@@ -1,16 +1,14 @@
 package problemslab.lx;
 
-import java.util.Map;
-
 public interface UserCache {
 
-  Map<Long, UserEntity> getSource();
-  Map<Long, Long> getSaveTime();
+  boolean containsUser(Long id);
 
-  boolean isUser(Long id);
+  UserEntity getUser(Long id);
 
-  UserEntity getCachedUser(Long id);
+  void evictExpiredEntries();
 
-  void updateCacheState();
+
+  void putUser(Long id, UserEntity user);
 
 }
