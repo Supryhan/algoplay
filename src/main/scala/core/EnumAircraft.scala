@@ -1,24 +1,24 @@
 package core
 
-object EnumAlexa extends App {
-  import AircraftType._
-  val e = EnumAlexa
+object EnumAircraft extends App {
+  import Aircraft._
+  val e = EnumAircraft
 
   println(Planet.values.filter(_.radius > 7.0e6))
 
 }
 
-object AircraftType extends Enumeration {
+package object AircraftType extends Enumeration {
   type AircraftType = Value
   val Airbus, Boeing, Embraer = Value
 }
 
-object Airbus extends Enumeration {
+package object Airbus extends Enumeration {
   type Airbus = Value
   val A310, A320, A330 = Value
 }
 
-object Planet extends Enumeration {
+package object Planet extends Enumeration {
   protected case class PlanetVal(mass: Double, radius: Double) extends super.Val {
     def surfaceGravity: Double = Planet.G * mass / (radius * radius)
     def surfaceWeight(otherMass: Double): Double = otherMass * surfaceGravity

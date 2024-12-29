@@ -3,7 +3,7 @@ package core;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-public class WeekdayEnumPractice {
+public class EnumWeekdayPractice {
   public static void main(String[] args) {
 
     DayOfWeek localDate = LocalDate.now().getDayOfWeek();
