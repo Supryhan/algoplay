@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -12,7 +13,7 @@ public class WordMachine {
     private static final int MAX = 0x7FFF_FFFF;
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
     private final Stack<Integer> stack = new Stack<>();
-    private static final Map<String, Supplier<Integer>> FUNCTIONS = new HashMap<>();
+    private static final Map<String, IntSupplier> FUNCTIONS = new HashMap<>();
     {
         FUNCTIONS.put("POP", this::pop);
         FUNCTIONS.put("DUP", this::dup);
@@ -38,9 +39,9 @@ public class WordMachine {
         if (NUMERIC_PATTERN.matcher(token).matches()) {
             push(Integer.valueOf(token));
         } else {
-            Supplier<Integer> function = FUNCTIONS.get(token);
+            IntSupplier function = FUNCTIONS.get(token);
             if (function != null) {
-                function.get();
+                function.getAsInt();
             } else {
                 throw new IllegalArgumentException("Unknown operation: " + token);
             }
