@@ -1,4 +1,4 @@
-package problemslab.lx;
+package problemslab.lx.usercache;
 
 public interface UserCache {
 
