@@ -73,8 +73,8 @@ libraryDependencies ++= Seq(
   "org.http4s"                  %% "http4s-circe"     % http4sVersion,
   "org.typelevel"               %% "squants"          % "1.6.0",
   "org.manatki"                 %% "derevo-cats"      % "0.11.6",
-  "org.reactivestreams"         % "reactive-streams"  % reactivestreams,
-  "org.reactivestreams"         % "reactive-streams-tck" % reactivestreams % Test,
+  "org.reactivestreams"         % "reactive-streams1"  % reactivestreams,
+  "org.reactivestreams"         % "reactive-streams1-tck" % reactivestreams % Test,
   "io.reactivex.rxjava3"        % "rxjava"            % reactivejava,
   "com.rabbitmq"                % "amqp-client"       % "5.23.0"
 )
