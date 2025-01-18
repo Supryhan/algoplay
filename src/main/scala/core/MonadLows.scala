@@ -1,44 +1,45 @@
 package core
 
-import cats.implicits._
+import cats.Monad
+import cats.instances.list._
 
 object MonadLows extends App {
 
-  val intToListDouble = (x: Int) => List(x.toDouble)
-  val doubleToListString = (x: Double) => List(x.toString)
+  val intToListDouble: Int => List[Double] = (x: Int) => List(x.toDouble)
+  val doubleToListString: Double => List[String] = (x: Double) => List(x.toString)
+  val m: List[Int] = Monad[List].pure(1)
 
   // Monad Laws
   // 1. Left Identity
   // pure(x) >>= f === f(x)
-  List(1)
+  Monad[List].pure(1)
     .flatMap(intToListDouble) == intToListDouble(1)
 
   // 2. Right Identity
   // m >>= pure === m
-  List(1)
-    .flatMap {
-      e =>
-        List(e)
-    } == List(1)
+  m.flatMap {
+    e =>
+      Monad[List].pure(e)
+  } == m
 
   // 3. Associativity
   // m >>= f >>= g === m >>= (x => f(x) >>= g)
 
-  List(1)
+  m
     .flatMap(intToListDouble)
     .flatMap(doubleToListString) ==
-    List(1)
+    m
       .flatMap {
         x =>
           intToListDouble(x)
             .flatMap(doubleToListString)
       }
 
-  List(1)
+  m
     .flatMap(intToListDouble)
     .flatMap(doubleToListString) == {
     for {
-      x <- List(1)
+      x <- m
       y <- intToListDouble(x)
       z <- doubleToListString(y)
     } yield z
