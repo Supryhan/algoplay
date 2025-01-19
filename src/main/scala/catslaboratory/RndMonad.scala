@@ -10,7 +10,7 @@ object RndMonad extends App {
   case class Rnd[A](run: Random => A)
 
 
-  implicit val rndMonad: Monad[Rnd] = new Monad[Rnd] {
+  implicit object RndMonad extends Monad[Rnd] {
     override def pure[A](x: A): Rnd[A] = Rnd(_ => x)
 
     override def flatMap[A, B](fa: Rnd[A])(f: A => Rnd[B]): Rnd[B] =
@@ -33,22 +33,21 @@ object RndMonad extends App {
 
   val intToRndDouble: Int => Rnd[Double] = (x: Int) => Rnd(_ => x.toDouble)
   val doubleToRndString: Double => Rnd[String] = (x: Double) => Rnd(_ => x.toString)
-  val m: Rnd[Int] = Monad[Rnd].pure(1)
+  val m: Rnd[Int] = RndMonad.pure(1)
   val randomOne = new Random(1)
 
   // Monad laws:
   // 1. Left id
   assert {
-    Monad[Rnd].pure(1)
+    RndMonad.pure(1)
       .flatMap(intToRndDouble).run(randomOne) == intToRndDouble(1).run(randomOne)
   }
-  //  assert(Monad[Rnd].pure(1).flatMap(intToListDouble) == intToListDouble(1))
 
   // 2. Right id
   assert {
     m.flatMap {
       e =>
-        Monad[Rnd].pure(e)
+        RndMonad.pure(e)
     }.run(randomOne) == m.run(randomOne)
   }
 
