@@ -11,7 +11,7 @@ import scala.concurrent.{Future, Promise}
   *
   * State, Behavior, Mailbox
   *
-  * at-most-once delivery, i.e. no guaranteed delivery
+  * at-most-once delivery, expectedI.e. no guaranteed delivery
   * message ordering per sender–receiver pair
   *
   * at-most-once
@@ -28,7 +28,7 @@ import scala.concurrent.{Future, Promise}
   * If M4 is delivered it must be delivered before M5 and M6
   * If M5 is delivered it must be delivered before M6
   * A2 can see messages from A1 interleaved with messages from A3
-  * Since there is no guaranteed delivery, any of the messages may be dropped, i.e. not arrive at A2
+  * Since there is no guaranteed delivery, any of the messages may be dropped, expectedI.e. not arrive at A2
   */
 object Actors {
 
