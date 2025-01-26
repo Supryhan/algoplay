@@ -58,7 +58,19 @@ object TwentyOneListTasks extends App {
   /**
    * Task 1: Find the most frequent element in a list and remove all its occurrences.
    */
-  def mostFrequent[A](xs: List[A]): Option[A] = ???
+  def mostFrequent[A](xs: List[A]): Option[A] = {
+    xs.groupBy(identity)
+      .view
+      .mapValues(_.size)
+      .toMap
+      .maxByOption(_._2)
+      .map(_._1)
+  }
+
+  println(Some('q') == mostFrequent("abbbqqqqca".toList))
+  println(Some('b') == mostFrequent("abbbca".toList))
+  println(None == mostFrequent("".toList))
+  println(Some('0') == mostFrequent("0".toList))
 
   def removeMostFrequent[A](xs: List[A]): List[A] = ???
 
