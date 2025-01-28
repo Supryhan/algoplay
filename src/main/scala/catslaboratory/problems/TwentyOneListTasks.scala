@@ -67,12 +67,22 @@ object TwentyOneListTasks extends App {
       .map(_._1)
   }
 
+  println("mostFrequent:")
   println(Some('q') == mostFrequent("abbbqqqqca".toList))
   println(Some('b') == mostFrequent("abbbca".toList))
   println(None == mostFrequent("".toList))
   println(Some('0') == mostFrequent("0".toList))
 
-  def removeMostFrequent[A](xs: List[A]): List[A] = ???
+  def removeMostFrequent[A](xs: List[A]): List[A] = {
+    val mostFrequent = xs.groupBy(identity).maxByOption(_._2.size).map(_._1)
+    xs filterNot mostFrequent.contains
+  }
+
+  println("removeMostFrequent:")
+  println("abbbca".toList == removeMostFrequent("abbbqqqqca".toList))
+  println("aca".toList == removeMostFrequent("abbbca".toList))
+  println("".toList == removeMostFrequent("".toList))
+  println("".toList == removeMostFrequent("0".toList))
 
   /**
    * Task 2: Convert strings to ASCII lists and back.
