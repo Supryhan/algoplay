@@ -18,5 +18,3 @@ object CancellationExample extends IOApp {
     } yield ExitCode.Success
   }
 }
-
-// cancellation
