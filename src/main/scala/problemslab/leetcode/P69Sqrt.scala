@@ -4,22 +4,37 @@ import scala.annotation.tailrec
 
 object P69Sqrt extends App {
 
-  private def solution(n: Int): Int = {
+  //  private def solution(n: Int): Int = {
 
-    @tailrec
-    def inner(exp: Int): Int = {
-      val y = exp * exp
-      val r = (exp + 1) * (exp + 1)
-      if(y == n) exp
-      else if( r > n) exp
-      else inner(exp + 1)
-    }
+  //    @tailr'ec
+  //    def inner(exp: Int): Int = {
+  //      val y = exp * exp
+  //      val r = (exp + 1) * (exp + 1)
+  //      if(y == n) exp
+  //      else if( r > n) exp
+  //      else inner(exp + 1)
+  //    }
+  //
+  //    n match {
+  //      case 0 => 0
+  //      case 1 => 1
+  //      case _: Int => inner(1)
+  //    }
+  //  }'
 
-    n match {
-      case 0 => 0
-      case 1 => 1
-      case _: Int => inner(1)
+  def solution(x: Int): Int = {
+    if (x < 2) return x
+
+    var left = 1
+    var right = x / 2
+    while (left <= right) {
+      val mid = left + (right - left) / 2
+      val midSquared = mid.toLong * mid.toLong
+      if (midSquared == x) return mid
+      else if (midSquared < x) left = mid + 1
+      else right = mid - 1
     }
+    right
   }
 
 
@@ -35,5 +50,6 @@ object P69Sqrt extends App {
   println(s"For number 37: ${solution(37)} and expected is 6. ${solution(37) == 6}")
   println(s"For number 49: ${solution(49)} and expected is 7. ${solution(49) == 7}")
   println(s"For number 55: ${solution(55)} and expected is 7. ${solution(55) == 7}")
+  println(s"For number 2147483647: ${solution(2147483647)} and expected is ${solution(2147483647) == 46340}")
 
 }
