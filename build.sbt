@@ -24,6 +24,7 @@ val http4sVersion = "0.23.16"
 val derevoVersion = "0.13.0"
 val reactivestreams = "1.0.4"
 val reactivejava = "3.1.6"
+val catseffectcps = "0.4.0"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"           %% "akka-actor-typed" % akkaVersion,
@@ -51,6 +52,7 @@ libraryDependencies ++= Seq(
   "org.typelevel"               %% "cats-core"        % "2.7.0",
   "org.typelevel"               %% "cats-kernel"      % "2.7.0",
   "org.typelevel"               %% "cats-effect"      % "3.3.0",
+  "org.typelevel"               %% "cats-effect-cps"  % catseffectcps,
   "dev.zio"                     %% "zio"              % zioVersion,
   "ch.qos.logback"              %  "logback-classic"  % "1.2.10",
   "com.typesafe.scala-logging"  %% "scala-logging"    % "3.9.4",
@@ -88,7 +90,8 @@ scalacOptions ++= Seq(
 //  "-Xfatal-warnings",
 //  "-language:reflectiveCalls",
 //  "-Ypartial-unification",
-    "-Ymacro-annotations"
+    "-Ymacro-annotations",
+    "-Xasync"
 //  "-Xlog-implicits",
 //  "-Xprint:jvm"
 )
