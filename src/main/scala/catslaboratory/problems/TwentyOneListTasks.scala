@@ -87,9 +87,22 @@ object TwentyOneListTasks extends App {
   /**
    * Task 2: Convert strings to ASCII lists and back.
    */
-  def stringsToAsciiLists(xs: List[String]): List[List[Int]] = ???
+  def stringsToAsciiLists(xs: List[String]): List[List[Int]] = xs.map(str => str.toList.map(c => c.toInt))
 
-  def asciiListsToStrings(xs: List[List[Int]]): List[String] = ???
+  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString)
+
+  println(s"LOREM: ${
+    stringsToAsciiLists(
+      List(
+        """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua."""))
+  }")
+  println(s"DE:)LOREM: ${
+    asciiListsToStrings(stringsToAsciiLists(
+      List(
+        """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua."""))).mkString
+  }")
 
   /**
    * Task 3: Calculate the cumulative sum of elements and compute the original list from the cumulative sum.
