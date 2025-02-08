@@ -89,25 +89,42 @@ object TwentyOneListTasks extends App {
    */
   def stringsToAsciiLists(xs: List[String]): List[List[Int]] = xs.map(str => str.toList.map(c => c.toInt))
 
-  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString.concat(" "))
+  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString)
 
   println(s"LOREM: ${
     stringsToAsciiLists(
-        """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua.""".split(" ").toList)
   }")
   println(s"DE:)LOREM: ${
     asciiListsToStrings(stringsToAsciiLists(
       """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.""".split(" ").toList)).mkString
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.""".split(" ").toList)).mkString(" ")
   }")
 
   /**
    * Task 3: Calculate the cumulative sum of elements and compute the original list from the cumulative sum.
    */
-  def cumulativeSum(xs: List[Int]): List[Int] = ???
+  def cumulativeSum(xs: List[Int]): List[Int] =
+    xs.foldLeft(List.empty[Int])((acc, e) => acc match {
+      case y :: _ => e + y :: acc
+      case Nil => e :: acc
+    }).reverse
 
-  def fromCumulativeSum(xs: List[Int]): List[Int] = ???
+  def fromCumulativeSum(xs: List[Int]): List[Int] = {
+    xs.foldLeft(
+      (List.empty[Int], 0)
+    )(
+      (t, e) =>
+        t._1 match {
+          case y :: _ => (e - t._2 :: t._1, e)
+          case Nil => (e :: Nil, e)
+        }
+    )._1.reverse
+  }
+
+  println(s"cumulativeSum: ${cumulativeSum(List(0, 1, 2, 3, 4, 5, 6))}")
+  println(s"fromCumulativeSum: ${fromCumulativeSum(cumulativeSum(List(0, 1, 2, 3, 4, 5, 6)))}")
 
   /**
    * Task 4: Find the difference between the maximum and minimum elements, and find elements closest to the mean.
