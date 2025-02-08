@@ -89,19 +89,17 @@ object TwentyOneListTasks extends App {
    */
   def stringsToAsciiLists(xs: List[String]): List[List[Int]] = xs.map(str => str.toList.map(c => c.toInt))
 
-  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString)
+  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString.concat(" "))
 
   println(s"LOREM: ${
     stringsToAsciiLists(
-      List(
         """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua."""))
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.""".split(" ").toList)
   }")
   println(s"DE:)LOREM: ${
     asciiListsToStrings(stringsToAsciiLists(
-      List(
-        """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua."""))).mkString
+      """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.""".split(" ").toList)).mkString
   }")
 
   /**
