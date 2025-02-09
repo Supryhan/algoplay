@@ -1,5 +1,7 @@
 package catslaboratory.problems
 
+import cats.data.OptionT
+
 object TwentyOneListTasks extends App {
 
   /**
@@ -17,19 +19,19 @@ object TwentyOneListTasks extends App {
    *
    * This functionality is useful for applications requiring basic data compression and decompression techniques.
    */
-  def packFoldLeft[A](xs: List[A]): List[(A, Int)] =
-    xs.foldLeft(List.empty[(A, Int)]) { (list: List[(A, Int)], c: A) =>
+  def packFoldLeft[A](list: List[A]): List[(A, Int)] =
+    list.foldLeft(List.empty[(A, Int)]) { (list: List[(A, Int)], c: A) =>
       list match {
-        case x :: xs if x._1 == c => (x._1, x._2 + 1) :: xs
+        case x :: list if x._1 == c => (x._1, x._2 + 1) :: list
         case _ :: _ => (c, 1) :: list
         case Nil => List((c, 1))
       }
     }.reverse
 
-  def packFoldRight[A](xs: List[A]): List[(A, Int)] = xs match {
+  def packFoldRight[A](list: List[A]): List[(A, Int)] = list match {
     case Nil => Nil
     case _ =>
-      xs.foldRight(List.empty[(A, Int)]) { (c, acc) =>
+      list.foldRight(List.empty[(A, Int)]) { (c, acc) =>
         acc match {
           case (a, count) :: tail if a == c => (a, count + 1) :: tail
           case _ => (c, 1) :: acc
@@ -37,8 +39,8 @@ object TwentyOneListTasks extends App {
       }
   }
 
-  def pack[A](xs: List[A]): List[(A, Int)] =
-    xs match {
+  def pack[A](list: List[A]): List[(A, Int)] =
+    list match {
       case Nil => Nil
       case y :: ys =>
         pack(ys) match {
@@ -48,8 +50,8 @@ object TwentyOneListTasks extends App {
         }
     }
 
-  def unpack[A](xs: List[(A, Int)]): List[A] =
-    xs.flatMap { case (a, count) => List.fill(count)(a) }
+  def unpack[A](list: List[(A, Int)]): List[A] =
+    list.flatMap { case (a, count) => List.fill(count)(a) }
 
   println("abbbca" == unpack(pack("abbbca".toList)).mkString)
   println("" == unpack(pack("".toList)).mkString)
@@ -58,8 +60,8 @@ object TwentyOneListTasks extends App {
   /**
    * Task 1: Find the most frequent element in a list and remove all its occurrences.
    */
-  def mostFrequent[A](xs: List[A]): Option[A] = {
-    xs.groupBy(identity)
+  def mostFrequent[A](list: List[A]): Option[A] = {
+    list.groupBy(identity)
       .view
       .mapValues(_.size)
       .toMap
@@ -73,9 +75,9 @@ object TwentyOneListTasks extends App {
   println(None == mostFrequent("".toList))
   println(Some('0') == mostFrequent("0".toList))
 
-  def removeMostFrequent[A](xs: List[A]): List[A] = {
-    val mostFrequent = xs.groupBy(identity).maxByOption(_._2.size).map(_._1)
-    xs filterNot mostFrequent.contains
+  def removeMostFrequent[A](list: List[A]): List[A] = {
+    val mostFrequent = list.groupBy(identity).maxByOption(_._2.size).map(_._1)
+    list filterNot mostFrequent.contains
   }
 
   println("removeMostFrequent:")
@@ -87,9 +89,9 @@ object TwentyOneListTasks extends App {
   /**
    * Task 2: Convert strings to ASCII lists and back.
    */
-  def stringsToAsciiLists(xs: List[String]): List[List[Int]] = xs.map(str => str.toList.map(c => c.toInt))
+  def stringsToAsciiLists(list: List[String]): List[List[Int]] = list.map(str => str.toList.map(c => c.toInt))
 
-  def asciiListsToStrings(xs: List[List[Int]]): List[String] = xs.map(list => list.map(i => i.toChar).mkString)
+  def asciiListsToStrings(list: List[List[Int]]): List[String] = list.map(list => list.map(i => i.toChar).mkString)
 
   println(s"LOREM: ${
     stringsToAsciiLists(
@@ -105,19 +107,19 @@ object TwentyOneListTasks extends App {
   /**
    * Task 3: Calculate the cumulative sum of elements and compute the original list from the cumulative sum.
    */
-  def cumulativeSum(xs: List[Int]): List[Int] =
-    xs.foldLeft(List.empty[Int])((acc, e) => acc match {
+  def cumulativeSum(list: List[Int]): List[Int] =
+    list.foldLeft(List.empty[Int])((acc, e) => acc match {
       case y :: _ => e + y :: acc
       case Nil => e :: acc
     }).reverse
 
-  def fromCumulativeSum(xs: List[Int]): List[Int] = {
-    xs.foldLeft(
+  def fromCumulativeSum(list: List[Int]): List[Int] = {
+    list.foldLeft(
       (List.empty[Int], 0)
     )(
       (t, e) =>
         t._1 match {
-          case y :: _ => (e - t._2 :: t._1, e)
+          case _ :: _ => (e - t._2 :: t._1, e)
           case Nil => (e :: Nil, e)
         }
     )._1.reverse
@@ -129,119 +131,138 @@ object TwentyOneListTasks extends App {
   /**
    * Task 4: Find the difference between the maximum and minimum elements, and find elements closest to the mean.
    */
-  def maxMinDiff(xs: List[Int]): Int = ???
+  def maxMinDiff(list: List[Int]): Option[Int] = {
+    list match {
+      case Nil => None
+      case _ :: Nil => Some(0)
+      case x :: xs =>
+        val t: (Int, Int) = xs.foldLeft((x, x)) { // val acc = (min, max)
+          (acc: (Int, Int), e: Int) =>
+            if (e <= acc._1) (e, acc._2)
+            else if (e >= acc._2) (acc._1, e)
+            else acc
+        }
+        Some(t._2 - t._1)
+    }
+  }
 
-  def closestToMean(xs: List[Int]): List[Int] = ???
+  println(s"maxMinDiff: ${maxMinDiff(List(-100, 127, 2, -7, 42, -128)).mkString}")
+  println(s"maxMinDiff: ${maxMinDiff(List(1, 2, 3)).mkString}")
+  println(s"maxMinDiff: ${maxMinDiff(List(1)).mkString}")
+  println(s"maxMinDiff: ${maxMinDiff(List()).mkString}")
+  println(s"maxMinDiff: ${maxMinDiff(Nil).mkString}")
+
+  def closestToMean(list: List[Int]): OptionT[List, Int] = ???
 
   /**
    * Task 5: Check if a list is a palindrome and generate the shortest palindrome by adding elements at the end.
    */
-  def isPalindrome[A](xs: List[A]): Boolean = ???
+  def isPalindrome[A](list: List[A]): Boolean = ???
 
-  def makePalindrome[A](xs: List[A]): List[A] = ???
+  def makePalindrome[A](list: List[A]): List[A] = ???
 
   /**
    * Task 6: Remove duplicates and create a list of duplicates.
    */
-  def removeDuplicates[A](xs: List[A]): List[A] = ???
+  def removeDuplicates[A](list: List[A]): List[A] = ???
 
-  def listDuplicates[A](xs: List[A]): List[A] = ???
+  def listDuplicates[A](list: List[A]): List[A] = ???
 
   /**
    * Task 7: Reverse a list and verify if the reversed list is equal to the original.
    */
-  def reverseList[A](xs: List[A]): List[A] = ???
+  def reverseList[A](list: List[A]): List[A] = ???
 
-  def isReversible[A](xs: List[A], reversed: List[A]): Boolean = ???
+  def isReversible[A](list: List[A], reversed: List[A]): Boolean = ???
 
   /**
    * Task 8: Count occurrences of each element and find elements with exact occurrences.
    */
-  def countOccurrences[A](xs: List[A]): Map[A, Int] = ???
+  def countOccurrences[A](list: List[A]): Map[A, Int] = ???
 
-  def elementsWithCount[A](xs: List[A], count: Int): List[A] = ???
+  def elementsWithCount[A](list: List[A], count: Int): List[A] = ???
 
   /**
    * Task 9: Find the second largest element and remove it from the list.
    */
-  def secondLargest(xs: List[Int]): Option[Int] = ???
+  def secondLargest(list: List[Int]): Option[Int] = ???
 
-  def removeSecondLargest(xs: List[Int]): List[Int] = ???
+  def removeSecondLargest(list: List[Int]): List[Int] = ???
 
   /**
    * Task 10: Collect elements that are powers of two and generate the next power of two.
    */
-  def powersOfTwo(xs: List[Int]): List[Int] = ???
+  def powersOfTwo(list: List[Int]): List[Int] = ???
 
   def nextPowerOfTwo(x: Int): Int = ???
 
   /**
    * Task 11: Multiply all elements and calculate individual contributions to the product.
    */
-  def product(xs: List[Int]): Int = ???
+  def product(list: List[Int]): Int = ???
 
-  def contributionsToProduct(xs: List[Int], product: Int): List[Int] = ???
+  def contributionsToProduct(list: List[Int], product: Int): List[Int] = ???
 
   /**
    * Task 12: Remove all occurrences of a specified element and verify if the list still contains any element.
    */
-  def removeAll[A](xs: List[A], elem: A): List[A] = ???
+  def removeAll[A](list: List[A], elem: A): List[A] = ???
 
-  def containsElement[A](xs: List[A], elem: A): Boolean = ???
+  def containsElement[A](list: List[A], elem: A): Boolean = ???
 
   /**
    * Task 13: Find the smallest difference and identify pairs of elements with this difference.
    */
-  def smallestDifference(xs: List[Int]): Int = ???
+  def smallestDifference(list: List[Int]): Int = ???
 
-  def pairsWithSmallestDifference(xs: List[Int], diff: Int): List[(Int, Int)] = ???
+  def pairsWithSmallestDifference(list: List[Int], diff: Int): List[(Int, Int)] = ???
 
   /**
    * Task 14: Zip two lists and unzip them back to original lists.
    */
-  def zipLists[A, B](xs: List[A], ys: List[B]): List[(A, B)] = ???
+  def zipLists[A, B](list: List[A], ys: List[B]): List[(A, B)] = ???
 
   def unzipLists[A, B](zs: List[(A, B)]): (List[A], List[B]) = ???
 
   /**
    * Task 15: Filter even numbers and verify if all numbers in the result are even.
    */
-  def filterEvens(xs: List[Int]): List[Int] = ???
+  def filterEvens(list: List[Int]): List[Int] = ???
 
-  def allEvens(xs: List[Int]): Boolean = ???
+  def allEvens(list: List[Int]): Boolean = ???
 
   /**
    * Task 16: Sort strings by length and shuffle them to original randomness.
    */
-  def sortByLength(xs: List[String]): List[String] = ???
+  def sortByLength(list: List[String]): List[String] = ???
 
-  def shuffleToOriginal(xs: List[String], original: List[String]): List[String] = ???
+  def shuffleToOriginal(list: List[String], original: List[String]): List[String] = ???
 
   /**
    * Task 17: Convert integers to strings and parse them back to integers.
    */
-  def convertToStrings(xs: List[Int]): List[String] = ???
+  def convertToStrings(list: List[Int]): List[String] = ???
 
-  def parseToInts(xs: List[String]): List[Int] = ???
+  def parseToInts(list: List[String]): List[Int] = ???
 
   /**
    * Task 18: Generate all permutations and count the number of unique permutations.
    */
-  def permutations[A](xs: List[A]): List[List[A]] = ???
+  def permutations[A](list: List[A]): List[List[A]] = ???
 
-  def countUniquePermutations[A](xs: List[List[A]]): Int = ???
+  def countUniquePermutations[A](list: List[List[A]]): Int = ???
 
   /**
    * Task 19: Combine elements into a single string and split them back into a list.
    */
-  def mkString[A](xs: List[A], sep: String): String = ???
+  def mkString[A](list: List[A], sep: String): String = ???
 
   def splitBySeparator(s: String, sep: String): List[String] = ???
 
   /**
    * Task 20: Group elements by type and count elements in each group.
    */
-  def groupByType(xs: List[Any]): Map[String, List[Any]] = ???
+  def groupByType(list: List[Any]): Map[String, List[Any]] = ???
 
   def countInGroups(groups: Map[String, List[Any]]): Map[String, Int] = ???
 
