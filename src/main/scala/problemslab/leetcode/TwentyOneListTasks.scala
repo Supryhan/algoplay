@@ -1,4 +1,4 @@
-package catslaboratory.problems
+package problemslab.leetcode
 
 import cats.data.OptionT
 
