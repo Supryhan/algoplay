@@ -152,7 +152,19 @@ object TwentyOneListTasks extends App {
   println(s"maxMinDiff: ${maxMinDiff(List()).mkString}")
   println(s"maxMinDiff: ${maxMinDiff(Nil).mkString}")
 
-  def closestToMean(list: List[Int]): OptionT[List, Int] = ???
+  def closestToMean(list: List[Int]): Option[Int] =
+    if (list.isEmpty) None
+    else {
+      val avg = list.sum.toDouble / list.size
+      Some(list.minBy(e => math.abs(e - avg)))
+    }
+
+  println(s"closestToMean: ${closestToMean(List(1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6))}")
+  println(s"closestToMean: ${closestToMean(List(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6))}")
+  println(s"closestToMean: ${closestToMean(List())}")
+  println(s"closestToMean: ${closestToMean(List(0))}")
+  println(s"closestToMean: ${closestToMean(List(1))}")
+  println(s"closestToMean: ${closestToMean(List(1, 14))}")
 
   /**
    * Task 5: Check if a list is a palindrome and generate the shortest palindrome by adding elements at the end.
