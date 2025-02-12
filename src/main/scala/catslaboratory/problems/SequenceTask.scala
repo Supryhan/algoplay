@@ -1,7 +1,11 @@
 package catslaboratory.problems
 
+import cats.Traverse
+import cats.effect.unsafe.implicits.global
 import cats.effect.{IO, IOApp}
 import cats.implicits._
+
+import scala.collection.immutable.List
 
 object SequenceTask extends IOApp.Simple {
 
@@ -15,5 +19,27 @@ object SequenceTask extends IOApp.Simple {
       b1 =>
         IO(println(b1.mkString(" ")))
     }
+
+    val travers: Traverse[List] = Traverse[List]
+    val list: List[Int] = List(1, 2, 3)
+
+    def intToIo(n: Int): IO[Int] = {
+      println(n)
+      IO(n)
+    }
+
+    val result1: IO[List[Int]] = travers.traverse(list)(intToIo)
+    val r1: List[Int] = result1.unsafeRunSync()
+    println(r1.mkString)
+
+    def mySequence[A](list: List[IO[A]]): IO[List[A]] =
+      travers.traverse(list)(identity)
+
+    val result2: IO[List[String]] = mySequence(a)
+    val r2: List[String] = result2.unsafeRunSync()
+    println(r2.mkString)
+
+    IO()
   }
+
 }
