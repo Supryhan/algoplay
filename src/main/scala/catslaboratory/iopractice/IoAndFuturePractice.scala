@@ -23,7 +23,7 @@ object IoAndFuturePractice extends App {
     for {
       _ <- IO.sleep(1.millis)
     } yield ()
-    val io = IO.pure(future)
+    val io = IO.delay(future)
 
     println("Before unsafeRunSync")
     io.unsafeRunSync()
