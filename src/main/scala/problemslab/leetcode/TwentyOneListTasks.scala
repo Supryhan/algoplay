@@ -169,7 +169,37 @@ object TwentyOneListTasks extends App {
   /**
    * Task 5: Check if a list is a palindrome and generate the shortest palindrome by adding elements at the end.
    */
-  def isPalindrome[A](list: List[A]): Boolean = ???
+  def isPalindrome[A](list: List[A]): Boolean =
+    list.foldLeft((list.reverse, true)) {
+      (t, e) =>
+        t._2 match {
+          case false => t
+          case true => t._1 match {
+            case Nil => (Nil, false)
+            case x :: xs =>
+              if (e == x)
+                (xs, true)
+              else
+                (Nil, false)
+          }
+        }
+    }._2
+
+  //Thanks to AI:
+  def isPalindromeOptimal[A](list: List[A]): Boolean = {
+    val mid = list.length / 2
+    list.take(mid) == list.reverse.take(mid)
+  }
+
+  println(s"${isPalindrome(List(1, 2, 3, 4, 5, 4, 3, 2, 1))}-${isPalindromeOptimal(List(1, 2, 3, 4, 5, 4, 3, 2, 1))}")
+  println(s"${isPalindrome(List(1, 2, 3, 4, 5, 4, 3, 2))}-${isPalindromeOptimal(List(1, 2, 3, 4, 5, 4, 3, 2))}")
+  println(s"${isPalindrome(List())}-${isPalindromeOptimal(List())}")
+  println(s"${isPalindrome(List(0))}-${isPalindromeOptimal(List(0))}")
+  println(s"${isPalindrome(List("a", "b", "c", "d", "c", "b", "a"))}-${isPalindromeOptimal(List("a", "b", "c", "d", "c", "b", "a"))}")
+  println(s"${isPalindrome(List("a", "b", "c", "d", "e", "c", "b", "a"))}-${isPalindromeOptimal(List("a", "b", "c", "d", "e", "c", "b", "a"))}")
+  println(s"${isPalindrome(List('a', 'b', 'c', 'd', 'c', 'b', 'a'))}-${isPalindromeOptimal(List('a', 'b', 'c', 'd', 'c', 'b', 'a'))}")
+  println(s"${isPalindrome(List('a', 'b', 'c', 'd', 'e', 'c', 'b', 'a'))}-${isPalindromeOptimal(List('a', 'b', 'c', 'd', 'e', 'c', 'b', 'a'))}")
+
 
   def makePalindrome[A](list: List[A]): List[A] = ???
 
