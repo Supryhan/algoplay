@@ -2,7 +2,7 @@ name := "algoplay"
 
 version := "0.1"
 
-scalaVersion := "2.13.6"
+scalaVersion := "2.13.8"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -19,7 +19,7 @@ val circeVersion = "0.14.3"
 val macwireVersion = "2.5.2"
 val akkaVersion = "2.6.18"
 val akkaHttpVersion = "10.2.6"
-val zioVersion = "2.0.0-RC1"
+val zioVersion = "2.1.15"
 val http4sVersion = "0.23.16"
 val derevoVersion = "0.13.0"
 val reactivestreams = "1.0.4"
