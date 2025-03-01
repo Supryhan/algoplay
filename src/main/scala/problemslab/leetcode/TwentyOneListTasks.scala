@@ -201,7 +201,17 @@ object TwentyOneListTasks extends App {
   println(s"${isPalindrome(List('a', 'b', 'c', 'd', 'e', 'c', 'b', 'a'))}-${isPalindromeOptimal(List('a', 'b', 'c', 'd', 'e', 'c', 'b', 'a'))}")
 
 
-  def makePalindrome[A](list: List[A]): List[A] = ???
+  def makePalindrome[A](list: List[A]): List[A] =
+    if (isPalindrome(list))
+      list
+    else
+      list ::: list.reverse
+
+  println(s"Make palindrome: ${makePalindrome(List(1,2,3,2,1))}")
+  println(s"Make palindrome: ${makePalindrome(List(1,2,3,2,1,1))}")
+  println(s"Make palindrome: ${makePalindrome(List())}")
+  println(s"Make palindrome: ${makePalindrome(List(1))}")
+
 
   /**
    * Task 6: Remove duplicates and create a list of duplicates.
