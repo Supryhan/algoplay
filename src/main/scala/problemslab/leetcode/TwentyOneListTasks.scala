@@ -207,8 +207,8 @@ object TwentyOneListTasks extends App {
     else
       list ::: list.reverse
 
-  println(s"Make palindrome: ${makePalindrome(List(1,2,3,2,1))}")
-  println(s"Make palindrome: ${makePalindrome(List(1,2,3,2,1,1))}")
+  println(s"Make palindrome: ${makePalindrome(List(1, 2, 3, 2, 1))}")
+  println(s"Make palindrome: ${makePalindrome(List(1, 2, 3, 2, 1, 1))}")
   println(s"Make palindrome: ${makePalindrome(List())}")
   println(s"Make palindrome: ${makePalindrome(List(1))}")
 
@@ -216,7 +216,21 @@ object TwentyOneListTasks extends App {
   /**
    * Task 6: Remove duplicates and create a list of duplicates.
    */
-  def removeDuplicates[A](list: List[A]): List[A] = ???
+  def removeDuplicates[A](list: List[A]): List[A] = { //TODO: try to use immutable structures
+    list.foldLeft(scala.collection.mutable.Set.empty[A]) {
+      (acc, x) =>
+        if (!acc.contains(x)) acc.add(x)
+        acc
+    }.toList
+  }
+
+  def removeDuplicatesV2[A](list: List[A]): List[A] = list.toSet.toList
+
+  println(s"Remove duplicates: ${removeDuplicates(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
+  println(s"Remove duplicates: ${removeDuplicates(List(1, 2, 3, 4)).mkString}")
+  println(s"Remove duplicates: ${removeDuplicates(List()).mkString}")
+  println(s"Remove duplicates: ${removeDuplicates(List(42)).mkString}")
+  println(s"Remove duplicates v2: ${removeDuplicatesV2(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
 
   def listDuplicates[A](list: List[A]): List[A] = ???
 
