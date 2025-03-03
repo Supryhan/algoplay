@@ -232,7 +232,19 @@ object TwentyOneListTasks extends App {
   println(s"Remove duplicates: ${removeDuplicates(List(42)).mkString}")
   println(s"Remove duplicates v2: ${removeDuplicatesV2(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
 
-  def listDuplicates[A](list: List[A]): List[A] = ???
+  def listDuplicates[A](list: List[A]): List[A] =
+    list.foldLeft((List.empty[A], Set.empty[A])) {
+      case ((result, seen), elem) =>
+      if (seen(elem))
+        (elem :: result, seen)
+      else
+        (result, seen + elem)
+    }._1.reverse
+
+  println(s"List duplicates: ${listDuplicates(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
+  println(s"List duplicates: ${listDuplicates(List(1, 2, 3, 4)).mkString}")
+  println(s"List duplicates: ${listDuplicates(List()).mkString}")
+  println(s"List duplicates: ${listDuplicates(List(42)).mkString}")
 
   /**
    * Task 7: Reverse a list and verify if the reversed list is equal to the original.
