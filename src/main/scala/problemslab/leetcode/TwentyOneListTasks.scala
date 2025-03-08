@@ -216,13 +216,14 @@ object TwentyOneListTasks extends App {
   /**
    * Task 6: Remove duplicates and create a list of duplicates.
    */
-  def removeDuplicates[A](list: List[A]): List[A] = { //TODO: try to use immutable structures
-    list.foldLeft(scala.collection.mutable.Set.empty[A]) {
-      (acc, x) =>
-        if (!acc.contains(x)) acc.add(x)
-        acc
-    }.toList
-  }
+  def removeDuplicates[A](list: List[A]): List[A] =
+    list.foldLeft((List.empty[A], Set.empty[A])) {
+      case ((acc, seen), e) =>
+        if (seen(e))
+          (acc, seen)
+        else
+          (e :: acc, seen + e)
+    }._1.reverse
 
   def removeDuplicatesV2[A](list: List[A]): List[A] = list.toSet.toList
 
@@ -234,11 +235,11 @@ object TwentyOneListTasks extends App {
 
   def listDuplicates[A](list: List[A]): List[A] =
     list.foldLeft((List.empty[A], Set.empty[A])) {
-      case ((result, seen), elem) =>
-      if (seen(elem))
-        (elem :: result, seen)
-      else
-        (result, seen + elem)
+      case ((acc, seen), elem) =>
+        if (seen(elem))
+          (elem :: acc, seen)
+        else
+          (acc, seen + elem)
     }._1.reverse
 
   println(s"List duplicates: ${listDuplicates(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
@@ -303,7 +304,7 @@ object TwentyOneListTasks extends App {
   def unzipLists[A, B](zs: List[(A, B)]): (List[A], List[B]) = ???
 
   /**
-   * Task 15: Filter even numbers and verify if all numbers in the result are even.
+   * Task 15: Filter even numbers and verify if all numbers in the acc are even.
    */
   def filterEvens(list: List[Int]): List[Int] = ???
 
