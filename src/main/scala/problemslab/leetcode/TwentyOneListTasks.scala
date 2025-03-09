@@ -250,9 +250,24 @@ object TwentyOneListTasks extends App {
   /**
    * Task 7: Reverse a list and verify if the reversed list is equal to the original.
    */
-  def reverseList[A](list: List[A]): List[A] = ???
+  def reverseList[A](list: List[A]): List[A] =
+    list.foldLeft(List.empty[A]) {
+      (l, e) =>
+        e :: l
+    }
 
-  def isReversible[A](list: List[A], reversed: List[A]): Boolean = ???
+  println(s"Reversed list: ${reverseList(List(1, 2, 3, 4, 1, 2, 3, 4)).mkString}")
+  println(s"Reversed list: ${reverseList(List(1, 2, 3, 4)).mkString}")
+  println(s"Reversed list: ${reverseList(List()).mkString}")
+  println(s"Reversed lists: ${reverseList(List(42)).mkString}")
+
+  def isReversible[A](list: List[A], reversed: List[A]): Boolean =
+    reverseList(list) == reversed
+
+  println(s"isReversible: ${isReversible(List(1, 2, 3, 4, 1, 2, 3, 4), List(4, 3, 2, 1, 4, 3, 2, 1))}")
+  println(s"isReversible: ${isReversible(List(1, 2, 3, 4), List(1, 2, 3, 4))}")
+  println(s"isReversible: ${isReversible(List(), List())}")
+  println(s"isReversible: ${isReversible(List(42), List(42, 42))}")
 
   /**
    * Task 8: Count occurrences of each element and find elements with exact occurrences.
