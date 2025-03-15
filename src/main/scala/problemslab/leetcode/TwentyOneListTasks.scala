@@ -272,7 +272,13 @@ object TwentyOneListTasks extends App {
   /**
    * Task 8: Count occurrences of each element and find elements with exact occurrences.
    */
-  def countOccurrences[A](list: List[A]): Map[A, Int] = ???
+  def countOccurrences[A](list: List[A]): Map[A, Int] = {
+    list.foldLeft(Map.empty[A, Int]) {
+      (acc, e) => acc.updated(e, acc.getOrElse(e, 0) + 1)
+    }
+  }
+
+  println(s"countOccurrences0: ${countOccurrences(List(1, 2, 3, 4, 1, 2, 3, 4, 4)).mkString(", ")}")
 
   def elementsWithCount[A](list: List[A], count: Int): List[A] = ???
 
