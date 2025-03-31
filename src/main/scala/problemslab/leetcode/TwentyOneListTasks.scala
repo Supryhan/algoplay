@@ -280,7 +280,7 @@ object TwentyOneListTasks extends App {
 
   println(s"countOccurrences0: ${countOccurrences(List(1, 2, 3, 4, 1, 2, 3, 4, 4)).mkString(", ")}")
 
-  def elementsWithCount[A](list: List[A], count: Int): List[A] = {
+  def elementsWithCount0[A](list: List[A], count: Int): List[A] = {
     countOccurrences(list).foldLeft(Map.empty[Int, List[A]]) {
       (acc, e) =>
         acc.get(e._2) match {
@@ -290,15 +290,19 @@ object TwentyOneListTasks extends App {
     }.getOrElse(count, List.empty[A])
   }
 
-  println(s"elementsWithCount: ${elementsWithCount(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 2).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List("1", "2", "3", "4", "1", "2", "3", "4", "4"), 2).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List(1, 2, 3, 4), 1).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 3).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 4).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List.empty[Int], 1).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List.empty[Int], 0).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List.empty[Boolean], 1).mkString(", ")}")
-  println(s"elementsWithCount: ${elementsWithCount(List.empty[String], 1).mkString(", ")}")
+  def elementsWithCount1[A](list: List[A], count: Int): List[A] =
+    countOccurrences(list).collect { case (elem, cnt) if cnt == count => elem }.toList
+
+  println(s"elementsWithCount0: ${elementsWithCount0(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 2).mkString(", ")}")
+  println(s"elementsWithCount1: ${elementsWithCount1(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 2).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List("1", "2", "3", "4", "1", "2", "3", "4", "4"), 2).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List(1, 2, 3, 4), 1).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 3).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List(1, 2, 3, 4, 1, 2, 3, 4, 4), 4).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List.empty[Int], 1).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List.empty[Int], 0).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List.empty[Boolean], 1).mkString(", ")}")
+  println(s"elementsWithCount0: ${elementsWithCount0(List.empty[String], 1).mkString(", ")}")
 
 
   /**
