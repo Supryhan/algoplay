@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SortingAppleParametrized {
   public static void main(String[] args) {
-    AppleBuilder<Apple> builder = new AppleBuilderImpl();
+    AppleBuilder<Apple> builder = new Apple.AppleBuilderImpl();
     Apple apple1 = builder.setType("t1").setSize(3).setWeight(0.1).build();
     Apple apple2 = builder.setType("t2").setSize(2).setWeight(0.2).build();
     Apple apple3 = builder.setType("t3").setSize(1).setWeight(0.3).build();
@@ -20,7 +20,7 @@ public class SortingAppleParametrized {
     });
     apples.forEach(System.out::println);
 
-    apples.sort(Comparator.comparing(Apple::getSize));
+    apples.sort(Comparator.comparing(Apple::getSize).reversed().thenComparing(Apple::getWeight));
     apples.forEach(System.out::println);
   }
 }
@@ -35,52 +35,22 @@ interface AppleBuilder<T> {
   T build();
 }
 
-class AppleBuilderImpl implements AppleBuilder<Apple> {
+
+final class Apple {
   private String type;
   private int size;
-  private double weight;
+  private Double weight;
 
-  public AppleBuilderImpl() {
-  }
-
-  @Override
-  public AppleBuilder<Apple> setType(String type) {
-    this.type = type;
-    return this;
-  }
-
-  @Override
-  public AppleBuilder<Apple> setSize(int size) {
-    this.size = size;
-    return this;
-  }
-
-  @Override
-  public AppleBuilder<Apple> setWeight(double weight) {
-    this.weight = weight;
-    return this;
-  }
-
-  @Override
-  public Apple build() {
-    return new Apple(type, size, weight);
-  }
-}
-
-class Apple {
-  private String type;
-  private int size;
-  private double weight;
-
-  public Apple(String type, int size, double weight) {
+  private Apple(String type, int size, double weight) {
     this.type = type;
     this.size = size;
     this.weight = weight;
   }
 
-  public double getWeight() {
+  public Double getWeight() {
     return weight;
   }
+
   public int getSize() {
     return size;
   }
@@ -92,4 +62,38 @@ class Apple {
         ", weight=" + weight +
         "}";
   }
+
+
+  static class AppleBuilderImpl implements AppleBuilder<Apple> {
+    private String type;
+    private int size;
+    private double weight;
+
+    public AppleBuilderImpl() {
+    }
+
+    @Override
+    public AppleBuilder<Apple> setType(String type) {
+      this.type = type;
+      return this;
+    }
+
+    @Override
+    public AppleBuilder<Apple> setSize(int size) {
+      this.size = size;
+      return this;
+    }
+
+    @Override
+    public AppleBuilder<Apple> setWeight(double weight) {
+      this.weight = weight;
+      return this;
+    }
+
+    @Override
+    public Apple build() {
+      return new Apple(type, size, weight);
+    }
+  }
+
 }

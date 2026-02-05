@@ -21,6 +21,10 @@ object RemoveUnluckyCats extends App {
   val trains = Seq(Train("k2839"), Train("f13"))
   val cats = Seq(Cat(10, "black"), Cat(5, "white"), Cat(13, "pink"))
 
+  implicit def stringToCat(name: String): Cat = Cat(42, "black")
+  val catMeow: Cat = "meow"
+  println(s"Cat say $catMeow")
+
   // TODO: Implement type-class here
 
 

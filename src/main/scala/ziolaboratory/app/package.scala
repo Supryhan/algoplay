@@ -1,4 +1,4 @@
-package zio
+package ziolaboratory
 
 package object app {
 

@@ -1,11 +1,13 @@
 package problemslab.lx.stream2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class Order {
   private int id;
   private List<Product> products;
+  public int getId() {
+    return id;
+  }
   public List<Product> getProducts() {
     return products;
   }

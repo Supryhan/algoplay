@@ -20,6 +20,29 @@ object SimpleIoFromFuture extends App {
     _ <- future
   } yield ()
 
+  trait Dff {
+    def df()
+    def ddfd() = {}
+  }
+
+  abstract class DParent(a2: Int, a1: Int, a: Int) {
+    def this() = this(1, 1, 0) // Додатковий конструктор для спрощення ініціалізації
+
+    def g(): Unit
+  }
+
+  class DChild(a2: Int, a1: Int, a: Int) extends DParent(a2,a1,a) {
+    def this(a: Int) = this(1,1,a) // Викликає додатковий конструктор DParent
+
+    override def g(): Unit = println("Implement me!")
+  }
+
+
+  val r: Int = Int.box(42)
+
+  // Використання вторинного конструктора DChild
+  val example = new DChild(5)
+
   val r1 = Await.result(unitF, 5.seconds)
   println(s"print r1 after await: $r1")
 

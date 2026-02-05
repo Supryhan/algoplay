@@ -35,4 +35,6 @@ object CpsInitPractice2 extends IOApp {
       }
     }
 
+  IO.blocking(1)
+
 }
