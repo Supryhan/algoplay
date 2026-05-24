@@ -1,14 +1,14 @@
-package zio.app
+package zioexamples.app
 
 import zio.Console.{printLine, readLine}
 import zio.Random.nextIntBounded
-import zio.{Console, ExitCode, Random, URIO, ZEnv, ZIO, ZIOAppDefault}
+import zio.{ExitCode, UIO, ZIO, ZIOAppDefault}
 
 import java.io.IOException
 
 object Try2GuessWordGame extends ZIOAppDefault {
 
-  def run: ZIO[ZEnv, Nothing, ExitCode] =
+  def run: ZIO[Any, Nothing, ExitCode] =
     (for {
       name <- printLine("Welcome to ZIO Hangman!") *> getName
       word <- chooseWord
@@ -62,7 +62,7 @@ object Try2GuessWordGame extends ZIOAppDefault {
     case object Unchanged extends GuessResult
   }
 
-  def getUserInput(message: String): ZIO[Console, IOException, String] = {
+  def getUserInput(message: String): ZIO[Any, IOException, String] = {
     //way 1
     //    for {
     //      _     <- printLine(message)
@@ -76,7 +76,7 @@ object Try2GuessWordGame extends ZIOAppDefault {
     printLine(message) *> readLine
   }
 
-  lazy val getName: ZIO[Console, IOException, Name] =
+  lazy val getName: ZIO[Any, IOException, Name] =
 //    for {
 //      input <- getUserInput("What's your name?")
 //      name <- Name.make(input) match {
@@ -86,17 +86,17 @@ object Try2GuessWordGame extends ZIOAppDefault {
 //    } yield name
     for {
       input <- getUserInput("What's your name?")
-      name  <- ZIO.fromOption(Name.make(input)) <> (printLine("Invalid input. Please try again...") *> getName)
+      name  <- ZIO.fromOption(Name.make(input)) <> (printLine("Invalid input. Please try again...") *> getName) // <>   <-OR->   .orElse(printLine("Invalid input. Please try again...") *> getName)
     } yield name
 
-  lazy val chooseWord: URIO[Random, Word] =
+  lazy val chooseWord: UIO[Word] =
     for {
       index <- nextIntBounded(words.length)
       word  <- ZIO.fromOption(words.lift(index).flatMap(Word.make)).orDieWith(_ => new Error("Boom!"))
     } yield word
 
-  def renderState(state: State): ZIO[Console, IOException, Unit] = {
-    val hangman = ZIO(hangmanStages(state.failuresCount)).orDie
+  def renderState(state: State): ZIO[Any, IOException, Unit] = {
+    val hangman = ZIO.attempt(hangmanStages(state.failuresCount)).orDie
     val word =
       state.word.toList
         .map(c => if (state.guesses.map(_.char).contains(c)) s" $c " else "   ")
@@ -120,7 +120,7 @@ object Try2GuessWordGame extends ZIOAppDefault {
     }
   }
 
-  lazy val getGuess: ZIO[Console, IOException, Guess] =
+  lazy val getGuess: ZIO[Any, IOException, Guess] =
     for {
       input <- getUserInput("What's your next guess?")
       guess <- ZIO.fromOption(Guess.make(input)) <> (printLine("Invalid input. Please try again...") *> getGuess)
@@ -133,7 +133,7 @@ object Try2GuessWordGame extends ZIOAppDefault {
     else if (oldState.word.contains(guess.char)) GuessResult.Correct
     else GuessResult.Incorrect
 
-  def gameLoop(oldState: State): ZIO[Console, IOException, Unit] =
+  def gameLoop(oldState: State): ZIO[Any, IOException, Unit] =
     for {
       guess       <- renderState(oldState) *> getGuess
       newState    = oldState.addGuess(guess)

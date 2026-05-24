@@ -1,4 +1,4 @@
-package zio
+package zioexamples
 
 package object app {
 
