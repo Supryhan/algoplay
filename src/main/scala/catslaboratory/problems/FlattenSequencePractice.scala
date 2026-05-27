@@ -17,18 +17,12 @@ import scala.util.Try
  *   - Future.sequence
  *   - manual sequence for Option and Either
  *
- * Suggested file name:
- *   FlattenSequencePractice.scala
- *
- * Suggested object name:
- *   FlattenSequencePractice
  *
  * How to use this file:
- *   1. Change the package name at the top of the file.
- *   2. Run this object as a normal Scala application.
- *   3. Each task currently contains a TODO implementation.
- *   4. Replace the placeholder implementations with real code.
- *   5. Re-run the file and compare actual results with expected results.
+ *      1. Each task currently contains a TODO implementation.
+ *      2. Replace the placeholder implementations with real code.
+ *      3. Run this object as a normal Scala application.
+ *      4. Re-run the file and compare actual results with expected results.
  */
 object FlattenSequencePractice extends App {
 
@@ -47,33 +41,28 @@ object FlattenSequencePractice extends App {
 
   /**
    * Input:
-   *   List(Some("Sam"), None, Some("Gary"), Some("Alex"), None)
+   * List(Some("Sam"), None, Some("Gary"), Some("Alex"), None)
    *
    * Expected:
-   *   List("Sam", "Gary", "Alex")
+   * List("Sam", "Gary", "Alex")
    *
    * Goal:
-   *   Understand that List[Option[A]].flatten removes None
-   *   and extracts values from Some(value).
+   * Understand that List[Option[A]].flatten removes None
+   * and extracts values from Some(value).
    */
   val task1Names: List[Option[String]] =
     List(Some("Sam"), None, Some("Gary"), Some("Alex"), None)
 
-  def task1UsingFlatten(names: List[Option[String]]): List[String] = {
-    // TODO: Replace this placeholder with names.flatten
-    Nil
-  }
+  def task1UsingFlatten(names: List[Option[String]]): List[String] =
+    names.flatten
 
-  def task1UsingFlatMapIdentity(names: List[Option[String]]): List[String] = {
-    // TODO: Replace this placeholder with names.flatMap(identity)
-    Nil
-  }
+  def task1UsingFlatMapIdentity(names: List[Option[String]]): List[String] =
+    names.flatMap(identity)
 
-  def task1UsingCollect(names: List[Option[String]]): List[String] = {
-    // TODO: Replace this placeholder with:
-    //   names.collect { case Some(value) => value }
-    Nil
-  }
+  def task1UsingCollect(names: List[Option[String]]): List[String] =
+    names.collect {
+      case Some(value) => value
+    }
 
   def runTask1(): Unit = {
     val expected = List("Sam", "Gary", "Alex")
@@ -89,19 +78,19 @@ object FlattenSequencePractice extends App {
 
   /**
    * Input:
-   *   List("10", "abc", "25", "", "7", "x")
+   * List("10", "abc", "25", "", "7", "x")
    *
    * Expected:
-   *   List(10, 25, 7)
+   * List(10, 25, 7)
    *
    * Goal:
-   *   Practice:
+   * Practice:
    *
-   *     values.map(f).flatten
+   * values.map(f).flatten
    *
-   *   and then rewrite it as:
+   * and then rewrite it as:
    *
-   *     values.flatMap(f)
+   * values.flatMap(f)
    */
   val task2RawNumbers: List[String] =
     List("10", "abc", "25", "", "7", "x")
@@ -138,28 +127,28 @@ object FlattenSequencePractice extends App {
 
   /**
    * Existing users:
-   *   1 -> "Sam"
-   *   2 -> "Gary"
-   *   3 -> "Alex"
+   * 1 -> "Sam"
+   * 2 -> "Gary"
+   * 3 -> "Alex"
    *
    * Input ids:
-   *   1 to 10
+   * 1 to 10
    *
    * Expected:
-   *   List("Sam", "Gary", "Alex")
+   * List("Sam", "Gary", "Alex")
    *
    * Goal:
-   *   Understand the transformation:
+   * Understand the transformation:
    *
-   *     IndexedSeq[Future[Option[String]]]
+   * IndexedSeq[Future[Option[String]]]
    *
-   *   into:
+   * into:
    *
-   *     Future[IndexedSeq[Option[String]]]
+   * Future[IndexedSeq[Option[String]]]
    *
-   *   through Future.sequence.
+   * through Future.sequence.
    *
-   *   Then use flatten on IndexedSeq[Option[String]].
+   * Then use flatten on IndexedSeq[Option[String]].
    */
   val task3Users: Map[Int, String] =
     Map(
@@ -202,28 +191,28 @@ object FlattenSequencePractice extends App {
    *
    * 1. flatten for List[Option[A]]
    *
-   *    Example:
-   *      List(Some("host"), Some("port"), None).flatten
+   * Example:
+   * List(Some("host"), Some("port"), None).flatten
    *
-   *    Result:
-   *      List("host", "port")
+   * Result:
+   * List("host", "port")
    *
    * 2. sequence for List[Option[A]]
    *
-   *    This means all or nothing.
-   *    If at least one element is None, the whole result is None.
+   * This means all or nothing.
+   * If at least one element is None, the whole result is None.
    *
-   *    Example:
-   *      sequenceOptions(List(Some("host"), Some("port"), None))
+   * Example:
+   * sequenceOptions(List(Some("host"), Some("port"), None))
    *
-   *    Result:
-   *      None
+   * Result:
+   * None
    *
-   *    Example:
-   *      sequenceOptions(List(Some("host"), Some("port"), Some("user")))
+   * Example:
+   * sequenceOptions(List(Some("host"), Some("port"), Some("user")))
    *
-   *    Result:
-   *      Some(List("host", "port", "user"))
+   * Result:
+   * Some(List("host", "port", "user"))
    */
   case class AppConfig(host: String, port: Int, user: String)
 
@@ -304,7 +293,7 @@ object FlattenSequencePractice extends App {
 
   /**
    * Input:
-   *   List("20", "17", "abc", "35")
+   * List("20", "17", "abc", "35")
    *
    * Validation rules:
    *   - if the value is not a number, return Left("Not a number: <value>")
@@ -312,17 +301,17 @@ object FlattenSequencePractice extends App {
    *   - otherwise return Right(age)
    *
    * Part 1:
-   *   Collect only valid ages and ignore errors.
+   * Collect only valid ages and ignore errors.
    *
    * Expected:
-   *   List(20, 35)
+   * List(20, 35)
    *
    * Part 2:
-   *   Implement strict sequence for Either.
-   *   If at least one element is Left(error), the whole result is Left(error).
+   * Implement strict sequence for Either.
+   * If at least one element is Left(error), the whole result is Left(error).
    *
    * Expected for List("20", "17", "abc", "35"):
-   *   Left("Too young: 17")
+   * Left("Too young: 17")
    */
   val task5RawAges: List[String] =
     List("20", "17", "abc", "35")
