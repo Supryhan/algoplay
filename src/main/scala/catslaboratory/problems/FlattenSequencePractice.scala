@@ -95,24 +95,16 @@ object FlattenSequencePractice extends App {
   val task2RawNumbers: List[String] =
     List("10", "abc", "25", "", "7", "x")
 
-  def parseIntSafe(value: String): Option[Int] = {
-    // TODO: Convert String to Int safely.
-    // Hint:
-    //   Try(value.toInt).toOption
-    None
-  }
+  def parseIntSafe(value: String): Option[Int] =
+    Try(value.toInt).toOption
 
   def task2UsingMapThenFlatten(rawNumbers: List[String]): List[Int] = {
     val parsed: List[Option[Int]] = rawNumbers.map(parseIntSafe)
-
-    // TODO: Replace this placeholder with parsed.flatten
-    Nil
+    parsed.flatten
   }
 
-  def task2UsingFlatMap(rawNumbers: List[String]): List[Int] = {
-    // TODO: Replace this placeholder with rawNumbers.flatMap(parseIntSafe)
-    Nil
-  }
+  def task2UsingFlatMap(rawNumbers: List[String]): List[Int] =
+    rawNumbers.flatMap(parseIntSafe) // equals to: rawNumbers.map(parseIntSafe).flatten
 
   def runTask2(): Unit = {
     val expected = List(10, 25, 7)
