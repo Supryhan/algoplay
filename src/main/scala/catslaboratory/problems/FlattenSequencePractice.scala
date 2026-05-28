@@ -20,9 +20,9 @@ import scala.util.Try
  *
  * How to use this file:
  *      1. Each task currently contains a TODO implementation.
- *      2. Replace the placeholder implementations with real code.
- *      3. Run this object as a normal Scala application.
- *      4. Re-run the file and compare actual results with expected results.
+ *         2. Replace the placeholder implementations with real code.
+ *         3. Run this object as a normal Scala application.
+ *         4. Re-run the file and compare actual results with expected results.
  */
 object FlattenSequencePractice extends App {
 
@@ -160,8 +160,7 @@ object FlattenSequencePractice extends App {
       Future.sequence(futures)
 
     sequenced.map { values: IndexedSeq[Option[String]] =>
-      // TODO: Replace this placeholder with values.flatten.toList
-      List.empty[String]
+      values.flatten.toList
     }
   }
 
