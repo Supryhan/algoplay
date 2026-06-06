@@ -1,9 +1,176 @@
-# Welcome to the Project Repository
+# AlgoPlay — Programming Laboratory
 
-Welcome to this comprehensive repository, which houses a diverse collection of Java and Scala projects, utilities, and exercises designed to foster learning and deep exploration of advanced programming concepts. This repository serves as a rich resource for developers at various skill levels, from beginners looking to understand basic programming principles to advanced practitioners delving into complex concurrency issues and functional programming with libraries like Akka and Cats.
+AlgoPlay is a personal programming laboratory for collecting small examples, experiments, exercises, and interview-oriented notes across several programming languages.
 
-Inside, you'll find numerous directories each tailored to specific aspects of programming. For example, the `java` directory is packed with applications demonstrating data structures, multithreading, and core Java features, while the `scala` directory explores functional programming paradigms, reactive streams, and effective use of type classes. Practical examples include implementations of design patterns, custom sorting mechanisms, and simulation services for real-world scenarios like cinema ticket booking.
+The repository started as a Scala and Java playground and is gradually evolving into a structured polyglot workspace. It is not intended to represent a single production application. Instead, it is a practical reference space for revisiting language features, libraries, algorithms, concurrency models, and functional programming concepts.
 
-Further, the repository includes dedicated sections for problem-solving labs, where both Java and Scala are utilized to tackle common and uncommon programming challenges, demonstrating best practices and efficient code solutions. There's also a `resources` section that provides essential configurations and scripts for database management and Kubernetes, supporting your development environment setup and deployment strategies.
+## Purpose
 
-Whether you're here to improve your coding skills, understand specific programming concepts, or find inspiration for your next project, this repository is structured to aid your journey. Dive into the directories to explore the curated examples and applications, and leverage these resources to enhance your understanding of modern software development.
+This repository is used for:
+
+* experimenting with Scala, Java, Haskell, and Go;
+* collecting small but meaningful programming examples;
+* revisiting language features before interviews;
+* testing ideas related to functional programming, concurrency, algorithms, and backend development;
+* keeping personal reference implementations and notes in a structured form.
+
+## Main Areas
+
+### Scala
+
+The Scala part contains examples related to the Scala language, functional programming, collections, type system features, pattern matching, concurrency, effects, and popular libraries.
+
+Typical topics include:
+
+* core Scala syntax and language features;
+* collections and transformations;
+* pattern matching;
+* implicits and type classes;
+* variance and type system experiments;
+* Futures and asynchronous programming;
+* Cats and functional abstractions;
+* ZIO examples;
+* Akka-related experiments;
+* algorithms and coding interview tasks.
+
+### Java
+
+The Java part contains examples and exercises focused on core Java programming, collections, object-oriented design, concurrency, and problem-solving.
+
+Typical topics include:
+
+* Java language basics;
+* collections;
+* generics;
+* multithreading;
+* streams;
+* reactive programming experiments;
+* algorithms and interview-style exercises.
+
+### Haskell
+
+The `haskell` directory contains small Haskell examples used for learning, experimentation, and gradual practice with functional programming from the Haskell perspective.
+
+The current structure is intentionally minimal:
+
+```text
+haskell/
+└── examples/
+    └── basics/
+        └── Main.hs
+```
+
+Possible future topics:
+
+* pure functions;
+* algebraic data types;
+* pattern matching;
+* recursion;
+* type classes;
+* monads and effects.
+
+### Go
+
+The `go` directory contains small Go examples used for learning, experimentation, and gradual practice with the Go ecosystem.
+
+The current structure is intentionally minimal:
+
+```text
+go/
+├── go.mod
+└── examples/
+    └── basics/
+        └── main.go
+```
+
+Possible future topics:
+
+* basic Go syntax;
+* packages and modules;
+* structs and interfaces;
+* goroutines and channels;
+* error handling;
+* small backend utilities.
+
+## Repository Structure
+
+```text
+algoplay/
+├── src/
+│   ├── main/
+│   │   ├── scala/
+│   │   ├── java/
+│   │   └── resources/
+│   └── test/
+│       ├── scala/
+│       ├── java/
+│       └── resources/
+├── haskell/
+│   ├── README.md
+│   └── examples/
+│       └── basics/
+│           └── Main.hs
+├── go/
+│   ├── README.md
+│   ├── go.mod
+│   └── examples/
+│       └── basics/
+│           └── main.go
+├── docs/
+│   └── index.md
+├── scripts/
+│   └── check-labs.sh
+├── build.sbt
+└── README.md
+```
+
+## Build and Run
+
+### JVM / Scala / Java
+
+The main JVM part of the repository is managed with SBT.
+
+Compile the JVM examples:
+
+```bash
+sbt compile
+```
+
+Run tests:
+
+```bash
+sbt test
+```
+
+### Haskell
+
+If `runghc` is installed, the minimal Haskell example can be executed from the repository root:
+
+```bash
+runghc haskell/examples/basics/Main.hs
+```
+
+### Go
+
+If Go is installed, the minimal Go example can be executed from the repository root:
+
+```bash
+cd go
+go run ./examples/basics
+```
+
+### Check All Labs
+
+The repository contains a helper script:
+
+```bash
+./scripts/check-labs.sh
+```
+
+The script attempts to check the JVM, Haskell, and Go areas. If a required tool is not installed locally, the corresponding check is skipped.
+
+## Notes
+
+This repository is intentionally practical and exploratory. Some examples are small and focused on a single language feature, while others may demonstrate broader ideas such as concurrency, functional abstractions, backend-oriented programming patterns, or algorithmic problem solving.
+
+The structure may evolve over time as new languages, libraries, and experiments are added.
