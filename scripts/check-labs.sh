@@ -16,7 +16,7 @@ fi
 echo
 echo "Haskell:"
 if command -v runghc >/dev/null 2>&1; then
-  runghc "$ROOT_DIR/haskell/hello/Main.hs"
+  runghc "$ROOT_DIR/haskell/examples/basics/Main.hs"
 else
   echo "runghc is not installed. Skipping Haskell check."
 fi
@@ -24,7 +24,7 @@ fi
 echo
 echo "Go:"
 if command -v go >/dev/null 2>&1; then
-  (cd "$ROOT_DIR/go" && go run ./hello)
+  (cd "$ROOT_DIR/go" && go run ./examples/basics)
 else
   echo "go is not installed. Skipping Go check."
 fi
