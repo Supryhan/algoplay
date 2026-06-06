@@ -153,15 +153,23 @@ object FlattenSequencePractice extends App {
     Future.successful(task3Users.get(id))
 
   def task3FetchExistingNames(ids: Range): Future[List[String]] = {
-    val futures: IndexedSeq[Future[Option[String]]] =
-      ids.map(getUserName)
+    //    val futures: IndexedSeq[Future[Option[String]]] =
+    //      ids.map(getUserName)
+    //
+    //    val sequenced: Future[IndexedSeq[Option[String]]] =
+    //      Future.sequence(futures)
+    //
+    //    sequenced.map { values: IndexedSeq[Option[String]] =>
+    //      values.flatten.toList
+    //    }
 
-    val sequenced: Future[IndexedSeq[Option[String]]] =
-      Future.sequence(futures)
+    val e = Future
+      .sequence(ids.map(getUserName))
+      .map(_.flatten.toList)
 
-    sequenced.map { values: IndexedSeq[Option[String]] =>
-      values.flatten.toList
-    }
+    Future
+      .traverse(ids.toList)(getUserName)
+      .map(_.flatten.toList)
   }
 
   def runTask3(): Unit = {
