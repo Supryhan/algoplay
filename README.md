@@ -8,7 +8,7 @@ The repository started as a Scala and Java playground and is gradually evolving 
 
 This repository is used for:
 
-* experimenting with Scala, Java, Haskell, and Go;
+* experimenting with Scala, Java, Haskell, Go, and TypeScript;
 * collecting small but meaningful programming examples;
 * revisiting language features before interviews;
 * testing ideas related to functional programming, concurrency, algorithms, and backend development;
@@ -91,6 +91,25 @@ Possible future topics:
 * goroutines and channels;
 * error handling;
 * small backend utilities.
+
+### TypeScript 
+The `typescript` directory contains small TypeScript examples used for learning, experimentation, and interview preparation. 
+
+The current structure is intentionally minimal:
+
+```text 
+typescript/
+└── examples/
+    └── basics.ts
+```
+Possible future topics include:
+
+* basic and advanced types;
+* interfaces and type aliases;
+* generics;
+* union and intersection types;
+* type narrowing;
+* asynchronous programming.
 
 ## Repository Structure
 

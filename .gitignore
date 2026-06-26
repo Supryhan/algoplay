@@ -37,3 +37,10 @@ hs_err_pid*
 
 # Coursier cache
 Coursier/cache/
+
+# TypeScript / Node.js
+node_modules/
+typescript/dist/
+
+# macOS
+.DS_Store
