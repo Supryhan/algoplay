@@ -142,7 +142,7 @@ scala
 java
 haskell
 go
-ts
+typescript
 docs
 scripts
 repo

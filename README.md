@@ -98,8 +98,8 @@ The `typescript` directory contains small TypeScript examples used for learning,
 The current structure is intentionally minimal:
 
 ```text 
-typescript/ 
-└── examples/ 
+typescript/
+└── examples/
     └── basics.ts
 ```
 Possible future topics include:

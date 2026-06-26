@@ -41,5 +41,6 @@ Coursier/cache/
 # TypeScript / Node.js
 node_modules/
 typescript/dist/
+
 # macOS
 .DS_Store
