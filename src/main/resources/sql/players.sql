@@ -31,3 +31,11 @@ GROUP BY
     player.player_id, player.name
 HAVING
         AVG(payment.amount) > 5;
+
+WITH a AS (
+    SELECT pa.player_id, AVG(pa.amount) AS av
+    FROM payment pa)
+SELECT pl.name, a.av
+    FROM player pl
+JOIN a ON pl.player_id = a.player_id
+WHERE pl.join_date > 01.01.2009
