@@ -308,9 +308,43 @@ object TwentyOneListTasks extends App {
   /**
    * Task 9: Find the second largest element and remove it from the list.
    */
-  def secondLargest(list: List[Int]): Option[Int] = ???
 
-  def removeSecondLargest(list: List[Int]): List[Int] = ???
+  import scala.util.chaining._
+
+  def secondLargest(list: List[Int]): Option[Int] = {
+    1
+    list match {
+      case _ :: _ :: _ =>
+        list.foldLeft(0 -> 0) { (t, curr) =>
+            if (t._1 < curr) (curr, t._1)
+            else if (t._2 < curr) (t._1, curr)
+            else t
+          }
+          ._2
+          .pipe(Option(_))
+      case _ => None
+    }
+
+  }
+
+  def removeSecondLargest(list: List[Int]): List[Int] =
+    secondLargest(list) match {
+      case Some(value) => list.filterNot(_ == value)
+      case None => list
+    }
+
+  val numbers = List(10, 30, 20, 40)
+
+  println(s"Original list: $numbers")
+
+  println(
+    secondLargest(numbers)
+      .fold("Second largest element not found")(n => s"Second largest: $n")
+  )
+
+  println(
+    s"After removing second largest: ${removeSecondLargest(numbers)}"
+  )
 
   /**
    * Task 10: Collect elements that are powers of two and generate the next power of two.
