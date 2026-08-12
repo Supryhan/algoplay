@@ -313,15 +313,26 @@ object TwentyOneListTasks extends App {
 
   def secondLargest(list: List[Int]): Option[Int] = {
     1
-    list match {
-      case _ :: _ :: _ =>
-        list.foldLeft(0 -> 0) { (t, curr) =>
-            if (t._1 < curr) (curr, t._1)
-            else if (t._2 < curr) (t._1, curr)
-            else t
+    list.distinct match {
+      case first :: second :: tail => {
+        val initial =
+          if (first > second)
+            (first, second)
+          else
+            (second, first)
+        val (_, secondLargest) = {
+          tail.foldLeft(initial) {
+            case((largest, secondLargest), current) =>
+              if (largest < current)
+                (current, largest)
+              else if (secondLargest < current)
+                (largest, current)
+              else
+                (largest, secondLargest)
           }
-          ._2
-          .pipe(Option(_))
+        }
+        Some(secondLargest)
+      }
       case _ => None
     }
 
@@ -333,18 +344,36 @@ object TwentyOneListTasks extends App {
       case None => list
     }
 
-  val numbers = List(10, 30, 20, 40)
-
-  println(s"Original list: $numbers")
-
-  println(
-    secondLargest(numbers)
-      .fold("Second largest element not found")(n => s"Second largest: $n")
+  val testCases = List(
+    (List(10, 30, 20, 40), Some(30), List(10, 20, 40)),
+    (List(5, 1), Some(1), List(5)),
+    (List(10, 10, 20, 30), Some(20), List(10, 10, 30)),
+    (List(-5, -10, -3, -1), Some(-3), List(-5, -10, -1)),
+    (List(42), None, List(42))
   )
 
-  println(
-    s"After removing second largest: ${removeSecondLargest(numbers)}"
-  )
+  testCases.foreach {
+    case (numbers, expectedSecondLargest, expectedAfterRemoval) =>
+      val actualSecondLargest = secondLargest(numbers)
+      val actualAfterRemoval   = removeSecondLargest(numbers)
+
+      println(s"Original list: $numbers")
+      println(s"Second largest: $actualSecondLargest")
+      println(s"After removing second largest: $actualAfterRemoval")
+
+      assert(
+        actualSecondLargest == expectedSecondLargest,
+        s"Expected $expectedSecondLargest, but got $actualSecondLargest"
+      )
+
+      assert(
+        actualAfterRemoval == expectedAfterRemoval,
+        s"Expected $expectedAfterRemoval, but got $actualAfterRemoval"
+      )
+
+      println("Test passed")
+      println()
+  }
 
   /**
    * Task 10: Collect elements that are powers of two and generate the next power of two.
