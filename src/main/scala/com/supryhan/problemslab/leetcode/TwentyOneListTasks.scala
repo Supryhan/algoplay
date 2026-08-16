@@ -322,7 +322,7 @@ object TwentyOneListTasks extends App {
             (second, first)
         val (_, secondLargest) = {
           tail.foldLeft(initial) {
-            case((largest, secondLargest), current) =>
+            case ((largest, secondLargest), current) =>
               if (largest < current)
                 (current, largest)
               else if (secondLargest < current)
@@ -355,7 +355,7 @@ object TwentyOneListTasks extends App {
   testCases.foreach {
     case (numbers, expectedSecondLargest, expectedAfterRemoval) =>
       val actualSecondLargest = secondLargest(numbers)
-      val actualAfterRemoval   = removeSecondLargest(numbers)
+      val actualAfterRemoval = removeSecondLargest(numbers)
 
       println(s"Original list: $numbers")
       println(s"Second largest: $actualSecondLargest")
@@ -378,7 +378,25 @@ object TwentyOneListTasks extends App {
   /**
    * Task 10: Collect elements that are powers of two and generate the next power of two.
    */
-  def powersOfTwo(list: List[Int]): List[Int] = ???
+  def powersOfTwo(list: List[Int]): List[Int] = {
+    list match {
+      case Nil => Nil
+      case _ =>
+        val p = math.floor(math.log(list.max) / math.log(2)).toInt
+        val m: Map[Int, Int] = (1 to p).foldLeft(Map(1 -> 0)) { (acc, power) =>
+          val nextValue = 1 << power
+          acc + (nextValue -> power)
+        }
+        list
+          .filter {
+            number =>
+              number > 0 && m.contains(number)
+          }
+    }
+  }
+
+  println(powersOfTwo(List(0, 1, 2, 3, 4, 5, 6, 7, 8, 42, 100500)))
+  println(powersOfTwo(Nil))
 
   def nextPowerOfTwo(x: Int): Int = ???
 
