@@ -398,7 +398,11 @@ object TwentyOneListTasks extends App {
   println(powersOfTwo(List(0, 1, 2, 3, 4, 5, 6, 7, 8, 42, 100500)))
   println(powersOfTwo(Nil))
 
-  def nextPowerOfTwo(x: Int): Int = ???
+  def nextPowerOfTwo(x: Int): Int = {
+    val p = math.floor(math.log(x) / math.log(2)).toInt
+    math.pow(2, p + 1).toInt
+  }
+  println(s"Current value: 10 and next power of two is: ${nextPowerOfTwo(10)}")
 
   /**
    * Task 11: Multiply all elements and calculate individual contributions to the product.
