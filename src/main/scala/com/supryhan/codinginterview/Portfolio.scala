@@ -31,9 +31,9 @@ case class Client(id: UUID, portfolios: List[Portfolio])
 
 case class Portfolio(id: UUID, modelId: ModelId, appliedModelVersion: Int, cashBalance: BigDecimal, shares: List[OwnedShare], riskTolerance: Double, createdAt: Instant)
 
-case class Share(ticker: Ticker, name: String)
-
 case class OwnedShare(share: Share, quantity: BigDecimal)
+
+case class Share(ticker: Ticker, name: String)
 
 case class MarketPrice(ticker: Ticker, price: BigDecimal, asOf: Instant)
 
