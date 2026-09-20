@@ -1,11 +1,11 @@
 package com.supryhan.catslaboratory
 
-import com.supryhan.catslaboratory.{Tree, TreeFactory}
+import com.supryhan.functional.cats.{Tree, TreeFactory}
 import org.specs2.mutable.Specification
 
 class TreeFactoryTest extends Specification {
 
-  import com.supryhan.catslaboratory.TreesOps._
+  import com.supryhan.functional.cats.TreesOps._
 
   "Leaf's value" should {
     "be doubled" in {

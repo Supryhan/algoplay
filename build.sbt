@@ -2,7 +2,7 @@ name := "algoplay"
 
 version := "0.1"
 
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.16"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -96,3 +96,6 @@ scalacOptions ++= Seq(
 //  "-Xprint:jvm"
 )
 scalacOptions in Test ++= Seq("-Yrangepos")
+
+Compile / compileOrder := CompileOrder.Mixed
+Compile / javacOptions ++= Seq("--release", "17")

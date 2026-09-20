@@ -1,7 +1,7 @@
 package com.supryhan.catslaboratory.kleislilab
 
 import cats.effect.unsafe.implicits.global
-import com.supryhan.catslaboratory.kleislilab.WriterMonadPractice
+import com.supryhan.functional.cats.kleislilab.WriterMonadPractice
 import org.specs2.execute.PendingUntilFixed
 import org.specs2.mutable.SpecWithJUnit
 
