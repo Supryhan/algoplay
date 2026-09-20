@@ -1,4 +1,4 @@
-package com.supryhan.functional.cats.problems
+package com.supryhan.core.problems
 
 object MinTwoInt extends App {
   def findTwoSmallestNumbers(numbers: List[Int]): (Int, Int) = { // we return (min1,min2) where: min1 > min2

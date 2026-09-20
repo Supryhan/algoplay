@@ -1,4 +1,4 @@
-package com.supryhan.functional.cats.problems
+package com.supryhan.core.problems
 
 import scala.annotation.tailrec
 

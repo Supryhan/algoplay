@@ -1,8 +1,8 @@
-package com.supryhan.functional.cats.problems
+package com.supryhan.core.problems
 
-import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 import scala.util.Try
 
 /**

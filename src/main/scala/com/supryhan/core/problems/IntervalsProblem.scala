@@ -1,4 +1,4 @@
-package com.supryhan.functional.cats.problems
+package com.supryhan.core.problems
 
 // Task Description:
 // Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals,
